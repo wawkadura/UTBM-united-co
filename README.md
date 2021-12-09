@@ -1,3 +1,53 @@
-Go Rosé
+# United&period;co
 
- React boilerplate : https://github.com/react-boilerplate/react-boilerplate
+United&period;co est une **application web** permettant de mettre en relation des **donateurs** et des **associations** grâce aux différentes fonctionnalités présentes sur le site. 
+
+- Dons 
+- Abonnements
+- Services
+
+## Pré-requis
+
+Les différentes technologiques et dépendances suivantes seront nécessaires au développement du site :
+
+- Backend
+	- Node.js (la version 14.0.0 ou plus)
+	- NestJs
+	- XAMPP ou Wamp
+- Frontend
+	- Node.js
+	- React
+	- PrimeReact
+	- SASS
+	- TailWindCSS
+
+## Mise en place
+
+Nous allons maintenant installer toutes les dépendances citées ci-dessus.
+
+#### Backend
+- Si vous n'avez pas ***Node.js***, veuillez l'installer en suivant ce [lien](https://nodejs.org/en/) 
+
+- Si vous n'avez pas ***XAMPP ou Wamp***, veuillez installer l'un de ces deux outils avec les liens suivants :  [XAMPP](https://www.apachefriends.org/download.html) ou [Wamp](https://sourceforge.net/projects/wampserver/)
+
+- Installer ***NestJS*** avec la commande suivante :
+> ***Installation de NestJS***
+> npm i -g @nestjs/cli 
+
+#### Frontend
+- Si vous n'avez pas ***node.js***, veuillez l'installer avec ce [lien](https://nodejs.org/en/)
+- Exécuter les commandes suivantes : 
+
+> ***Installation de PrimeReact***
+> npm install primereact 
+> npm install primeicons
+
+> ***Installation de SASS***
+> npm install -g sass
+
+> **Installation de TailWindCSS**
+> npm install -D tailwindcss 
+> npx tailwindcss init
+
+react-boilerplate : https://github.com/react-boilerplate/react-boilerplate
+
