@@ -55,3 +55,14 @@ Nous allons maintenant installer toutes les dépendances citées ci-dessus.
 
 react-boilerplate : https://github.com/react-boilerplate/react-boilerplate
 
+#### Base de données
+
+##### Exécuter la migration 
+> npm install 
+> npm run typeorm:run
+
+##### creation nouveau fichier de migration à partir des entity
+
+> npm run typeorm:migrate non_fichier
+
+
