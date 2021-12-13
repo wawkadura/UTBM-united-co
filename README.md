@@ -35,9 +35,6 @@ Nous allons maintenant installer toutes les dépendances citées ci-dessus.
 > npm i -g @nestjs/cli 
 
 ##### Base de données
-> npm install --save @nestjs/typeorm typeorm mysql2 
-> npm run typeorm:run
-
 ##### Exécuter la migration 
 
 > npm install --save @nestjs/typeorm typeorm mysql2 
