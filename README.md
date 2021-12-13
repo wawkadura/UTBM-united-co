@@ -39,7 +39,9 @@ Nous allons maintenant installer toutes les dépendances citées ci-dessus.
 
 > npm install --save @nestjs/typeorm typeorm mysql2 
 
-> npm run typeorm:run
+> npm run typeorm:run 
+
+> si vous voulez créer une nouvelle migration: npm run typeorm:migrate non_fichier  puis npm run typeorm:run
 
 #### Frontend
 - Si vous n'avez pas ***node.js***, veuillez l'installer avec ce [lien](https://nodejs.org/en/)
