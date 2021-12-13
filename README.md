@@ -58,11 +58,10 @@ react-boilerplate : https://github.com/react-boilerplate/react-boilerplate
 #### Base de données
 
 ##### Exécuter la migration 
-> npm install 
+
+> npm install --save @nestjs/typeorm typeorm mysql2 
 > npm run typeorm:run
 
-##### creation nouveau fichier de migration à partir des entity
 
-> npm run typeorm:migrate non_fichier
 
 
