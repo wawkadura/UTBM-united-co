@@ -55,13 +55,4 @@ Nous allons maintenant installer toutes les dépendances citées ci-dessus.
 
 react-boilerplate : https://github.com/react-boilerplate/react-boilerplate
 
-#### Base de données
-
-##### Exécuter la migration 
-
-> npm install --save @nestjs/typeorm typeorm mysql2 
-> npm run typeorm:run
-
-
-
 
