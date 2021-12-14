@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["Services.scss"],"names":[],"mappings":"AAAA;EACE;EACA;EAEA","file":"Services.css"}
+{"version":3,"sourceRoot":"","sources":["Services.scss","../../../shared/styles/variables.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EAEA,kBCJa;EDKb,OCPY;EDSZ","file":"Services.css"}

@@ -8,7 +8,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem 10%;
+  padding: 3rem 8%;
 
   img {
     height: 64px;
@@ -23,6 +23,9 @@ header {
     font-family: 'Nunito', sans-serif;
     font-weight: 500;
     font-size: 1rem;
+    text-decoration: none;
+
+    color: v.$light-indigo;
   }
 
   .buttons {

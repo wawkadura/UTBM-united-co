@@ -1,7 +1,7 @@
 .footer footer {
   width: 100%;
-  background-color: var(--teal-800);
-  color: var(--teal-50);
+  background-color: var(--indigo-900);
+  color: var(--indigo-50);
   font-family: "Nunito", sans-serif;
   padding: 4rem 10rem;
   display: flex;
@@ -26,8 +26,8 @@
   margin-right: 1rem;
 }
 .footer footer .right button {
-  background-color: var(--teal-50);
-  color: var(--teal-800);
+  background-color: var(--indigo-50);
+  color: var(--indigo-900);
 }
 .footer footer .right ul {
   display: flex;
@@ -39,11 +39,8 @@
   list-style: none;
 }
 .footer footer .right ul li button {
-  background-color: var(--teal-800);
-  color: var(--teal-50);
-}
-.footer footer .right ul li button:focus {
-  border: none;
+  background-color: var(--indigo-900);
+  color: var(--indigo-50);
 }
 
 /*# sourceMappingURL=Footer.css.map */

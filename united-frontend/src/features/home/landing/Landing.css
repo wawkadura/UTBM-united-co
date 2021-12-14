@@ -1,27 +1,38 @@
 .landing {
   height: 90vh;
-  background: url("../../../shared/images/5d7ff9df-0747-11eb-b8ad-02fe89184577.jpg") no-repeat center;
-  background-size: cover;
+  background-color: var(--indigo-900);
+  color: var(--indigo-50);
 }
 .landing .contents {
   height: 100%;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
 }
-.landing .contents h2 {
-  color: var(--teal-50);
+.landing .contents .text h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
 }
-.landing .contents span {
-  font-weight: bolder;
-  color: var(--teal-50);
+.landing .contents .text h1 span {
+  color: var(--indigo-200);
 }
-.landing .contents button {
-  background-color: var(--teal-800);
-  color: var(--teal-50);
-  border: none;
+.landing .contents .text h4 {
+  font-weight: lighter;
+  margin-bottom: 2rem;
+}
+.landing .contents .text h4 span {
+  color: rosybrown;
+}
+.landing .contents .text button {
+  background-color: var(--indigo-50);
+  color: var(--indigo-900);
+  font-family: "Nunito", sans-serif;
+}
+.landing .contents .text button:hover {
+  background-color: var(--indigo-600);
+  color: var(--indigo-50);
 }
 
 /*# sourceMappingURL=Landing.css.map */

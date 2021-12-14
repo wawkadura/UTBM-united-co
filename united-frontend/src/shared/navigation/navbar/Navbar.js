@@ -2,9 +2,11 @@ import { Button } from 'primereact/button';
 import { TieredMenu } from 'primereact/tieredmenu';
 
 import {useRef, useState} from "react";
-import './Navbar.css';
+import {Link} from "react-router-dom";
 
+import './Navbar.css';
 import logo from "../../images/united_logo.png";
+import {HashLink} from "react-router-hash-link";
 
 function Navbar() {
     const [auth, setAuth] = useState(false);
@@ -12,7 +14,7 @@ function Navbar() {
 
     const user = "Tony LE";
     const items = [
-        { label:'Mon profile', icon:'pi pi-user-edit' },
+        { label:'Mon profil', icon:'pi pi-user-edit' },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users'},
         { separator:true },
         { label:'Se déconnecter', icon:'pi pi-fw pi-power-off', command: () => { setAuth(false)} }
@@ -23,11 +25,11 @@ function Navbar() {
             <img src={logo} alt="logo"/>
             <nav>
                 <ul>
-                    <li>Accueil</li>
-                    <li>Nos services</li>
-                    <li>Associations</li>
-                    <li>À propos</li>
-                    <li>Contact</li>
+                    <li><Link to="/home">Accueil</Link></li>
+                    <li><HashLink smooth to="/home#services">Nos services</HashLink></li>
+                    <li><Link to="/associations">Associations</Link></li>
+                    <li><HashLink smooth to="/home#about">À propos</HashLink></li>
+                    <li><HashLink smooth to="/home#contact">Contact</HashLink></li>
                 </ul>
             </nav>
             <div className="buttons">

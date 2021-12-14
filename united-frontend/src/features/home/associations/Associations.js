@@ -1,9 +1,8 @@
 import "./Associations.css";
 import { Divider } from 'primereact/divider';
 function Associations() {
-    return <div className="associations">
+    return <div className="associations" id="associations">
         <h2>Associations</h2>
-        <Divider />
     </div>
 }
 

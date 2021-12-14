@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["Associations.scss"],"names":[],"mappings":"AAAA;EACE;EACA;EAEA","file":"Associations.css"}
+{"version":3,"sourceRoot":"","sources":["Associations.scss","../../../shared/styles/variables.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EAEA,kBCNY;EDOZ,OCLa;EDOb","file":"Associations.css"}
