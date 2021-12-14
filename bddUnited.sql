@@ -24,6 +24,7 @@ create table association (
    state boolean,
    created_at datetime,
    users_id int unique,
+   iban varchar(50),
    PRIMARY key(id)
 )ENGINE=InnoDB ;
 

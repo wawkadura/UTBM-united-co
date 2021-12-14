@@ -32,6 +32,9 @@ export class association{
   @Column("varchar", { length: 12 , nullable: true })
   telephone;
 
+  @Column("varchar", { length: 50 , nullable: true })
+  iban;
+
   @Column()
   state: boolean;
 
