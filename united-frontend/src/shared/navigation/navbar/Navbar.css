@@ -1,0 +1,41 @@
+header {
+  height: 10vh;
+  background-color: var(--indigo-900);
+  color: var(--indigo-50);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 10%;
+}
+header img {
+  height: 100px;
+}
+header ul li {
+  display: inline-block;
+  padding: 0 1rem;
+}
+header li, header a, header .p-button {
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+header .buttons button {
+  background-color: var(--indigo-50);
+  color: var(--indigo-900);
+}
+header .buttons button:hover {
+  background-color: var(--indigo-600);
+  color: var(--indigo-50);
+}
+header .buttons button:last-of-type {
+  margin-left: 1rem;
+}
+header .buttons .dropdown button {
+  margin-left: 8rem;
+}
+
+div.p-tieredmenu.p-component.p-tieredmenu-overlay.p-connected-overlay-enter-done {
+  width: 14rem;
+}
+
+/*# sourceMappingURL=Navbar.css.map */

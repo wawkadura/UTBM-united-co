@@ -1,0 +1,57 @@
+@use "../../styles/variables" as v;
+
+header {
+  height: 10vh;
+  background-color: v.$bg-dark-indigo;
+  color: v.$bg-light-indigo;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 10%;
+
+  img {
+    height: 100px;
+  }
+
+  ul li {
+    display: inline-block;
+    padding: 0 1rem;
+  }
+
+  li, a, .p-button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  .buttons {
+    button {
+      background-color: v.$bg-light-indigo;
+      color: v.$bg-dark-indigo;
+    }
+
+    button:hover {
+      background-color: var(--indigo-600);
+      color : v.$bg-light-indigo;
+    }
+
+    button:last-of-type {
+      margin-left: 1rem;
+    }
+
+    .dropdown button {
+      margin-left: 8rem;
+    }
+  }
+}
+
+div.p-tieredmenu.p-component.p-tieredmenu-overlay.p-connected-overlay-enter-done {
+  width: 14rem;
+}
+
+
+
+
+
+
