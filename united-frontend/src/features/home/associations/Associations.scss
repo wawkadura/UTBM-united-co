@@ -1,0 +1,11 @@
+@use "../../../shared/styles/variables" as v;
+
+.associations {
+  height: 100vh;
+  width: 100%;
+
+  background-color: v.$dark-indigo;
+  color: v.$light-indigo;
+
+  padding: 3rem 10rem;
+}

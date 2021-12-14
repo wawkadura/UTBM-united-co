@@ -1,0 +1,57 @@
+@use "../../styles/variables" as v;
+
+.footer footer {
+  width: 100%;
+  background-color: v.$dark-indigo;
+  color: v.$light-indigo;
+  font-family: 'Nunito', sans-serif;
+  padding: 4rem 10rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+  img {
+    height: 96px;
+  }
+
+  ul {
+    margin: 0 2rem;
+    li {
+      list-style: none;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .right {
+    h4  {
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      margin-right: 1rem;
+    }
+
+    button {
+      background-color: v.$light-indigo;
+      color: v.$dark-indigo;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      margin-left: 0;
+      margin-top: 0.5rem;
+
+      li {
+        list-style: none;
+
+        button {
+          background-color: v.$dark-indigo;
+          color: v.$light-indigo;
+        }
+      }
+    }
+  }
+}
