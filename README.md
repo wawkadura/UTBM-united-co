@@ -34,6 +34,15 @@ Nous allons maintenant installer toutes les dépendances citées ci-dessus.
 ##### Installation de NestJS
 > npm i -g @nestjs/cli 
 
+##### Base de données
+##### Exécuter la migration 
+
+> npm install --save @nestjs/typeorm typeorm mysql2 
+
+> npm run typeorm:run 
+
+> si vous voulez créer une nouvelle migration: npm run typeorm:migrate non_fichier  puis npm run typeorm:run
+
 #### Frontend
 - Si vous n'avez pas ***node.js***, veuillez l'installer avec ce [lien](https://nodejs.org/en/)
 - Exécuter les commandes suivantes : 
@@ -54,4 +63,5 @@ Nous allons maintenant installer toutes les dépendances citées ci-dessus.
 > npx tailwindcss init
 
 react-boilerplate : https://github.com/react-boilerplate/react-boilerplate
+
 
