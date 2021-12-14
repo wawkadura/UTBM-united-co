@@ -2,8 +2,8 @@
 
 .footer footer {
   width: 100%;
-  background-color: v.$bg-dark-indigo;
-  color: v.$bg-light-indigo;
+  background-color: v.$dark-indigo;
+  color: v.$light-indigo;
   font-family: 'Nunito', sans-serif;
   padding: 4rem 10rem;
 
@@ -13,7 +13,7 @@
   align-items: center;
 
   img {
-    height: 100px;
+    height: 96px;
   }
 
   ul {
@@ -25,7 +25,7 @@
   }
 
   .right {
-    h3  {
+    h4  {
       margin-bottom: 0.5rem;
     }
 
@@ -34,8 +34,8 @@
     }
 
     button {
-      background-color: v.$bg-light-indigo;
-      color: v.$bg-dark-indigo;
+      background-color: v.$light-indigo;
+      color: v.$dark-indigo;
     }
 
     ul {
@@ -48,8 +48,8 @@
         list-style: none;
 
         button {
-          background-color: v.$bg-dark-indigo;
-          color: v.$bg-light-indigo;
+          background-color: v.$dark-indigo;
+          color: v.$light-indigo;
         }
 
         button:focus {

@@ -1,0 +1,33 @@
+@use "../../../shared/styles/variables" as v;
+
+.landing {
+  height: 90vh;
+
+  background: url("../../../shared/images/5d7ff9df-0747-11eb-b8ad-02fe89184577.jpg") no-repeat center;
+  background-size: cover;
+
+  .contents {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      color: v.$light-indigo;
+    }
+
+    span {
+      font-weight: bolder;
+      color: v.$light-indigo;
+    }
+
+    button {
+      background-color: v.$dark-indigo;
+      color: v.$light-indigo;
+      border: none;
+    }
+  }
+}

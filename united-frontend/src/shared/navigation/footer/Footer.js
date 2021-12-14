@@ -25,10 +25,10 @@ function Footer() {
                 <li>Community</li>
             </ul>
             <div className="right">
-                <h3>Recevez notre newsletter</h3>
+                <h4>Recevez notre newsletter</h4>
                 <div>
                     <InputText />
-                    <Button label="S'abonner" className="p-button-rounded" id="subscribe"/>
+                    <Button label="S'abonner" id="subscribe"/>
                 </div>
                 <ul>
                     <li><Button icon="pi pi-facebook" className="p-button-rounded p-button-text" /></li>

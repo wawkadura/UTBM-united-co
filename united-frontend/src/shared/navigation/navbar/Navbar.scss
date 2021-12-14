@@ -2,8 +2,8 @@
 
 header {
   height: 10vh;
-  background-color: v.$bg-dark-indigo;
-  color: v.$bg-light-indigo;
+  background-color: v.$dark-indigo;
+  color: v.$light-indigo;
 
   display: flex;
   justify-content: space-between;
@@ -11,7 +11,7 @@ header {
   padding: 3rem 10%;
 
   img {
-    height: 100px;
+    height: 64px;
   }
 
   ul li {
@@ -27,13 +27,13 @@ header {
 
   .buttons {
     button {
-      background-color: v.$bg-light-indigo;
-      color: v.$bg-dark-indigo;
+      background-color: v.$light-indigo;
+      color: v.$dark-indigo;
     }
 
     button:hover {
       background-color: var(--indigo-600);
-      color : v.$bg-light-indigo;
+      color : v.$light-indigo;
     }
 
     button:last-of-type {

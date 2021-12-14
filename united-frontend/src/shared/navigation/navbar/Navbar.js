@@ -18,7 +18,7 @@ function Navbar() {
         { label:'Se déconnecter', icon:'pi pi-fw pi-power-off', command: () => { setAuth(false)} }
     ];
 
-    return <div>
+    return <div className="header">
         <header>
             <img src={logo} alt="logo"/>
             <nav>

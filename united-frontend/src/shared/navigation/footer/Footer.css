@@ -1,7 +1,7 @@
 .footer footer {
   width: 100%;
-  background-color: var(--indigo-900);
-  color: var(--indigo-50);
+  background-color: var(--teal-800);
+  color: var(--teal-50);
   font-family: "Nunito", sans-serif;
   padding: 4rem 10rem;
   display: flex;
@@ -10,7 +10,7 @@
   align-items: center;
 }
 .footer footer img {
-  height: 100px;
+  height: 96px;
 }
 .footer footer ul {
   margin: 0 2rem;
@@ -19,15 +19,15 @@
   list-style: none;
   padding-bottom: 0.5rem;
 }
-.footer footer .right h3 {
+.footer footer .right h4 {
   margin-bottom: 0.5rem;
 }
 .footer footer .right input {
   margin-right: 1rem;
 }
 .footer footer .right button {
-  background-color: var(--indigo-50);
-  color: var(--indigo-900);
+  background-color: var(--teal-50);
+  color: var(--teal-800);
 }
 .footer footer .right ul {
   display: flex;
@@ -39,8 +39,8 @@
   list-style: none;
 }
 .footer footer .right ul li button {
-  background-color: var(--indigo-900);
-  color: var(--indigo-50);
+  background-color: var(--teal-800);
+  color: var(--teal-50);
 }
 .footer footer .right ul li button:focus {
   border: none;
