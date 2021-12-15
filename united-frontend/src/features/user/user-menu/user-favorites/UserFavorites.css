@@ -1,8 +1,3 @@
-.user-favorites {
-  max-height: 80vh;
-  max-width: 100%;
-  scroll-behavior: auto;
-}
 .user-favorites .p-card {
   border-radius: 1rem;
   font-family: "Nunito", sans-serif;

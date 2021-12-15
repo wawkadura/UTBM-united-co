@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["UserInvoices.scss","../../../../shared/styles/variables.scss"],"names":[],"mappings":"AAEA;EACE;;AAEA;EACE;EACA;EACA,kBCLW;;ADMX;EACE;;AAIJ;EACE;;AAGF;EACE;EACA,OCpBU;;ADwBV;EACE,kBCvBc;;AD4BhB;EACE","file":"UserInvoices.css"}
+{"version":3,"sourceRoot":"","sources":["UserInvoices.scss","../../../../shared/styles/variables.scss"],"names":[],"mappings":"AAGE;EACE;EACA;EACA,kBCHW;;ADIX;EACE;;AAIJ;EACE;;AAGF;EACE;EACA,OClBU;;ADsBV;EACE,kBCrBc;;AD0BhB;EACE","file":"UserInvoices.css"}
