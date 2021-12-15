@@ -1,6 +1,11 @@
 .user-favorites {
   height: 100%;
-  min-height: 90vh;
+  max-height: 90vh;
+}
+@media (max-width: 480px) {
+  .user-favorites {
+    min-height: 90vh;
+  }
 }
 .user-favorites .p-card {
   border-radius: 1rem;

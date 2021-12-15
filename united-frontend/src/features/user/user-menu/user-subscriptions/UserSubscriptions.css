@@ -1,6 +1,11 @@
 .user-subscriptions {
   height: 100%;
-  min-height: 90vh;
+  max-height: 90vh;
+}
+@media (max-width: 480px) {
+  .user-subscriptions {
+    min-height: 90vh;
+  }
 }
 .user-subscriptions .p-card {
   border-radius: 1rem;

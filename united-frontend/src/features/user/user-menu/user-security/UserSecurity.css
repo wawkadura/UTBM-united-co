@@ -1,6 +1,11 @@
 .user-security {
   height: 100%;
-  min-height: 90vh;
+  max-height: 90vh;
+}
+@media (max-width: 480px) {
+  .user-security {
+    min-height: 90vh;
+  }
 }
 .user-security .p-card {
   border-radius: 1rem;
