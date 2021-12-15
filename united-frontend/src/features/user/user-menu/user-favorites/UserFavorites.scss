@@ -1,10 +1,11 @@
 @use "../../../../shared/styles/variables" as v;
 
 .user-favorites {
-  max-height: 80vh;
-  max-width: 100%;
+  //max-height: 80vh;
+  //max-width: 100%;
 
-  scroll-behavior: auto;
+  height: 100%;
+  max-height: 90vh;
 
   .p-card {
     border-radius: 1rem;
