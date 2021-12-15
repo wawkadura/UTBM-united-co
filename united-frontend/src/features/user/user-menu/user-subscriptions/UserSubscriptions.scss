@@ -20,4 +20,16 @@
     font-weight: bold;
     color: v.$dark-indigo;
   }
+
+  .p-datatable {
+    .p-datatable-thead tr th {
+      background-color: v.$light-plus-indigo;
+    }
+  }
+
+  .actions {
+    button:first-of-type {
+      margin-right: 1rem;
+    }
+  }
 }

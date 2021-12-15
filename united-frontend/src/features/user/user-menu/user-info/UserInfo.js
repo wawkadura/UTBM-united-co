@@ -27,15 +27,7 @@ function UserInfo() {
 
                 <p><span>Numéro de téléphone :  </span> +823532450845</p>
             </Panel>
-            {/*                    <Panel header="Informations de paiement" toggleable>
-                        <p><span>Type de paiement :  </span> Chaeyoung</p>
-                        <Divider />
 
-                        <p><span>BIC :  </span> CERGERF</p>
-                        <Divider />
-
-                        <p><span>IBAN : </span> FR04 5454 4541 5645 441</p>
-                    </Panel>*/}
         </Card>
     </div>
 }

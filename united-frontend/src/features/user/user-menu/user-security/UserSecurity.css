@@ -12,6 +12,9 @@
 .user-security .p-panel {
   margin-bottom: 1rem;
 }
+.user-security .p-panel .p-panel-header {
+  background-color: var(--indigo-100);
+}
 .user-security span {
   font-weight: bold;
   color: var(--indigo-900);

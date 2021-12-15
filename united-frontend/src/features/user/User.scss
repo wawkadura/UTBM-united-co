@@ -1,17 +1,17 @@
 @use "../../shared/styles/variables" as v;
 
 .user {
-  height: 90vh;
   background-color: v.$light-indigo;
 
   .user-container {
-    height: 100%;
+    min-height: 90vh;
     padding: 1.5rem;
 
     display: grid;
     grid-template-columns: 1fr 4fr;
 
     font-family: "Nunito", sans-serif;
-    background-color: var(--indigo-100);
+    background-color: v.$light-plus-indigo;
+
   }
 }

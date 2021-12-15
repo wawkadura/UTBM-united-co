@@ -15,7 +15,7 @@ function UserSecurity() {
                 <p><span>Mot de passe : </span> ********</p>
             </Panel>
             <Panel header="Informations de paiement">
-                        <p><span>Type de paiement :  </span> Chaeyoung</p>
+                        <p><span>Type de paiement :  </span> Carte bancaire</p>
                         <Divider />
 
                         <p><span>BIC :  </span> CERGERF</p>

@@ -6,6 +6,7 @@ header {
   color: v.$light-indigo;
 
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 3rem 8%;
@@ -34,10 +35,6 @@ header {
       color: v.$dark-indigo;
     }
 
-    button:hover {
-      background-color: var(--indigo-600);
-      color : v.$light-indigo;
-    }
 
     button:last-of-type {
       margin-left: 1rem;

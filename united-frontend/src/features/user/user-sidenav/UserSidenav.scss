@@ -1,13 +1,17 @@
 @use "../../../shared/styles/variables" as v;
 
 .user-sidenav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
   .sidenav-header {
     background-color: v.$light-indigo;
     border-radius: 1rem;
 
     display: flex;
     padding: 1.5rem 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     margin-right: 1rem;
 
     img {
@@ -30,15 +34,18 @@
   }
 
   .sidenav-contents {
-    // background-color: v.$light-indigo;
+    background-color: v.$light-indigo;
+    height: 100%;
+
     padding: 1rem;
-    border-radius: 1rem;
+    margin-right: 1rem;
 
     display: flex;
     flex-direction: column;
+    border-radius: 1rem;
 
     button {
-      background-color: var(--indigo-100);
+      background-color: v.$light-indigo;
       color: v.$dark-indigo;
       border: none;
       text-align: start;
@@ -49,8 +56,8 @@
     }
 
     button:hover {
-      background-color: v.$dark-indigo;
-      color: v.$light-indigo;
+      background-color: v.$light-plus-indigo;
+      color: v.$dark-indigo;
     }
 
     .p-divider {

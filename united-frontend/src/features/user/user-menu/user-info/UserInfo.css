@@ -12,6 +12,9 @@
 .user-contents .p-panel {
   margin-bottom: 1rem;
 }
+.user-contents .p-panel .p-panel-header {
+  background-color: var(--indigo-100);
+}
 .user-contents span {
   font-weight: bold;
   color: var(--indigo-900);
