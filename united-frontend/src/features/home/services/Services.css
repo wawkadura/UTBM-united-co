@@ -4,6 +4,13 @@
   background-color: var(--indigo-50);
   color: var(--indigo-900);
   padding: 3rem 10rem;
+  /*  .p-divider-content {
+      background-color: v.$light-indigo;
+    }
+
+    button {
+      background-color: v.$dark-indigo;
+    }*/
 }
 
 /*# sourceMappingURL=Services.css.map */

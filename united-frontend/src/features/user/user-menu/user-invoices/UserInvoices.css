@@ -1,0 +1,23 @@
+.user-invoices {
+  height: 100%;
+}
+.user-invoices .p-card {
+  border-radius: 1rem;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-50);
+}
+.user-invoices .p-card .p-card-content {
+  padding: 0;
+}
+.user-invoices .p-panel {
+  margin-bottom: 1rem;
+}
+.user-invoices span {
+  font-weight: bold;
+  color: var(--indigo-900);
+}
+.user-invoices .p-datatable .p-datatable-thead tr th {
+  background-color: var(--indigo-100);
+}
+
+/*# sourceMappingURL=UserInvoices.css.map */

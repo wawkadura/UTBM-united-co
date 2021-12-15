@@ -1,0 +1,20 @@
+.user-contents {
+  height: 100%;
+}
+.user-contents .p-card {
+  border-radius: 1rem;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-50);
+}
+.user-contents .p-card .p-card-content {
+  padding: 0;
+}
+.user-contents .p-panel {
+  margin-bottom: 1rem;
+}
+.user-contents span {
+  font-weight: bold;
+  color: var(--indigo-900);
+}
+
+/*# sourceMappingURL=UserInfo.css.map */

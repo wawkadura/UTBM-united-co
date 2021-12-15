@@ -1,0 +1,60 @@
+@use "../../../shared/styles/variables" as v;
+
+.user-sidenav {
+  .sidenav-header {
+    background-color: v.$light-indigo;
+    border-radius: 1rem;
+
+    display: flex;
+    padding: 1.5rem 2rem;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+
+    img {
+      height: 64px;
+      width: 64px;
+
+      margin-right: 1rem;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      p {
+        font-size: 1rem;
+        color: var(--indigo-400);
+      }
+    }
+  }
+
+  .sidenav-contents {
+    // background-color: v.$light-indigo;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: column;
+
+    button {
+      background-color: var(--indigo-100);
+      color: v.$dark-indigo;
+      border: none;
+      text-align: start;
+
+      .p-button-icon {
+        margin-right: 2rem;
+      }
+    }
+
+    button:hover {
+      background-color: v.$dark-indigo;
+      color: v.$light-indigo;
+    }
+
+    .p-divider {
+      border-color: v.$dark-indigo;
+    }
+  }
+}

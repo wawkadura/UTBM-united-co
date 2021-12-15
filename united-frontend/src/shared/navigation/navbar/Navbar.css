@@ -33,7 +33,7 @@ header .buttons button:last-of-type {
   margin-left: 1rem;
 }
 header .buttons .dropdown button {
-  margin-left: 8rem;
+  margin-left: auto;
 }
 
 div.p-tieredmenu.p-component.p-tieredmenu-overlay.p-connected-overlay-enter-done {

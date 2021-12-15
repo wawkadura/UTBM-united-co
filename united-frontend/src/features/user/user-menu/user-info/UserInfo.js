@@ -1,0 +1,43 @@
+import "./UserInfo.css";
+
+import {Card} from "primereact/card";
+import {Divider} from "primereact/divider";
+import {Panel} from "primereact/panel";
+
+function UserInfo() {
+    return <div className="user-contents">
+        <Card title="Vos informations personnelles" subTitle="Vous pouvez sur cette page modifier l'ensemble des données vous concernant" style={{ height: '100%' }}>
+            <Divider/>
+            <Panel header="Informations basiques">
+                <p><span>Prénom : </span>Chaeyoung is bae</p>
+                <Divider />
+
+                <p><span>Nom de famille : </span>Park</p>
+                <Divider />
+
+                <p><span>Date de naissance : </span>11/02/1997</p>
+                <Divider />
+
+                <p><span>Genre :  </span>Femme</p>
+            </Panel>
+
+            <Panel header="Informations de contact">
+                <p><span>Adresse mail :  </span>rosie@blackpink.kr</p>
+                <Divider />
+
+                <p><span>Numéro de téléphone :  </span> +823532450845</p>
+            </Panel>
+            {/*                    <Panel header="Informations de paiement" toggleable>
+                        <p><span>Type de paiement :  </span> Chaeyoung</p>
+                        <Divider />
+
+                        <p><span>BIC :  </span> CERGERF</p>
+                        <Divider />
+
+                        <p><span>IBAN : </span> FR04 5454 4541 5645 441</p>
+                    </Panel>*/}
+        </Card>
+    </div>
+}
+
+export default UserInfo

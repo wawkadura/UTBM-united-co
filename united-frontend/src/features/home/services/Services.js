@@ -1,5 +1,6 @@
 import "./Services.css";
 import { Divider } from 'primereact/divider';
+import { Button } from 'primereact/button';
 
 function Services() {
     return <div className="services" id="services">
