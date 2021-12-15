@@ -1,5 +1,11 @@
 .user-contents {
   height: 100%;
+  max-height: 90vh;
+}
+@media (max-width: 480px) {
+  .user-contents {
+    min-height: 90vh;
+  }
 }
 .user-contents .p-card {
   border-radius: 1rem;

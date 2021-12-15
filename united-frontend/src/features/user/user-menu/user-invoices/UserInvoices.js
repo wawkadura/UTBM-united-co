@@ -40,7 +40,7 @@ function UserInvoices() {
     return <div className="user-invoices">
         <Card title="Vos factures" subTitle="Vous pouvez retrouvez sur cette page l'ensemble de vos factures" style={{ height: '100%' }}>
             <Divider />
-            <DataTable value={invoices} scrollable scrollHeight="41.5rem" size="normal">
+            <DataTable value={invoices} scrollable scrollHeight="flex" size="normal">
                 <Column field="name" header="Nom" sortable/>
                 <Column field="association" header="Association" sortable/>
                 <Column field="sub_type" header="Abonnement" sortable/>

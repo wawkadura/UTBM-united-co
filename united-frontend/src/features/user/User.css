@@ -9,5 +9,10 @@
   font-family: "Nunito", sans-serif;
   background-color: var(--indigo-100);
 }
+@media screen and (min-width: 480px) {
+  .user .user-container {
+    grid-template-columns: 1fr 3fr;
+  }
+}
 
 /*# sourceMappingURL=User.css.map */

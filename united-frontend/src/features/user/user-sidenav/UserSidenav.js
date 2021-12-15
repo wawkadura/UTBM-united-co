@@ -21,7 +21,7 @@ function UserSidenav({type, setType}) {
             </div>
         </div>
         <div className="sidenav-contents">
-            <Button onClick={() => {onChangeType("info")}} label="Mes informations personnelles" icon="pi pi-user" />
+            <Button onClick={() => {onChangeType("info")}} label="Informations personnelles" icon="pi pi-user" />
             <Divider/>
 
             <Button onClick={() => {onChangeType("favorites")}} label="Mes favoris" icon="pi pi-heart" />

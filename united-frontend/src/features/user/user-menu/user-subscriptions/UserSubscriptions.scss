@@ -2,6 +2,11 @@
 
 .user-subscriptions {
   height: 100%;
+  max-height: 90vh;
+  @media (max-width: 480px) {
+    min-height: 90vh;
+  }
+
 
   .p-card {
     border-radius: 1rem;
@@ -22,6 +27,7 @@
   }
 
   .p-datatable {
+    max-height: 70vh;
     .p-datatable-thead tr th {
       background-color: v.$light-plus-indigo;
     }

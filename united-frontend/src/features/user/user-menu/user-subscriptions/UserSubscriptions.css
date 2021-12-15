@@ -1,5 +1,11 @@
 .user-subscriptions {
   height: 100%;
+  max-height: 90vh;
+}
+@media (max-width: 480px) {
+  .user-subscriptions {
+    min-height: 90vh;
+  }
 }
 .user-subscriptions .p-card {
   border-radius: 1rem;
@@ -15,6 +21,9 @@
 .user-subscriptions span {
   font-weight: bold;
   color: var(--indigo-900);
+}
+.user-subscriptions .p-datatable {
+  max-height: 70vh;
 }
 .user-subscriptions .p-datatable .p-datatable-thead tr th {
   background-color: var(--indigo-100);
