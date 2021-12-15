@@ -2,19 +2,22 @@ import { Button } from 'primereact/button';
 import { TieredMenu } from 'primereact/tieredmenu';
 
 import {useRef, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import './Navbar.css';
+
 import logo from "../../images/united_logo.png";
 import {HashLink} from "react-router-hash-link";
 
 function Navbar() {
     const [auth, setAuth] = useState(false);
-    const menu = useRef(null);
+    const navigate = useNavigate();
 
-    const user = "Tony LE";
+    const menu = useRef(null);
+    const user = "Park Chaeyoung";
+
     const items = [
-        { label:'Mon profil', icon:'pi pi-user-edit' },
+        { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user") } },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users'},
         { separator:true },
         { label:'Se déconnecter', icon:'pi pi-fw pi-power-off', command: () => { setAuth(false)} }

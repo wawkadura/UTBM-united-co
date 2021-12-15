@@ -1,0 +1,69 @@
+.user {
+  height: 90vh;
+  background-color: var(--indigo-50);
+}
+.user .user-container {
+  height: 100%;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-100);
+}
+.user .user-container .user-sidenav .sidenav-header {
+  background-color: var(--indigo-50);
+  border-radius: 1rem;
+  display: flex;
+  padding: 1.5rem 2rem;
+  margin-bottom: 0.5rem;
+  margin-right: 1rem;
+}
+.user .user-container .user-sidenav .sidenav-header img {
+  height: 64px;
+  width: 64px;
+  margin-right: 1rem;
+}
+.user .user-container .user-sidenav .sidenav-header div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.user .user-container .user-sidenav .sidenav-header div p {
+  font-size: 1rem;
+  color: var(--indigo-400);
+}
+.user .user-container .user-sidenav .sidenav-contents {
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.user .user-container .user-sidenav .sidenav-contents button {
+  background-color: var(--indigo-100);
+  color: var(--indigo-900);
+  border: none;
+  text-align: start;
+}
+.user .user-container .user-sidenav .sidenav-contents button .p-button-icon {
+  margin-right: 2rem;
+}
+.user .user-container .user-sidenav .sidenav-contents .p-divider {
+  border-color: var(--indigo-900);
+}
+.user .user-container .user-contents .p-card {
+  border-radius: 1rem;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-50);
+}
+.user .user-container .user-contents .p-card .p-card-content {
+  padding: 0;
+}
+.user .user-container .user-contents .p-panel {
+  margin-bottom: 1rem;
+}
+.user .user-container .user-contents span {
+  font-weight: bold;
+  color: var(--indigo-900);
+}
+
+/*# sourceMappingURL=User.css.map */
