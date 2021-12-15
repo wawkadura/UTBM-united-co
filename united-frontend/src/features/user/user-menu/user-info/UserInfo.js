@@ -31,6 +31,8 @@ function UserInfo() {
                     <p><span>Numéro de téléphone :  </span> +823532450845</p>
                 </Panel>
             </ScrollPanel>
+
+
         </Card>
     </div>
 }

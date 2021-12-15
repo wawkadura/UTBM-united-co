@@ -1,3 +1,6 @@
+.user-invoices {
+  max-height: 90vh;
+}
 .user-invoices .p-card {
   border-radius: 1rem;
   font-family: "Nunito", sans-serif;

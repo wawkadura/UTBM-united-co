@@ -27,7 +27,6 @@ function UserSecurity() {
                     <p><span>IBAN : </span> FR04 5454 4541 5645 441</p>
                 </Panel>
             </ScrollPanel>
-
         </Card>
     </div>
 }

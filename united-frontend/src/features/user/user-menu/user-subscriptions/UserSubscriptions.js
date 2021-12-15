@@ -31,14 +31,14 @@ function UserSubscriptions() {
         <Card title="Vos abonnements" subTitle="Vous pouvez retrouvez sur cette page l'ensemble de vos abonnements" style={{ height: '100%' }}>
             <Divider/>
 
-            <DataTable value={subscriptions} scrollable scrollHeight="flex" size="normal">
+            <DataTable value={subscriptions} scrollable scrollHeight="41.5rem" size="normal">
                 <Column field="status" header="Statut" sortable/>
                 <Column field="association" header="Association" sortable/>
                 <Column field="sub_type" header="Abonnement" sortable/>
                 <Column field="price" header="Prix" sortable/>
                 <Column field="payment_type" header="Paiement" sortable/>
-                {/*<Column field="start_date" header="Début" sortable/>*/}
-                <Column field="end_date" header="Fin" sortable/>
+                <Column field="start_date" header="Date de début" sortable/>
+                <Column field="end_date" header="Date de fin" sortable/>
                 <Column header="Actions" body={actions}/>
             </DataTable>
         </Card>

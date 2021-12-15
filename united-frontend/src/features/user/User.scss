@@ -10,10 +10,6 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
 
-    @media screen and (min-width: 480px) {
-      grid-template-columns: 1fr 3fr;
-    }
-
     font-family: "Nunito", sans-serif;
     background-color: v.$light-plus-indigo;
 

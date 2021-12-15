@@ -34,7 +34,7 @@ function UserFavorites() {
         const cards = [];
         for (const association of associations) {
             cards.push(
-                <Card title={association.name} subTitle={association.type} header={header(association.name)} style={{ width: 'auto', height: 'auto', marginBottom: '2rem' }}>
+                <Card title={association.name} subTitle={association.type} header={header(association.name)} style={{ width: '28rem', height: 'auto', marginBottom: '2rem' }}>
                     <p className="p-m-0" style={{lineHeight: '1.5'}}>{association.description}</p>
                 </Card>
             )
