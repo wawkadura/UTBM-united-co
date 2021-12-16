@@ -5,7 +5,7 @@ import {useRef, useState} from "react";
 import {Link} from "react-router-dom";
 
 import './Navbar.css';
-import logo from "../../images/united_logo.png";
+import logo from "../../../images/shared/united_logo.png";
 import {HashLink} from "react-router-hash-link";
 
 function Navbar() {

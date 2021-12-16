@@ -1,5 +1,5 @@
 import './Footer.css';
-import logo from "../../images/united_logo.png";
+import logo from "../../../images/shared/united_logo.png";
 
 import { InputText } from 'primereact/inputtext';
 import {Button} from "primereact/button";
