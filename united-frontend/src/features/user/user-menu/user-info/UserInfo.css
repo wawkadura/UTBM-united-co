@@ -9,6 +9,26 @@
 .user-contents .p-card .p-card-content {
   padding: 0;
 }
+.user-contents .p-card .actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.user-contents .p-card .actions button {
+  border: 0;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-100);
+  color: var(--indigo-900);
+}
+.user-contents .p-card .actions button:hover {
+  background-color: var(--indigo-500);
+}
+.user-contents .p-card .actions button:hover span {
+  color: var(--indigo-50);
+}
+.user-contents .p-card .actions button:last-of-type {
+  margin-left: 1rem;
+}
 .user-contents .p-panel {
   margin-bottom: 1rem;
 }
@@ -18,6 +38,16 @@
 .user-contents span {
   font-weight: bold;
   color: var(--indigo-900);
+}
+
+.p-dialog .p-dialog-header {
+  padding-bottom: 0;
+}
+.p-dialog .p-dialog-content {
+  padding-bottom: 1rem;
+}
+.p-dialog .p-field.p-col-12 {
+  margin-bottom: 0;
 }
 
 /*# sourceMappingURL=UserInfo.css.map */

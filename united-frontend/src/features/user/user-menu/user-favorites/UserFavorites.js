@@ -32,9 +32,9 @@ function UserFavorites() {
         )
     }
 
-    function card(association) {
+    function card(id, association) {
         return (
-            <Card title={association.name} subTitle={association.type} header={header(association.name)} style={{ width: '26rem', height: 'auto', marginBottom: '1rem', marginRight: '1rem' }}>
+            <Card id={id} title={association.name} subTitle={association.type} header={header(association.name)} style={{ width: '26rem', height: 'auto', marginBottom: '1rem', marginRight: '1rem' }}>
                 <p className="p-m-0" style={{lineHeight: '1.5'}}>{association.description}</p>
             </Card>
         )
@@ -42,7 +42,8 @@ function UserFavorites() {
 
     function cards() {
         const cards = [];
-        for (const association of associations) { cards.push(card(association)) }
+        let id = 0;
+        for (const association of associations) {cards.push(card(id++, association));}
 
         return cards;
     }
