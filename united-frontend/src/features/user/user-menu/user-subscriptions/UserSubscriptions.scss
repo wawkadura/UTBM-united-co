@@ -20,8 +20,9 @@
     font-weight: bold;
     color: v.$dark-indigo;
   }
-
   .p-datatable {
+    min-height: 100%;
+    max-height: 70vh;
     .p-datatable-thead tr th {
       background-color: v.$light-plus-indigo;
     }

@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["UserSubscriptions.scss","../../../../shared/styles/variables.scss"],"names":[],"mappings":"AAEA;EACE;;AAEA;EACE;EACA;EACA,kBCLW;;ADMX;EACE;;AAIJ;EACE;;AAGF;EACE;EACA,OCpBU;;ADwBV;EACE,kBCvBc;;AD4BhB;EACE","file":"UserSubscriptions.css"}
+{"version":3,"sourceRoot":"","sources":["UserSubscriptions.scss","../../../../shared/styles/variables.scss"],"names":[],"mappings":"AAEA;EACE;;AAEA;EACE;EACA;EACA,kBCLW;;ADMX;EACE;;AAIJ;EACE;;AAGF;EACE;EACA,OCpBU;;ADsBZ;EACE;EACA;;AACA;EACE,kBCxBc;;AD6BhB;EACE","file":"UserSubscriptions.css"}

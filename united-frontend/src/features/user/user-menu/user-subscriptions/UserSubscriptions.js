@@ -16,6 +16,11 @@ const subscriptions = [
     {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
     {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
     {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
+    {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
+    {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
+    {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
+    {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
+    {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
 ]
 
 function UserSubscriptions() {
@@ -37,8 +42,8 @@ function UserSubscriptions() {
                 <Column field="sub_type" header="Abonnement" sortable/>
                 <Column field="price" header="Prix" sortable/>
                 <Column field="payment_type" header="Paiement" sortable/>
-                <Column field="start_date" header="Date de début" sortable/>
-                <Column field="end_date" header="Date de fin" sortable/>
+                <Column field="start_date" header="Début" sortable/>
+                <Column field="end_date" header="Fin" sortable/>
                 <Column header="Actions" body={actions}/>
             </DataTable>
         </Card>

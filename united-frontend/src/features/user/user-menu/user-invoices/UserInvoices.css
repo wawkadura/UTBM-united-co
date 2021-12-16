@@ -1,5 +1,5 @@
 .user-invoices {
-  max-height: 90vh;
+  height: 100%;
 }
 .user-invoices .p-card {
   border-radius: 1rem;

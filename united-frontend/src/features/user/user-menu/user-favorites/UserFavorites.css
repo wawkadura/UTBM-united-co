@@ -1,7 +1,5 @@
 .user-favorites {
-  max-height: 80vh;
-  max-width: 100%;
-  scroll-behavior: auto;
+  height: 100%;
 }
 .user-favorites .p-card {
   border-radius: 1rem;
@@ -17,6 +15,10 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+.user-favorites .p-card .user-associations .p-card {
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 .user-favorites .p-card .user-associations .association-header {
   padding-top: 1.25rem;

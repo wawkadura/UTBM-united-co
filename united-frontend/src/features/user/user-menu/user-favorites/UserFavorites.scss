@@ -1,10 +1,7 @@
 @use "../../../../shared/styles/variables" as v;
 
 .user-favorites {
-  max-height: 80vh;
-  max-width: 100%;
-
-  scroll-behavior: auto;
+  height: 100%;
 
   .p-card {
     border-radius: 1rem;
@@ -22,6 +19,11 @@
       justify-content: space-between;
 
       flex-wrap: wrap;
+
+      .p-card {
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
 
       .association-header {
         padding-top: 1.25rem;

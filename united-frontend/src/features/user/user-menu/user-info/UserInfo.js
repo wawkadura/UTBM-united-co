@@ -10,28 +10,25 @@ function UserInfo() {
         <Card title="Vos informations personnelles" subTitle="Vous pouvez sur cette page modifier l'ensemble des données vous concernant" style={{ height: '100%' }}>
             <Divider/>
 
-            <ScrollPanel style={{width: '100%', height: '70vh'}}>
-                <Panel header="Informations basiques">
-                    <p><span>Prénom : </span>Chaeyoung is bae</p>
-                    <Divider />
+            <Panel header="Informations basiques">
+                <p><span>Prénom : </span>Chaeyoung is bae</p>
+                <Divider />
 
-                    <p><span>Nom de famille : </span>Park</p>
-                    <Divider />
+                <p><span>Nom de famille : </span>Park</p>
+                <Divider />
 
-                    <p><span>Date de naissance : </span>11/02/1997</p>
-                    <Divider />
+                <p><span>Date de naissance : </span>11/02/1997</p>
+                <Divider />
 
-                    <p><span>Genre :  </span>Femme</p>
-                </Panel>
+                <p><span>Genre :  </span>Femme</p>
+            </Panel>
 
-                <Panel header="Informations de contact">
-                    <p><span>Adresse mail :  </span>rosie@blackpink.kr</p>
-                    <Divider />
+            <Panel header="Informations de contact">
+                <p><span>Adresse mail :  </span>rosie@blackpink.kr</p>
+                <Divider />
 
-                    <p><span>Numéro de téléphone :  </span> +823532450845</p>
-                </Panel>
-            </ScrollPanel>
-
+                <p><span>Numéro de téléphone :  </span> +823532450845</p>
+            </Panel>
 
         </Card>
     </div>
