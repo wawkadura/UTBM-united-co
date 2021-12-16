@@ -1,7 +1,7 @@
 import {Button} from "primereact/button";
 
 import './Landing.css';
-import association from "../../../shared/images/association.png";
+import association from "../../../images/shared/association.png";
 import {HashLink} from "react-router-hash-link";
 
 function Landing() {
