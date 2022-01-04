@@ -9,8 +9,8 @@ function Landing() {
         <div className="contents">
                 <div className="text">
                     <h1>Mise en relation de <span>donateurs</span> <br/> et <span>d'associations</span></h1>
-                    <h4>Mettez en avant votre association et gérer vos abonnements depuis une même plateforme. <span>Rosé is bae</span></h4>
-                    <HashLink smooth to="/home#services" style={{textDecoration: "none"}}><Button  label="Get started" icon="pi pi-arrow-down" iconPos="right" /></HashLink>
+                    <h4>Mettez en avant votre association et gérer vos abonnements depuis une même plateforme.</h4>
+                    <HashLink smooth to="/home#services" style={{textDecoration: "none"}}><Button  label="Démarrer" icon="pi pi-arrow-down" iconPos="right" /></HashLink>
                 </div>
                 <div className="image">
                     <img src={association} alt="landing-image"/>
