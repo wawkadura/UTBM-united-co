@@ -11,8 +11,8 @@ function Footer() {
                 <img src={logo} alt="logo"/>
             </div>
             <ul>
-                <li>Accueil</li>
-                <li>Nos services</li>
+                <li >Accueil</li>
+                <li>services</li>
                 <li>Associations</li>
                 <li>À propos</li>
                 <li>Contact</li>
