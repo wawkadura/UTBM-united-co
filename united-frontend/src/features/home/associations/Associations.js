@@ -12,19 +12,19 @@ function Associations() {
 
         <div className="p-d-flex p-jc-evenly associations-card">
             <div className="p-mr-4">
-                <img className="image-associations " src={logocroixrouge} /> 
-                <h2 className="space-text description-text">La croix rouge française</h2>
-                <h4 className="space-text description-text"> La Croix-Rouge française (CRF) est une association d'aide humanitaire française fondée en 1864. Elle a pour objectif de venir en aide aux personnes en difficulté en France et à l'étranger. Ses missions fondamentales sont l'urgence, le secourisme, l'action sociale, la formation, la santé et l'action internationale. </h4>
+                <img className="image-associations " src={logocroixrouge}  alt="logocroixrouge"/> 
+                <h2>La croix rouge française</h2>
+                <h4 className="space-text "> La Croix-Rouge française (CRF) est une association d'aide humanitaire française fondée en 1864. Elle a pour objectif de venir en aide aux personnes en difficulté en France et à l'étranger. Ses missions fondamentales sont l'urgence, le secourisme, l'action sociale, la formation, la santé et l'action internationale. </h4>
             </div>
             <div className="p-mr-4">
-                <img className="image-associations " src={logoSpa} /> 
-                <h2 className="space-text description-text">Société protectrice des animaux</h2>
-                <h4 className="space-text description-text">La SPA est, historiquement en France, la première association qui œuvre dans le domaine de la protection animale. Depuis 176 ans, elle se mobilise pour venir en aide aux animaux en détresse et pour promouvoir le bien-être animal auprès des Français.</h4>
+                <img className="image-associations " src={logoSpa} alt="ogoSpa"/> 
+                <h2>Société protectrice des animaux</h2>
+                <h4 className="space-text">La SPA est, historiquement en France, la première association qui œuvre dans le domaine de la protection animale. Depuis 176 ans, elle se mobilise pour venir en aide aux animaux en détresse et pour promouvoir le bien-être animal auprès des Français.</h4>
             </div>
             <div>
-                <img className="image-associations " src={logoGreenpeace} />
-                <h2 className="space-text description-text">Greenpeace</h2>
-                <h4 className="space-text description-text">Greenpeace (ce qui en français veut dire « paix verte ») est une association et une organisation non-gouvernementale à but non-lucratif qui s'occupe des problèmes écologiques et de la protection de l'environnement.</h4>
+                <img className="image-associations " src={logoGreenpeace} alt="logoGreenpeace"/>
+                <h2>Greenpeace</h2>
+                <h4 className="space-text">Greenpeace (ce qui en français veut dire « paix verte ») est une association et une organisation non-gouvernementale à but non-lucratif qui s'occupe des problèmes écologiques et de la protection de l'environnement.</h4>
             </div>
         </div> 
         <HashLink smooth to="/associations" style={{textDecoration: "none"}}><Button className="associations-text-button" label="Voir plus" iconPos="right" /></HashLink>
