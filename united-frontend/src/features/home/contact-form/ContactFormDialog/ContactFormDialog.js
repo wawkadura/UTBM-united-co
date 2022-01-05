@@ -8,16 +8,12 @@ import {InputTextarea} from "primereact/inputtextarea";
 import { useForm } from "react-hook-form";
 import { Toast } from 'primereact/toast';
 
-function ContactFormDialog() {
+function ContactFormDialog({displayBasic, setDisplayBasic}) {
   
   const {handleSubmit, register, formState: { errors } } = useForm();
   //error message display when a text field require spécifcation
   const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) 
-  const [displayBasic, setDisplayBasic] = useState(false);
-  //diplay the dialogue
-  const onClick = () => {
-    setDisplayBasic(true);
-  }
+
   //close the dialog
   const onHide = () => {
       setDisplayBasic(false);
@@ -47,7 +43,6 @@ function ContactFormDialog() {
   //retrun form dialog, user can submit to send a email to admin.
   return <div>
     <Toast ref={toast} />
-    <Button  className="p-button-text" label="ici" onClick={() => onClick('displayBasic')} />
     <Dialog header="Formulaire de contact" footer={Footer} icons={myIcon} visible={displayBasic} style={{width: '50vw'}} modal onHide={onHide}>
     <form >
       <div className="p-fluid p-formgrid p-grid">

@@ -12,8 +12,8 @@ function Landing() {
                     <h4>Mettez en avant votre association et gérer vos abonnements depuis une même plateforme.</h4>
                     <HashLink smooth to="/home#services" style={{textDecoration: "none"}}><Button  label="Démarrer" icon="pi pi-arrow-down" iconPos="right" /></HashLink>
                 </div>
-                <div className="image">
-                    <img src={association} alt="landing-image"/>
+                <div className="imagevitrine">
+                    <img  src={association} alt="landing-image" />
                 </div>
         </div>
     </div>
