@@ -1,9 +1,10 @@
 
+.contact-form-dialog{
+    background-color: white
+}
 .space-text{
     margin-top: 15px;
 }
-
 .errors-text-color{
     color: red;
-
 }

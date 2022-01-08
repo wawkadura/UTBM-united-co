@@ -6,13 +6,6 @@
   padding: 3rem 10rem;
 }
 
-.button-label {
-  font-weight: 1000;
-  position:absolute ;
-  left: 720px;
-  top: 2908px
-}
-
 .ici{
   color: rgb(66, 66, 204);
   cursor: pointer;
