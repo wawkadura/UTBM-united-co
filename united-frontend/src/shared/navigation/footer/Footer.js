@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {HashLink} from "react-router-hash-link";
 import { useForm } from "react-hook-form";
 import { Toast } from 'primereact/toast';
-import {useState, useRef} from "react";
+import { useRef} from "react";
 
 function Footer() {
 
