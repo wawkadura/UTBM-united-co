@@ -4,20 +4,15 @@ import {Divider} from "primereact/divider";
 import user_man from "../../../shared/images/user-man.png";
 import "./UserSidenav.css";
 
-function UserSidenav({type, setType}) {
-    const user = "Park Chaeyoung";
-    const userType = "KPOP Idol"
-
-    const onChangeType = (type) => {
-        setType(type);
-    }
+function UserSidenav({type, setType, user}) {
+    const onChangeType = (type) => { setType(type); }
 
     return <div className="user-sidenav">
         <div className="sidenav-header">
             <img src={user_man} alt="user_logo"/>
             <div>
-                <h3>{user}</h3>
-                <p>{userType}</p>
+                <h3>{`${user.lastname} ${user.firstname}`}</h3>
+                <p>{user.role}</p>
             </div>
         </div>
         <div className="sidenav-contents">

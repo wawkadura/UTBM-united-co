@@ -16,7 +16,7 @@ const associations = [
     {name: "SPA", type: "Protection animale", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"},
     {name: "SPA", type: "Protection animale", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"},
     {name: "SPA", type: "Protection animale", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"},
-    {name: "SPA", type: "Protection animale", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"}
+    {name: "SPA", type: "Protection animale", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"},
 ]
 
 function UserFavorites() {
