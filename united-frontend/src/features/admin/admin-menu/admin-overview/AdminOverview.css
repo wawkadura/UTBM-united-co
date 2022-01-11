@@ -1,0 +1,54 @@
+.admin-contents {
+    height: 100%;
+  }
+  .admin-contents .p-card {
+    border-radius: 1rem;
+    font-family: "Nunito", sans-serif;
+    background-color: var(--indigo-50);
+  }
+  .admin-contents .p-card .p-card-content {
+    padding: 0;
+  }
+  .admin-contents .p-card .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .admin-contents .p-card .actions button {
+    border: 0;
+    font-family: "Nunito", sans-serif;
+    background-color: var(--indigo-100);
+    color: var(--indigo-900);
+  }
+  .admin-contents .p-card .actions button:hover {
+    background-color: var(--indigo-500);
+  }
+  .admin-contents .p-card .actions button:hover span {
+    color: var(--indigo-50);
+  }
+  .admin-contents .p-card .actions button:last-of-type {
+    margin-left: 1rem;
+  }
+  .admin-contents .p-panel {
+    margin-bottom: 1rem;
+  }
+  .admin-contents .p-panel .p-panel-header {
+    background-color: var(--indigo-100);
+  }
+  .admin-contents span {
+    font-weight: bold;
+    color: var(--indigo-900);
+  }
+  
+  .p-dialog .p-dialog-header {
+    padding-bottom: 0;
+  }
+  .p-dialog .p-dialog-content {
+    padding-bottom: 1rem;
+  }
+  .p-dialog .p-field.p-col-12 {
+    margin-bottom: 0;
+  }
+  
+  /*# sourceMappingURL=adminInfo.css.map */
+  
