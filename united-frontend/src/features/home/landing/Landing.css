@@ -16,8 +16,13 @@
   height: 100%;
 } 
 .landing .contents .text h1 {
+<<<<<<< HEAD
   font-size: 66px;
   margin-bottom: 20px;
+=======
+  font-size: 80px;
+  margin-bottom: 10px;
+>>>>>>> fb694ea6e5a6c93dcee03be202ea037ae614289e
 }
 @media screen and (max-width: 1000px) {
   .landing .contents .text h1 {

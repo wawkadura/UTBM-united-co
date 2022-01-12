@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {HashLink} from "react-router-hash-link";
 import { useForm } from "react-hook-form";
 import { Toast } from 'primereact/toast';
+<<<<<<< HEAD
 import { useRef, useState } from "react";
 import { NewslettersApi } from './api/newsletters.api';
 
@@ -23,10 +24,18 @@ function Footer() {
     }   
     const {handleSubmit, register, formState: { errors } } = useForm();
 
+=======
+import {useState, useRef} from "react";
+
+function Footer() {
+
+    const {handleSubmit, register, formState: { errors } } = useForm();
+>>>>>>> fb694ea6e5a6c93dcee03be202ea037ae614289e
     //error message display when a text field require spécifcation
     const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) 
     const toast = useRef(null);
     //Message showed when the form is fill correctly
+<<<<<<< HEAD
     const showSuccess = (resp) => {
         if (resp.statusCode===200) toast.current.show({severity:'success', summary: 'Newsletter', detail:resp.message, life: 3000});
         if (resp.statusCode===201) toast.current.show({severity:'error', summary: 'Newsletter', detail:resp.message, life: 3000});
@@ -36,6 +45,14 @@ function Footer() {
     const onSubmit = (data) => {
         if (data) {
             createAddnewsletter(data.email);
+=======
+    const showSuccess = () => {toast.current.show({severity:'success', summary: 'Newsletter', detail:'Vous êtes abonné à notre liste de diffusion', life: 3000});}
+    //action made when the form is submited 
+    const onSubmit = (data) => {
+        if (data) {
+            showSuccess();
+            console.log({data});
+>>>>>>> fb694ea6e5a6c93dcee03be202ea037ae614289e
         }
     }
 
