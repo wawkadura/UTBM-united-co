@@ -7,21 +7,35 @@ import {Link} from "react-router-dom";
 import {HashLink} from "react-router-hash-link";
 import { useForm } from "react-hook-form";
 import { Toast } from 'primereact/toast';
-import { useRef} from "react";
+import { useRef, useState } from "react";
+import { NewslettersApi } from './api/newsletters.api';
 
 function Footer() {
 
+    const [email, setEmail]=useState("");
+    //passing the form data value to api in oder to post
+    const createAddnewsletter = async(data)=>{
+        const resp = await NewslettersApi.createOne(data); //resp is value retunr by the api/back
+        if (resp){
+            showSuccess(resp);
+            setEmail("")
+        }
+    }   
     const {handleSubmit, register, formState: { errors } } = useForm();
+
     //error message display when a text field require spécifcation
     const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) 
     const toast = useRef(null);
     //Message showed when the form is fill correctly
-    const showSuccess = () => {toast.current.show({severity:'success', summary: 'Newsletter', detail:'Vous êtes abonné à notre liste de diffusion', life: 3000});}
+    const showSuccess = (resp) => {
+        if (resp.statusCode===200) toast.current.show({severity:'success', summary: 'Newsletter', detail:resp.message, life: 3000});
+        if (resp.statusCode===201) toast.current.show({severity:'error', summary: 'Newsletter', detail:resp.message, life: 3000});
+        else if(resp.statusCode===500) toast.current.show({severity:'error', summary: 'Newsletter', detail:resp.message, life: 3000});
+    }
     //action made when the form is submited 
     const onSubmit = (data) => {
         if (data) {
-            showSuccess();
-            console.log({data});
+            createAddnewsletter(data.email);
         }
     }
 
@@ -48,7 +62,7 @@ function Footer() {
             <div className="right">
                 <h4>Recevez notre newsletter</h4>
                 <div>
-                    <InputText type="email" {...register("email",{required:"Saisir une adresse email.", pattern:{value:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message:"Saisir une adresse email valide."}})} />
+                    <InputText value={email} type="email" {...register("email",{ onChange:(e) => setEmail(e.target.value), required:"Saisir une adresse email.", pattern:{value:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message:"Saisir une adresse email valide."}})} />
                     <Button onClick={handleSubmit(onSubmit)} label="S'abonner" id="subscribe"  />
                     {errors?.email && <ErrorMessage message={errors.email.message}/>}
                 </div>
