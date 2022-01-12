@@ -1,7 +1,7 @@
 import "./PersonalInfo.css"
 import { Button } from  "primereact/button"
 
-function PersonalInfo(){
+function PersonalInfo({setActiveIndex}){
     let name="matthis";
     let firstname="pinon";
     let mail="test@mail";
@@ -23,7 +23,7 @@ function PersonalInfo(){
                 <span>
                     <Button label="Abandonner"/>
                     <Button label="Modifier"/>
-                    <Button label="Suivant"/>
+                    <Button label="Suivant" onClick={()=>setActiveIndex(1)}/>
                 </span>
             </div>
         </div>

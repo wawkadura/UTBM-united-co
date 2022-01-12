@@ -2,6 +2,7 @@ import { Steps } from "primereact/steps"
 import PersonalInfo from "./personalInfo/PersonalInfo"
 import { useState } from 'react'
 import NotFound from "../../shared/not-found/NotFound";
+import SubInfo from "./subInfo/SubInfo";
 
 function Subscription(){
     const [activeIndex, setActiveIndex] = useState(0);
@@ -29,8 +30,8 @@ function Subscription(){
                 readOnly={false}
             />
             {
-                activeIndex === 0 ? <PersonalInfo/> : 
-                activeIndex === 1 ? <div>1</div> : 
+                activeIndex === 0 ? <PersonalInfo setActiveIndex={setActiveIndex}/> : 
+                activeIndex === 1 ? <SubInfo setActiveIndex={setActiveIndex}/> : 
                 activeIndex === 2 ? <div>2</div> : 
                 activeIndex === 3 ? <div>3</div> : 
                 <NotFound/>
