@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./ContactForm.css";
 import ContactFormDialog from "./ContactFormDialog/ContactFormDialog";
- 
 
 function ContactForm() {
     const [displayBasic, setDisplayBasic] = useState(false) ;
