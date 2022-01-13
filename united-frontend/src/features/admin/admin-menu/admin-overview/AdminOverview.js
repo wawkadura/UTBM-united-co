@@ -1,16 +1,15 @@
 import "./AdminOverview.css";
 
 import React from 'react';
-import { Chart } from 'primereact/chart';
 
-import {Card} from "primereact/card";
-import {Divider} from "primereact/divider";
-import {Panel} from "primereact/panel";
-import {Button} from "primereact/button";
-import {Dialog} from "primereact/dialog";
-import {InputText} from "primereact/inputtext";
+import { Card } from "primereact/card";
+import { Divider } from "primereact/divider";
+import { Panel } from "primereact/panel";
+import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
+import { InputText } from "primereact/inputtext";
 
-import {useState} from "react";
+import { useState } from "react";
 
 function AdminOverview() {
 
@@ -31,6 +30,11 @@ function AdminOverview() {
         'displayPosition': setDisplayPosition,
         'displayResponsive': setDisplayResponsive
     }
+    // TODO: à récupérer
+    var email = "walid.kadura@united.co"
+    var phoneNumber = "0612345678"
+    var firstName = "El Walid"
+    var lastName = "Kadura"
 
     const onClick = (name, position) => {
         dialogFuncMap[`${name}`](true);
@@ -46,7 +50,7 @@ function AdminOverview() {
 
     function dialogFooter() {
         return (
-            <div style={{textAlign: 'center'}}>
+            <div style={{ textAlign: 'center' }}>
                 <Button label="Sauvegarder" icon="pi pi-save" onClick={() => onClick('displayBasic')} />
             </div>
         );
@@ -62,56 +66,58 @@ function AdminOverview() {
 
     return <div className="admin-contents">
         <Card title="Informations générales" style={{ height: '100%' }}>
-            <Divider/>
+            <Divider />
 
             <Panel header="Informations personnelles">
-                <p><span>Prénom : </span>Chaeyoung is bae</p>
+                <p><span>Prénom : </span>{firstName}</p>
                 <Divider />
 
-                <p><span>Nom de famille : </span>Kadura</p>
+                <p><span>Nom de famille : </span>{lastName}</p>
                 <Divider />
 
-                <p><span>Date de naissance : </span>11/02/1997</p>
+                <p><span>Email : </span>{email}</p>
                 <Divider />
 
-                <p><span>Genre :  </span>Femme</p>
+                <p><span>Numéro téléphone :  </span>{phoneNumber}</p>
             </Panel>
             {cardFooter()}
-            <br/>
+            <br />
             <Panel header="Statistiques générales">
-                <DoughnutChartDemo></DoughnutChartDemo>
+            </Panel>
+
+            <Panel header="Messageries">
             </Panel>
 
 
             <Dialog header="Informations personnelles" position="center" draggable={false} visible={displayBasic} style={{ width: '30vw' }} footer={dialogFooter('displayBasic')} onHide={() => onHide('displayBasic')}>
-                <Divider/>
+                <Divider />
                 <div className="p-fluid p-formgrid p-grid">
                     <div className="p-field p-col">
                         <label htmlFor="firstname1">Prénom</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText id="firstname1" type="text" value="Chaeyoung"/>
+                            <InputText id="firstname1" type="text" placeholder={firstName} />
                         </span>
                     </div>
                     <div className="p-field p-col">
                         <label htmlFor="lastname1">Nom de famille</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText id="lastname1" type="text" value="Park"/>
+                            <InputText id="lastname1" type="text" placeholder={lastName} />
                         </span>
                     </div>
                     <div className="p-field p-col">
                         <label htmlFor="firstname1">Adresse email</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText id="firstname1" type="text" value="rosie@blackpink.kr"/>
+                            <InputText id="firstname1" type="text" placeholder={email} />
                         </span>
                     </div>
                     <div className="p-field p-col">
                         <label htmlFor="lastname1">Numéro de téléphone</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText id="lastname1" type="text" value="+823532450845"/>
+                            <InputText id="lastname1" type="text" placeholder={phoneNumber} />
                         </span>
                     </div>
                 </div>
@@ -120,40 +126,5 @@ function AdminOverview() {
     </div>
 }
 
-const DoughnutChartDemo = () => {
-    const chartData = {
-        labels: ['A', 'B', 'C'],
-        datasets: [
-            {
-                data: [300, 50, 100],
-                backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56"
-                ],
-                hoverBackgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56"
-                ]
-            }]
-    };
-
-    const lightOptions = {
-        plugins: {
-            legend: {
-                labels: {
-                    color: '#495057'
-                }
-            }
-        }
-    };
-
-    return (
-        <div className="card p-d-flex p-jc-center">
-            <Chart type="doughnut" data={chartData} options={lightOptions} style={{ position: 'relative', width: '40%' }} />
-        </div>
-    )
-}
 
 export default AdminOverview
