@@ -8,24 +8,22 @@ function PersonalInfo({setActiveIndex}){
     
     return (
         <div>
-            <div className="intro">
-                <h1>Vos informations</h1>
+            <div className="flex flex-column align-items-center my-3">
+                <h1 className="mb-2">Vos informations</h1>
                 <p>
                     Si certaines de ces informations sont fausses, merci de les modifier
                 </p>
             </div>
-            <div className="print_container">
-                <p className="print">{firstname}</p>
-                <p className="print">{name}</p>
-                <p className="print">{mail}</p>
+            <div className="flex flex-column align-items-center">
+                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">Nom : {firstname}</p>
+                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">Prénom : {name}</p>
+                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">Email : {mail}</p>
             </div>
-            <div className="g-button">
-                <span>
-                    <Button label="Abandonner"/>
-                    <Button label="Modifier"/>
-                    <Button label="Suivant" onClick={()=>setActiveIndex(1)}/>
-                </span>
-            </div>
+            <span className="flex p-buttonset justify-content-center mb-4 mt-3">
+                <Button label="Abandonner" className="perso-color-blue"/>
+                <Button label="Modifier" className="perso-color-blue"/>
+                <Button label="Suivant" className="perso-color-blue" onClick={()=>setActiveIndex(1)}/>
+            </span>
         </div>
     )
 }

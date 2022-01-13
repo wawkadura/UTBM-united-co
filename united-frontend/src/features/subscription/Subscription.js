@@ -5,7 +5,8 @@ import NotFound from "../../shared/not-found/NotFound";
 import SubInfo from "./subInfo/SubInfo";
 
 function Subscription(){
-    const [activeIndex, setActiveIndex] = useState(0);
+    //first component show
+    const [activeIndex, setActiveIndex] = useState(1);
 
     const stepItems = [
         {

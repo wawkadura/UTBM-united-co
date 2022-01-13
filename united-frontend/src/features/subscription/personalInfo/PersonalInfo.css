@@ -1,41 +1,12 @@
-h1{
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-
-.intro{
-    text-align: center;
-}
-
-.print_container{
-    display: flex;
-    flex-direction: column;
-}
-
 p{
     font-size: large;
 }
 
-.print{
-    background-color:gray;
-    color:white;
-    border-radius: 10px;
-    height: 3rem;
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-    margin: 20px 30% 20px 30%;
+.perso-color-gray{
+    background-color:#a0a0a6;
 }
 
-.g-button{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    margin-top: 20px;
-}
-
-.p-button{
+.perso-color-blue{
     background-color: #282960;
     border-color: #282960;
-    margin: 20px;
-    font-size: small;
 }
