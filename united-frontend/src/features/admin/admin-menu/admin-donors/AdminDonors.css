@@ -1,31 +1,31 @@
-.admin-users {
+.admin-donors {
     height: 100%;
   }
-  .admin-users .p-card {
+  .admin-donors .p-card {
     border-radius: 1rem;
     font-family: "Nunito", sans-serif;
     background-color: var(--indigo-50);
   }
-  .admin-users .p-card .p-card-content {
+  .admin-donors .p-card .p-card-content {
     padding: 0;
   }
-  .admin-users .p-panel {
+  .admin-donors .p-panel {
     margin-bottom: 1rem;
   }
-  .admin-users span {
+  .admin-donors span {
     font-weight: bold;
     color: var(--indigo-900);
   }
-  .admin-users .p-datatable {
+  .admin-donors .p-datatable {
     min-height: 100%;
     max-height: 70vh;
   }
-  .admin-users .p-datatable .p-datatable-thead tr th {
+  .admin-donors .p-datatable .p-datatable-thead tr th {
     background-color: var(--indigo-100);
   }
-  .admin-users .actions button:first-of-type {
+  .admin-donors .actions button:first-of-type {
     margin-right: 1rem;
   }
   
-  /*# sourceMappingURL=UserSubscriptions.css.map */
+  /*# sourceMappingURL=donorsubscriptions.css.map */
   

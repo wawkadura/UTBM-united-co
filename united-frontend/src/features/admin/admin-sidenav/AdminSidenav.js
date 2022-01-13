@@ -23,7 +23,10 @@ function AdminSidenav({type, setType}) {
             <Button onClick={() => {onChangeType("overview")}} label="Informations générale" icon="pi pi-info-circle" />
             <Divider/>
 
-            <Button onClick={() => {onChangeType("users")}} label="Gestion d'utilisateurs" icon="pi pi-users" />
+            <Button onClick={() => {onChangeType("donors")}} label="Gestion des donateurs" icon="pi pi-users" />
+            <Divider />
+
+            <Button onClick={() => {onChangeType("associations")}} label="Gestion des associations" icon="pi pi-sitemap" />
             <Divider />
 
             <Button onClick={() => {onChangeType("statistics")}} label="Statistiques générale" icon="pi pi-chart-bar" />

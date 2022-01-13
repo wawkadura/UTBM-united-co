@@ -1,4 +1,4 @@
-import "./AdminUsers.css";
+import "./AdminDonors.css";
 
 import {Card} from "primereact/card";
 import {Divider} from "primereact/divider";
@@ -6,7 +6,7 @@ import {Button} from "primereact/button";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 
-const users = [
+const donors = [
     {id: "1", status: "active", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
     {id: "1", status: "active", association: "Blackpink", sub_type: "Standard", price: "5e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
     {id: "1", status: "active", association: "Asso sport", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
@@ -23,7 +23,7 @@ const users = [
     {id: "1", status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
 ]
 
-function AdminUsers() {
+function AdminDonors() {
     function actions() {
         return (
             <div className="actions">
@@ -32,11 +32,11 @@ function AdminUsers() {
         )
     }
 
-    return <div className="admin-users">
+    return <div className="admin-donors">
         <Card title="Gestion des utilisateurs" subTitle="Vous pouvez retrouvez sur cette page l'ensemble des utilisateurs de la platforme" style={{ height: '100%' }}>
             <Divider/>
 
-            <DataTable value={users} scrollable scrollHeight="41.5rem" size="normal">
+            <DataTable value={donors} scrollable scrollHeight="41.5rem" size="normal">
                 <Column field="status" header="Statut" sortable/>
                 <Column field="association" header="Association" sortable/>
                 <Column field="sub_type" header="Abonnement" sortable/>
@@ -50,4 +50,4 @@ function AdminUsers() {
     </div>
 }
 
-export default AdminUsers
+export default AdminDonors

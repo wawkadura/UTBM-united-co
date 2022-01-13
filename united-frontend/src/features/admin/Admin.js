@@ -2,7 +2,7 @@ import "./Admin.css";
 
 import AdminSidenav from "./admin-sidenav/AdminSidenav";
 import AdminOverview from "./admin-menu/admin-overview/AdminOverview";
-import AdminUsers from "./admin-menu/admin-users/AdminUsers";
+import AdminDonors from "./admin-menu/admin-donors/AdminDonors";
 import AdminStatistics from "./admin-menu/admin-statistics/AdminStatistics";
 import AdminCommunications from "./admin-menu/admin-communications/AdminCommunications";
 import {useState} from "react";
@@ -12,7 +12,7 @@ function Admin() {
     const component = () => {
         switch (type) {
             case "overview" : return <AdminOverview/>;
-            case "users": return <AdminUsers/>;
+            case "donors": return <AdminDonors/>;
             case "statistics": return <AdminStatistics/>;
             case "communications": return <AdminCommunications/>;
 
