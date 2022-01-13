@@ -15,9 +15,15 @@ function PersonalInfo({setActiveIndex}){
                 </p>
             </div>
             <div className="flex flex-column align-items-center">
-                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">Nom : {firstname}</p>
-                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">Prénom : {name}</p>
-                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">Email : {mail}</p>
+                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">
+                    Nom : {firstname}
+                </p>
+                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">
+                    Prénom : {name}
+                </p>
+                <p className="flex text-white border-round perso-color-gray align-items-center pl-3 my-2 w-5 h-2rem">
+                    Email : {mail}
+                </p>
             </div>
             <span className="flex p-buttonset justify-content-center mb-4 mt-3">
                 <Button label="Abandonner" className="perso-color-blue"/>
