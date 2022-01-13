@@ -1,9 +1,32 @@
 .associations {
-  height: 100vh;
+  height: 90%;
   width: 100%;
   background-color: var(--indigo-900);
   color: var(--indigo-50);
-  padding: 3rem 10rem;
+  padding: 3% 10%;
 }
+
+.associations-text-button {
+  background-color: var(--indigo-50);
+  color: var(--indigo-900);
+  font-family: "Nunito", sans-serif;
+}
+
+.image-associations{
+  width: 400px;
+  height: 250px;
+} 
+@media screen and (max-width: 1300px) {
+  .image-associations{
+    width: 250px;
+    height: 140px;
+  }
+}
+.associations-card{
+  margin: 50px;
+} 
+.space-text{
+  margin-top: 15px;
+} 
 
 /*# sourceMappingURL=Associations.css.map */
