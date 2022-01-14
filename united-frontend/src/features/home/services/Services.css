@@ -1,9 +1,30 @@
 .services {
-  height: 100vh;
+  height: 200%;
   width: 100%;
   background-color: var(--indigo-50);
   color: var(--indigo-900);
-  padding: 3rem 10rem;
+  padding: 3% 10%;
 }
+
+.image-services{
+  width: 400px;
+  height: 250px;
+} 
+@media screen and (max-width: 1300px) {
+  .image-services{
+    width: 250px;
+    height: 140px;
+  }
+}
+.services-card{
+  margin: 50px;
+} 
+.space-text{
+  margin-top: 15px;
+}
+.imageservice {
+  width: 70%;
+  height: auto;
+} 
 
 /*# sourceMappingURL=Services.css.map */

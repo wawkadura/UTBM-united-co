@@ -1,9 +1,20 @@
 .contact-form {
-  height: 100vh;
+  height: 18vh;
   width: 100%;
   background-color: var(--indigo-900);
   color: var(--indigo-50);
   padding: 3rem 10rem;
 }
 
+.button-label {
+  font-weight: 1000;
+  position:absolute ;
+  left: 720px;
+  top: 2908px
+}
+
+.ici{
+  color: rgb(66, 66, 204);
+  cursor: pointer;
+}
 /*# sourceMappingURL=ContactForm.css.map */
