@@ -26,6 +26,11 @@
   .admin-donors .actions button:first-of-type {
     margin-right: 1rem;
   }
+
+  .spinner {
+    margin-top: 10%;
+    width: 100%;
+  }
   
   /*# sourceMappingURL=donorsubscriptions.css.map */
   

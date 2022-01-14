@@ -6,9 +6,11 @@ import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Toast } from 'primereact/toast';
 import { confirmPopup } from 'primereact/confirmpopup';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 import { Column } from "primereact/column";
 import React, { useState, useRef, useEffect } from 'react';
+import { AdminService } from "../../AdminService"
 
 
 
@@ -31,47 +33,23 @@ var donors = [
 function AdminDonors() {
     var idToDelete = ''
     const toast = useRef(null);
-    const getDonors = () => {
-        fetch("http://localhost:4200/admin/donors", {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
+    const adminService = new AdminService();
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        adminService.getDonors().then((response) => {
             console.log(response)
-            if (!response.ok) {
+            if (!response.ok && toast.current != null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
-            } else {
+            }
+            if (response.ok && toast.current != null) {
                 donors = response.data
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les donateurs on bien été récupérés', life: 3000 });
             }
-
+            setIsLoading(false)
         });
-    }
-
-    useEffect(() => {
-        getDonors()
     });
 
-    const onDeleteRequest = (id) => {
-        fetch("http://localhost:4200/admin/delete-donor", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: id
-            })
-        }).then((response) => {
-            console.log(response)
-            if (!response.ok) {
-                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
-            } else {
-                toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Le donateur a bien été supprimé', life: 3000 });
-            }
-
-        });
-    }
     const confirm = (event, id) => {
         idToDelete = id
         confirmPopup({
@@ -85,7 +63,15 @@ function AdminDonors() {
     };
 
     const accept = () => {
-        onDeleteRequest(idToDelete)
+        adminService.deleteDonor(idToDelete).then((response) => {
+            console.log(response)
+            if (!response.ok) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
+            } else {
+                toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Le donateur a bien été supprimé', life: 3000 });
+            }
+
+        });
         idToDelete = ''
     };
 
@@ -102,13 +88,16 @@ function AdminDonors() {
 
         <Card title="Gestion des donateurs" subTitle="Vous pouvez retrouvez sur cette page l'ensemble des donateurs de la platforme" style={{ height: '100%' }}>
             <Divider />
-
-            <DataTable value={donors} scrollable scrollHeight="41.5rem" size="normal">
-                <Column field="first_name" header="Prénom" sortable />
-                <Column field="last_name" header="Nom" sortable />
-                <Column field="email" header="Email" sortable />
-                <Column header="Actions" body={(data) => actions(data)} />
-            </DataTable>
+            {isLoading ?
+                <ProgressSpinner className="spinner" />
+                :
+                <DataTable value={donors} scrollable scrollHeight="41.5rem" size="normal">
+                    <Column field="first_name" header="Prénom" sortable />
+                    <Column field="last_name" header="Nom" sortable />
+                    <Column field="email" header="Email" sortable />
+                    <Column header="Actions" body={(data) => actions(data)} />
+                </DataTable>
+            }
         </Card>
     </div>
 }
