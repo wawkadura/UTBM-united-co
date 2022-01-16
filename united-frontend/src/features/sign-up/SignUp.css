@@ -1,4 +1,4 @@
-.form-demo{
+.sign-up-form{
   margin-left: 30%;
   margin-right: 30%;
   margin-top: 5%;
@@ -8,13 +8,13 @@
   padding: 2%;
   border-color: grey;
 }
-.form-demo .card {
+.sign-up-form .card {
   min-width: 450px;
 }
-.form-demo .card form {
+.sign-up-form .card form {
   margin-top: 2rem;
 }
-.form-demo .card .p-field {
+.sign-up-form .card .p-field {
   margin-bottom: 1.5rem;
 }
 
@@ -23,12 +23,12 @@
   margin-bottom: 1%;
 }
 @media screen and (max-width: 960px) {
-  .form-demo .card {
+  .sign-up-form .card {
       width: 80%;
   }
 }
 @media screen and (max-width: 1260px) {
-  .form-demo .card {
+  .sign-up-form .card {
       width: 100%;
       min-width: 0;
   }

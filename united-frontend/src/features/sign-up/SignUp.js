@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -8,13 +7,16 @@ import { Checkbox } from 'primereact/checkbox';
 import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { useNavigate } from "react-router-dom";
+import { Toast } from 'primereact/toast';
 import { classNames } from 'primereact/utils';
+import { SignUpService } from './SignUpService';
 import './SignUp.css';
 
 function SignUp() {
     const [showMessage, setShowMessage] = useState(false);
     const [isPending, setIsPending] = useState(false)
     const [formData, setFormData] = useState({});
+    const [mailExists, setMailExists] = useState(false);
 
     const defaultValues = {
         name: '',
@@ -22,35 +24,32 @@ function SignUp() {
         password: '',
         confirmPassword: '',
     }
+    const signUpService = new SignUpService()
     const { control, watch, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
     const navigate = useNavigate();
+    const toast = useRef(null);
     const onSubmit = (data) => {
         console.log(data)
         setIsPending(true)
         setFormData(data);
 
-        fetch(process.env.REACT_APP_BACKEND_URL + "/sign-up", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                Data: {
-                    name: formData.name,
-                    email: formData.email,
-                    password: formData.password,
-                }
-            })
-        }).then((response) => {
+        signUpService.CreateDonor(formData).then((response) => {
             console.log(response)
-            // TODO: display the message if there's an error
             setIsPending(false)
-            setShowMessage(true);
-            reset();
-        })
 
+            if (!response.ok) {
+                // if response = mail existe {setMailExists(true)}
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
+                setMailExists(true)
+            } else {
+                reset();
+                setShowMessage(true);
+            }
+        })
     };
+    const resetMailExistance = () => {
+        setMailExists(false)
+    }
 
     const getFormErrorMessage = (name) => {
         return errors[name] && <small className="p-error">{errors[name].message}</small>
@@ -77,10 +76,12 @@ function SignUp() {
     );
 
     return (
-        <div className="form-demo">
+        <div className="sign-up-form">
+            <Toast ref={toast} />
+
             <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
-                    <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
+                    <i className="pi pi-check-circle" style={{ fontSize: '3rem', color: 'var(--green-500)' }}></i>
                     <h5>Inscription Terminé !</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
                         <b>{formData.name}</b> Votre compte a été créé avec succès ! Toute l'équipe vous souhaite la bienvenue sur united.co!
@@ -108,7 +109,7 @@ function SignUp() {
                                 <Controller name="email" control={control}
                                     rules={{ required: 'Email obligatoire.', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: 'Adresse email invalide. Ex: example@email.com' } }}
                                     render={({ field, fieldState }) => (
-                                        <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                        <InputText onInput={() => resetMailExistance()} id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                                     )} />
                                 <label htmlFor="email" className={classNames({ 'p-error': !!errors.email })}>Email*</label>
                             </span>
@@ -127,7 +128,7 @@ function SignUp() {
                         <div className="p-field">
                             <span className="p-float-label">
                                 <Controller name="confirmPassword" control={control} rules={{ validate: value => value !== watch('password') ? "Les mots de passes ne correspondent pas" : undefined, required: 'Confirmation du mot de passe obligatoire.' }} render={({ field, fieldState }) => (
-                                    <Password id={field.name} {...field} toggleMask className={classNames({ 'p-invalid': fieldState.invalid })} feedback={false}/>
+                                    <Password id={field.name} {...field} toggleMask className={classNames({ 'p-invalid': fieldState.invalid })} feedback={false} />
                                 )} />
                                 <label htmlFor="confirmPassword" className={classNames({ 'p-error': errors.confirmPassword })}>Confirmer mot de passe*</label>
                             </span>
@@ -141,6 +142,7 @@ function SignUp() {
                         </div>
                         {!isPending && <Button type="submit" label="Valider" className="p-mt-2" />}
                         {isPending && <Button type="submit" disabled label="Validation..." className="p-mt-2" />}
+                        {mailExists && <small className="p-error">l'adresse email renseignée est déjà utilisé</small>}
 
                     </form>
                 </div>
