@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 
 function SubInfo({setActiveIndex}){
-    const [price, setPrice] = useState(20);
+    const [price, setPrice] = useState(10);
     const [nbMonth, setNbMonth] = useState(0);
     const [total, setTotal] = useState(0);
     
@@ -17,7 +17,7 @@ function SubInfo({setActiveIndex}){
                     Saisissez les informations relatives à votre abonnement
                 </p>
             </div>
-                {price!=null? //if price provide (sub for further months)
+            {price!=null? //if price is providing (sub for further months)
                 <div className="flex flex-column align-items-center">
                     <p className="flex text-white perso-color-gray border-round justify-content-center align-items-center h-2rem w-3">
                         Montant mensuel : {price}€
@@ -41,9 +41,9 @@ function SubInfo({setActiveIndex}){
                         </p>
                     </div>                
                 </div>
-                
-                : //else, it's a unique donation (feel free to the amount)
-                
+            
+            : //else, it's a unique donation (feel free to the amount)
+            
                 <div className="flex flex-column align-items-center">
                     <p className="flex perso-color-black-blue text-white border-round align-items-center mt-3 pl-3 w-7 h-2rem">
                         Donation libre
@@ -58,13 +58,11 @@ function SubInfo({setActiveIndex}){
                         />
                     </div>
                 </div>
-                }
-            <div className="flex p-buttonset justify-content-center mb-4 mt-2">
-                <span>
-                    <Button label="Précédent" className="perso-color-blue" onClick={()=>setActiveIndex(0)}/>
-                    <Button label="Suivant" className="perso-color-blue"/>
-                </span>
-            </div>
+            }
+            <span className="flex p-buttonset justify-content-center mb-4 mt-2">
+                <Button label="Précédent" className="perso-color-blue" onClick={()=>setActiveIndex(0)}/>
+                <Button label="Suivant" className="perso-color-blue" onClick={()=>setActiveIndex(2)}/>
+            </span>
         </div>
     )
 }

@@ -3,10 +3,11 @@ import PersonalInfo from "./personalInfo/PersonalInfo"
 import { useState } from 'react'
 import NotFound from "../../shared/not-found/NotFound";
 import SubInfo from "./subInfo/SubInfo";
+import PayementInfo from "./payementInfo/PayementInfo";
 
 function Subscription(){
     //first component show
-    const [activeIndex, setActiveIndex] = useState(1);
+    const [activeIndex, setActiveIndex] = useState(3);
 
     const stepItems = [
         {
@@ -33,7 +34,7 @@ function Subscription(){
             {
                 activeIndex === 0 ? <PersonalInfo setActiveIndex={setActiveIndex}/> : 
                 activeIndex === 1 ? <SubInfo setActiveIndex={setActiveIndex}/> : 
-                activeIndex === 2 ? <div>2</div> : 
+                activeIndex === 2 ? <PayementInfo setActiveIndex={setActiveIndex}/> : 
                 activeIndex === 3 ? <div>3</div> : 
                 <NotFound/>
             }
