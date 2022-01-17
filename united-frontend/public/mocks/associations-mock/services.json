@@ -1,0 +1,14 @@
+{
+    "data": [
+        {"id":"1","association_id": "1000","title": "Regular","description": "Description de l'abonnement 1 de l'association SPA","price": "5"},
+        {"id":"9","association_id": "1000","title": "Premium","description": "Description de l'abonnement 2 de l'association SPA","price": "10"},
+        {"id":"10","association_id": "1000","title": "Premium +","description": "Description de l'abonnement 3 de l'association SPA","price": "15"},
+        {"id":"2","association_id": "1001","title": "Green Peace","description": "Product Description","price": "5"},
+        {"id":"3","association_id": "1002","title": "AS de Beaunes","description": "Aider les jeunes à initier une activité sportive","price": "5"},
+        {"id":"4","association_id": "1003","title": "Les Chasseurs Réunis","description": "Rencontre de passionnés de chasse","price": "5"},
+        {"id":"5","association_id": "1004","title": "SPA","description": "La SPA aide les animaux qui sont abandonnés","price": "5"},
+        {"id":"6","association_id": "1005","title": "Green Peace","description": "Product Description","price": "5"},
+        {"id":"7","association_id": "1006","title": "AS de Beaunes","description": "Aider les jeunes à initier une activité sportive","price": "5"},
+        {"id":"8","association_id": "1007","title": "Les Chasseurs Réunis","description": "Rencontre de passionnés de chasse","price": "5"}
+    ]
+}

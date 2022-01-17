@@ -5,6 +5,7 @@ import 'primeicons/primeicons.css';
 import Navbar from "./shared/navigation/navbar/Navbar";
 import Footer from "./shared/navigation/footer/Footer";
 import Home from "./features/home/Home";
+import Associations from './features/Associations/Associations';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NotFound from "./shared/not-found/NotFound";
@@ -21,6 +22,7 @@ function App() {
                   <Routes>
                       <Route exact path="/" element={<Home/>}/>
                       <Route exact path="/home" element={<Home/>}/>
+                      <Route exact path="/associations" element={<Associations/>}/>
                       <Route path="*" element={<NotFound/>}/>
                   </Routes>
               </div>
