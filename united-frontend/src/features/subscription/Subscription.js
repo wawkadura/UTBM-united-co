@@ -7,7 +7,51 @@ import PayementInfo from "./payementInfo/PayementInfo";
 
 function Subscription(){
     //first component show
-    const [activeIndex, setActiveIndex] = useState(3);
+    const [activeIndex, setActiveIndex] = useState(2);
+    const [typesPayement, setTypesPayement] = useState([
+        {
+            id : 1,
+            owner : "PINON",
+            cardNumber : 12331242342,
+            expirationDate : "09/2022",
+        },
+        {
+            id : 2,
+            owner : "INFOX",
+            cardNumber : 19843194723,
+            expirationDate : "10/2020",
+        },
+        {
+            id : 3,
+            owner : "JILLE",
+            cardNumber : 19843194723,
+            expirationDate : "10/2020",
+        },
+        {
+            id : 4,
+            owner : "LOUPE",
+            cardNumber : 19843194723,
+            expirationDate : "10/2020",
+        }
+    ]);
+    const user =
+        {
+            firstname : "Matthis",
+            name : "PINON",
+            email : "matthis.pinon@utbm.fr"
+        };
+    const [subInfo, setSubInfo] = useState({
+        price : 10,
+        duration : 0,
+        total : 0
+    });
+
+    const [selectedPayement, setSelectedPayement] = useState({
+        idCopy: null,
+        cardNumberCopy: null,
+        ownerCopy: null,
+        expirationDateCopy: null
+    });
 
     const stepItems = [
         {
@@ -32,9 +76,19 @@ function Subscription(){
                 readOnly={false}
             />
             {
-                activeIndex === 0 ? <PersonalInfo setActiveIndex={setActiveIndex}/> : 
-                activeIndex === 1 ? <SubInfo setActiveIndex={setActiveIndex}/> : 
-                activeIndex === 2 ? <PayementInfo setActiveIndex={setActiveIndex}/> : 
+                activeIndex === 0 ? <PersonalInfo setActiveIndex={setActiveIndex} user={user}/> : 
+                activeIndex === 1 ? <SubInfo 
+                                        setActiveIndex={setActiveIndex} 
+                                        subInfo={subInfo} 
+                                        setSubInfo={setSubInfo}
+                                    /> : 
+                activeIndex === 2 ? <PayementInfo 
+                                        setActiveIndex={setActiveIndex} 
+                                        typesPayement={typesPayement} 
+                                        setTypesPayement={setTypesPayement} 
+                                        selectedPayement={selectedPayement} 
+                                        setSelectedPayement={setSelectedPayement}
+                                    /> : 
                 activeIndex === 3 ? <div>3</div> : 
                 <NotFound/>
             }

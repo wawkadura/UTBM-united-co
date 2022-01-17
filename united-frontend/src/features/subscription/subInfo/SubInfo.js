@@ -1,13 +1,24 @@
 import { Button } from  "primereact/button"
 import "./SubInfo.css"
 import { InputNumber } from 'primereact/inputnumber'; 
-import { useState } from 'react'
 
+function SubInfo({setActiveIndex, subInfo, setSubInfo}){
 
-function SubInfo({setActiveIndex}){
-    const [price, setPrice] = useState(10);
-    const [nbMonth, setNbMonth] = useState(0);
-    const [total, setTotal] = useState(0);
+    function SetDuration(data){
+        setSubInfo({
+            price : subInfo.price, 
+            duration : data,
+            total : subInfo.total
+        })
+    }
+
+    function SetTotal(data){
+        setSubInfo({
+            price : subInfo.price,
+            duration : subInfo.duration,
+            total : data
+        })
+    }
     
     return (
         <div>
@@ -17,10 +28,10 @@ function SubInfo({setActiveIndex}){
                     Saisissez les informations relatives à votre abonnement
                 </p>
             </div>
-            {price!=null? //if price is providing (sub for further months)
+            {subInfo.price!=null? //if price is providing (sub for further months)
                 <div className="flex flex-column align-items-center">
                     <p className="flex text-white perso-color-gray border-round justify-content-center align-items-center h-2rem w-3">
-                        Montant mensuel : {price}€
+                        Montant mensuel : {subInfo.price}€
                     </p>
                     <p className="flex perso-color-black-blue text-white border-round align-items-center mt-3 pl-3 w-7 h-2rem">
                         Abonnement
@@ -31,13 +42,13 @@ function SubInfo({setActiveIndex}){
                                 Durée de l'abonnement : 
                             </p>
                             
-                            <InputNumber className="flex-order-1" value={nbMonth} onValueChange={(e) => {setNbMonth(e.value); setTotal(e.value*price)}} mode="decimal" showButtons min={0} max={12} 
+                            <InputNumber className="flex-order-1" value={subInfo.duration} onValueChange={(e) => {SetDuration(e.value); SetTotal(e.value*subInfo.price)}} mode="decimal" showButtons min={0} max={12} 
                             incrementButtonClassName="perso-color-blue" decrementButtonClassName="perso-color-blue" allowEmpty={false} size={2} suffix=" mois"
                             />
                         </div>
                         
                         <p className="flex flex-order-2 text-white perso-color-gray border-round justify-content-center align-items-center h-2rem w-1">
-                            Total : {total}
+                            Total : {subInfo.total}
                         </p>
                     </div>                
                 </div>
@@ -53,7 +64,7 @@ function SubInfo({setActiveIndex}){
                             Montant de votre don : 
                         </p>
                         
-                        <InputNumber className="flex-order-1" value={nbMonth} onValueChange={(e) => setTotal(e.value)} mode="currency" currency="EUR" 
+                        <InputNumber className="flex-order-1" value={subInfo.total} onValueChange={(e) => SetTotal(e.value)} mode="currency" currency="EUR" 
                         showButtons min={0} incrementButtonClassName="perso-color-blue" decrementButtonClassName="perso-color-blue" allowEmpty={false} size={2}
                         />
                     </div>
