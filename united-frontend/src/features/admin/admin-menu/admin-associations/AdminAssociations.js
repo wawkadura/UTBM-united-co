@@ -10,6 +10,7 @@ import { DataTable } from "primereact/datatable";
 import { Toast } from 'primereact/toast';
 import { confirmPopup } from 'primereact/confirmpopup';
 import { ProgressSpinner } from 'primereact/progressspinner';
+
 import { AdminService } from "../../AdminService"
 import { Column } from "primereact/column";
 import React, { useState, useEffect, useRef } from 'react';
@@ -32,7 +33,6 @@ function AdminAssociations() {
     const [isLoading, setIsLoading] = useState(true)
     var idToDelete = ''
     const [selectedAssociation, setSelectedAssociation] = useState(null);
-
     const toast = useRef(null);
     const [display, setDisplayBasic] = useState(false);
     const adminService = new AdminService();

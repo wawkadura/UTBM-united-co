@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser';
 export class AdminService {
 
     async getAssociations() {
@@ -40,5 +41,12 @@ export class AdminService {
                 id: id
             })
         })
+    }
+    sendEmail(emailData) {
+        return emailjs.send("service_6rcafdk", "template_tlhsphk", {
+            subject: emailData.subject,
+            message: emailData.message,
+            email: emailData.email,
+        }, "user_SIDEoCNlWwROUDulWRZJK")
     }
 }
