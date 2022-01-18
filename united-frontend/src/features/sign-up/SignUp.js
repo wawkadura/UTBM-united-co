@@ -29,12 +29,10 @@ function SignUp() {
     const navigate = useNavigate();
     const toast = useRef(null);
     const onSubmit = (data) => {
-        console.log(data)
         setIsPending(true)
         setFormData(data);
 
         signUpService.CreateDonor(formData).then((response) => {
-            console.log(response)
             setIsPending(false)
 
             if (!response.ok) {
