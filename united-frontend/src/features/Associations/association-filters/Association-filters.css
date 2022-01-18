@@ -1,0 +1,50 @@
+.association-filters {
+  width: 15%;
+  border: solid 1px;
+  background-color: rgb(40 41 96);
+  padding-bottom: 20px;
+}
+
+.association-filters-title {
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.association-filters-item {
+  margin: 20px 0;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.association-filters-sub {
+  padding: 10px;
+}
+
+.association-filters .p-grid .p-col-9 {
+  padding: 10px 0 0 25px;
+}
+
+.association-filters .p-grid .p-col-3 {
+  padding-top: 30px;
+  text-align: right;
+}
+
+.association-filters-input {
+  width: 100%;
+}
+
+.association-filters-slider {
+  margin: 5px 10px;
+}
+
+.association-filters-date {
+  text-align: center;
+}
+
+.association-filters-reset-button {
+  text-align: center;
+  margin: 40px 0 20px 0;
+}
+
+/*# sourceMappingURL=Associations.css.map */
