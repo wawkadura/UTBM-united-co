@@ -34,12 +34,14 @@ function Subscription(){
             expirationDate : "10/2020",
         }
     ]);
+
     const user =
-        {
-            firstname : "Matthis",
-            name : "PINON",
-            email : "matthis.pinon@utbm.fr"
-        };
+    {
+        firstname : "Matthis",
+        name : "PINON",
+        email : "matthis.pinon@utbm.fr"
+};
+    
     const [subInfo, setSubInfo] = useState({
         price : 10,
         duration : 0,
