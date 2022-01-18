@@ -17,21 +17,21 @@ const config: ConnectionOptions = {
     username: 'root',
     password: '',
     database: 'united',
-    entities: [__dirname + '/**/*.entity{.ts,.js}'], //dist or main dir ?
+    entities: ['dist/**/*.entity.js'], //dist or main dir ?
 
     // We are using migrations, synchronize should be set to false.
     synchronize: false,
 
     // Run migrations automatically,
     // you can disable this if you prefer running migration manually.
-    migrationsRun: true,
+    migrationsRun: false,
     logging: true,
     logger: 'file',
 
     // Allow both start:prod and start:dev to use migrations
     // __dirname is either dist or src folder, meaning either
     // the compiled js in prod or the ts in dev.
-    migrations: [ 'src/migrations/**/*{.ts,.js}'],
+    migrations: [ 'dist/migrations/**/*.js'],
     cli: {
         // Location of migration should be inside src folder
         // to be compiled into dist/ folder.
@@ -39,4 +39,4 @@ const config: ConnectionOptions = {
     },
 };
 
-export = config
+export default config
