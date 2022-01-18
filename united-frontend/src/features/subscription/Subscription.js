@@ -1,6 +1,6 @@
 import { Steps } from "primereact/steps"
 import PersonalInfo from "./personalInfo/PersonalInfo"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import NotFound from "../../shared/not-found/NotFound";
 import SubInfo from "./subInfo/SubInfo";
 import PayementInfo from "./payementInfo/PayementInfo";
@@ -8,7 +8,14 @@ import Summary from "./summary/Summary";
 
 function Subscription(){
     //first component show
-    const [activeIndex, setActiveIndex] = useState(0);
+    const savedActiveIndex = localStorage.getItem('activeIndex');
+    const [activeIndex, setActiveIndex] = useState(savedActiveIndex ? JSON.parse(savedActiveIndex) : 0);
+    
+    useEffect(() => {
+        localStorage.setItem('activeIndex', JSON.stringify(activeIndex))
+    }, [activeIndex])
+    
+    //TODO : get to initialise
     const [typesPayement, setTypesPayement] = useState([
         {
             id : 1,
@@ -35,26 +42,37 @@ function Subscription(){
             expirationDate : "10/2020",
         }
     ]);
-
+    
+    //TODO : get to initialise
     const user =
     {
         firstname : "Matthis",
         name : "PINON",
         email : "matthis.pinon@utbm.fr"
-};
+    };
     
-    const [subInfo, setSubInfo] = useState({
+    const savedSubInfo = localStorage.getItem('subInfo');
+    const [subInfo, setSubInfo] = useState( savedSubInfo ? JSON.parse(savedSubInfo) : {
         price : 10,
         duration : 0,
         total : 0
     });
 
-    const [selectedPayement, setSelectedPayement] = useState({
+    useEffect(() => {
+        localStorage.setItem('subInfo', JSON.stringify(subInfo))
+    }, [subInfo])
+
+    const savedSelectedPayement = localStorage.getItem('selectedPayement');
+    const [selectedPayement, setSelectedPayement] = useState(savedSelectedPayement ? JSON.parse(savedSelectedPayement) : {
         idCopy: null,
         cardNumberCopy: null,
         ownerCopy: null,
         expirationDateCopy: null
     });
+
+    useEffect(() => {
+        localStorage.setItem('selectedPayement', JSON.stringify(selectedPayement))
+    }, [selectedPayement])
 
     const stepItems = [
         {

@@ -4,11 +4,11 @@ import { InputNumber } from 'primereact/inputnumber';
 
 function SubInfo({setActiveIndex, subInfo, setSubInfo}){
 
-    function SetDuration(data){
+    function SetInfo(dur, tot){
         setSubInfo({
-            price : subInfo.price, 
-            duration : data,
-            total : subInfo.total
+            price : subInfo.price,
+            duration : dur,
+            total : tot
         })
     }
 
@@ -42,7 +42,7 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
                                 Durée de l'abonnement : 
                             </p>
                             
-                            <InputNumber className="flex-order-1" value={subInfo.duration} onValueChange={(e) => {SetDuration(e.value); SetTotal(e.value*subInfo.price)}} mode="decimal" showButtons min={0} max={12} 
+                            <InputNumber className="flex-order-1" value={subInfo.duration} onValueChange={(e) => {SetInfo(e.value, e.value*subInfo.price)}} mode="decimal" showButtons min={0} max={12} 
                             incrementButtonClassName="perso-color-blue" decrementButtonClassName="perso-color-blue" allowEmpty={false} size={2} suffix=" mois"
                             />
                         </div>
