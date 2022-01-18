@@ -30,7 +30,7 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
 		//credit card doesn't exist
 		if(!currentCard){			
 			//add new credit card in array
-            setTypesPayement([...typesPayement, {id: 4, owner: name, cardNumber: number, expirationDate: date}]);
+            setTypesPayement([...typesPayement, {id: 5, owner: name, cardNumber: number, expirationDate: date}]);
 		}
 	}
 
@@ -58,7 +58,6 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
     return (
         <div>
             <Toast ref={successToast}/>
-            {/* <p>{formData.cardNumber} {formData.owner} {formData.expirationDate}</p> */}
             <div className="grid mx-3 my-2">
                 {typesPayement.length > 0 ? (
                     typesPayement.map(({id, owner, cardNumber, expirationDate})=>

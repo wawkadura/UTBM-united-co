@@ -4,10 +4,11 @@ import { useState } from 'react'
 import NotFound from "../../shared/not-found/NotFound";
 import SubInfo from "./subInfo/SubInfo";
 import PayementInfo from "./payementInfo/PayementInfo";
+import Summary from "./summary/Summary";
 
 function Subscription(){
     //first component show
-    const [activeIndex, setActiveIndex] = useState(2);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [typesPayement, setTypesPayement] = useState([
         {
             id : 1,
@@ -75,7 +76,7 @@ function Subscription(){
             <Steps model={stepItems} 
                 activeIndex={activeIndex} 
                 onSelect={(e) => setActiveIndex(e.index)} 
-                readOnly={false}
+                readOnly={true}
             />
             {
                 activeIndex === 0 ? <PersonalInfo setActiveIndex={setActiveIndex} user={user}/> : 
@@ -91,7 +92,12 @@ function Subscription(){
                                         selectedPayement={selectedPayement} 
                                         setSelectedPayement={setSelectedPayement}
                                     /> : 
-                activeIndex === 3 ? <div>3</div> : 
+                activeIndex === 3 ? <Summary
+                                        setActiveIndex={setActiveIndex}
+                                        user={user}
+                                        selectedPayement={selectedPayement}
+                                        subInfo={subInfo}
+                                    /> : 
                 <NotFound/>
             }
         </div>

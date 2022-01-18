@@ -28,7 +28,7 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
                     Saisissez les informations relatives à votre abonnement
                 </p>
             </div>
-            {subInfo.price!=null? //if price is providing (sub for further months)
+            {subInfo.price !== null && subInfo.price !== 0? //if price is providing (sub for further months)
                 <div className="flex flex-column align-items-center">
                     <p className="flex text-white perso-color-gray border-round justify-content-center align-items-center h-2rem w-3">
                         Montant mensuel : {subInfo.price}€
@@ -72,7 +72,7 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
             }
             <span className="flex p-buttonset justify-content-center mb-4 mt-2">
                 <Button label="Précédent" className="perso-color-blue" onClick={()=>setActiveIndex(0)}/>
-                <Button label="Suivant" className="perso-color-blue" onClick={()=>setActiveIndex(2)}/>
+                <Button label="Suivant" className="perso-color-blue" onClick={()=>setActiveIndex(2)} disabled={subInfo.total===0}/>
             </span>
         </div>
     )
