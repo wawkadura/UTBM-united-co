@@ -6,6 +6,7 @@ import Navbar from "./shared/navigation/navbar/Navbar";
 import Footer from "./shared/navigation/footer/Footer";
 import Home from "./features/home/Home";
 import Associations from './features/Associations/Associations';
+import SignIn from './features/signIn/SignIn';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NotFound from "./shared/not-found/NotFound";
@@ -23,6 +24,7 @@ function App() {
                       <Route exact path="/" element={<Home/>}/>
                       <Route exact path="/home" element={<Home/>}/>
                       <Route exact path="/associations" element={<Associations/>}/>
+                      <Route exact path="/home/signIn" element={<SignIn/>}/>
                       <Route path="*" element={<NotFound/>}/>
                   </Routes>
               </div>
