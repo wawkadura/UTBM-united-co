@@ -38,9 +38,9 @@ function AdminDonors() {
 
     useEffect(() => {
         adminService.getDonors().then((response) => {
-            console.log(response)
+            // console.log(response)
             if (!response.ok && toast.current != null) {
-                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
+                // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
             }
             if (response.ok && toast.current != null) {
                 donors = response.data
@@ -64,7 +64,7 @@ function AdminDonors() {
 
     const accept = () => {
         adminService.deleteDonor(idToDelete).then((response) => {
-            console.log(response)
+            // console.log(response)
             if (!response.ok) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
             } else {
@@ -89,7 +89,7 @@ function AdminDonors() {
         <Card title="Gestion des donateurs" subTitle="Vous pouvez retrouvez sur cette page l'ensemble des donateurs de la platforme" style={{ height: '100%' }}>
             <Divider />
             {isLoading ?
-                <ProgressSpinner className="spinner" />
+                <div className="spinner"> <ProgressSpinner /></div>
                 :
                 <DataTable value={donors} scrollable scrollHeight="41.5rem" size="normal">
                     <Column field="first_name" header="Prénom" sortable />

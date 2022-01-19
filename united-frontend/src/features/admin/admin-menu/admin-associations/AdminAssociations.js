@@ -160,7 +160,7 @@ function AdminAssociations() {
     return <div className="admin-associations">
         <Toast ref={toast} />
 
-        <Card title="Gestion des associations" subTitle="Vous pouvez retrouvez sur cette page l'ensemble des associations de la platforme" style={{ height: '100%' }}>
+        <Card className="admin-associations-card"  title="Gestion des associations" subTitle="Vous pouvez retrouvez sur cette page l'ensemble des associations de la platforme" style={{ height: '100%' }}>
 
             <Divider />
 
@@ -176,7 +176,7 @@ function AdminAssociations() {
                     <Column field="type" header="Type" sortable />
                     <Column header="Actions" body={(data) => actions(data)} />
                 </DataTable>
-                : <ProgressSpinner className="spinner" />
+                :<div className="spinner"> <ProgressSpinner /></div>
             }
 
         </Card>

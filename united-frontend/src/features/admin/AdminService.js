@@ -1,4 +1,5 @@
 import emailjs from '@emailjs/browser';
+
 export class AdminService {
 
     async getAssociations() {
@@ -48,5 +49,40 @@ export class AdminService {
             message: emailData.message,
             email: emailData.email,
         }, "user_SIDEoCNlWwROUDulWRZJK")
+    }
+
+    getAdminInfo(id) {
+        return fetch("http://localhost:4200/admin/"+id, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    getAdminOverviewStats() {
+        return fetch("http://localhost:4200/admin/overview", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    updateAdminInfo(id, data) {
+        return fetch("http://localhost:4200/admin/donor", {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                data: {
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email
+                }
+            })
+        })
     }
 }
