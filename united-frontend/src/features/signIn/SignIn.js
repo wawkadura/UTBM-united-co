@@ -38,7 +38,7 @@ function SignIn(){
                     <span className="p-float-label p-input-icon-right p-my-3">
                         <i className="pi pi-envelope" />
                         <Controller name="email" control={control}
-                            rules={{ required: 'Email is required.', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: 'Invalid email address. E.g. example@email.com' }}}
+                            rules={{ required: 'Un email valide est requis', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: 'Cet email n\'est pas valide (model : email@test.com)' }}}
                             render={({ field, fieldState }) => (
                                 <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                         )} />
@@ -46,7 +46,7 @@ function SignIn(){
                     </span>
                     {getFormErrorMessage('email')}
                     <span className="p-float-label p-my-3">
-                        <Controller name="password" control={control} rules={{ required: 'Password is required.' }} render={({ field, fieldState }) => (
+                        <Controller name="password" control={control} rules={{ required: 'Un mot de passe est requis' }} render={({ field, fieldState }) => (
                             <Password id={field.name} {...field} toggleMask className={classNames({ 'p-invalid': fieldState.invalid })} feedback={false} />
                         )} />
                         <label htmlFor="password" className={classNames({ 'p-error': errors.password })}>Password*</label>
