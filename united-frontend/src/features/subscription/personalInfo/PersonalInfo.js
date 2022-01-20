@@ -1,7 +1,9 @@
 import "./PersonalInfo.css"
 import { Button } from  "primereact/button"
+import { useNavigate } from "react-router-dom"
 
 function PersonalInfo({setActiveIndex, user}){
+    const navigate = useNavigate();
     
     return (
         <div>
@@ -23,7 +25,7 @@ function PersonalInfo({setActiveIndex, user}){
                 </p>
             </div>
             <span className="flex p-buttonset justify-content-center mb-4 mt-3">
-                <Button label="Abandonner" className="perso-color-blue"/>
+                <Button label="Abandonner" className="perso-color-blue" onClick={()=>navigate('/associations')}/>
                 <Button label="Suivant" className="perso-color-blue" onClick={()=>setActiveIndex(1)}/>
             </span>
         </div>

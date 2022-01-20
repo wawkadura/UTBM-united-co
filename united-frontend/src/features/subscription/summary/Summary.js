@@ -5,6 +5,11 @@ import { Card } from 'primereact/card';
 function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
     const navigate = useNavigate();
 
+    function HandleClick (){
+        localStorage.clear();
+        navigate('/home');
+    }
+
     return(
         <div>
             <Card title="Informations personnelles" className="flex flex-column justify-content-center align-items-center mx-8 my-3">
@@ -51,7 +56,7 @@ function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
 
             <span className="flex p-buttonset justify-content-center mb-4 mt-2">
                 <Button label="Précédent" className="perso-color-blue" onClick={()=>setActiveIndex(2)}/>
-                <Button label="Confirmer" className="perso-color-blue" onClick={()=> navigate('/home')}/>
+                <Button label="Confirmer" className="perso-color-blue" onClick={()=> HandleClick()}/>
             </span>
         </div>
     );

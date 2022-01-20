@@ -53,7 +53,7 @@ function Subscription(){
     
     const savedSubInfo = localStorage.getItem('subInfo');
     const [subInfo, setSubInfo] = useState( savedSubInfo ? JSON.parse(savedSubInfo) : {
-        price : 10,
+        price : 0,
         duration : 0,
         total : 0
     });
