@@ -3,11 +3,9 @@
     background-color: white;
 }
 
-.dataview-demo .card{
-   height: 100%;
-}
-
-.dataview-demo .card .p-dataview-grid {
+.dataview-demo .card ,
+.dataview-demo .card .p-dataview-grid, 
+.dataview-demo .card .p-dataview-list {
     height: 100%;
  }
 
@@ -26,11 +24,8 @@
     margin-bottom: 10px;
 }
 
+.dataview-demo .product-date,
 .dataview-demo .product-description {
-    margin: 0 0 1rem 0;
-}
-
-.dataview-demo .product-date {
     margin: 0 0 1rem 0;
 }
 
@@ -39,7 +34,7 @@
     margin-right: .5rem;
 }
 
-.p-nogutter{
+.dataview-demo .card .p-dataview .p-dataview-content .p-nogutter{
     width: 100%;
 }
 
@@ -64,9 +59,6 @@
     width: 100%;
 }
 
-.dataview-demo .card .p-dataview-list {
-    height: 100%;
- }
 
 .dataview-demo .card .p-dataview-list .p-dataview-content {
     min-height: 80%;
@@ -123,7 +115,8 @@
     margin: 2rem 0;
 }
 
-.dataview-demo .product-grid-item .product-grid-item-content {
+.dataview-demo .product-grid-item .product-grid-item-content ,
+.dataview-modal-items h1 {
     text-align: center;
 }
 
@@ -171,9 +164,6 @@
     margin: 15px 0;
 }
 
-.dataview-modal-items h1 {
-    text-align: center;
-}
 
 .dataview-modal-items .dataview-modal-subsection {
     margin-left: 30px;

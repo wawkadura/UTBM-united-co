@@ -6,14 +6,24 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+<<<<<<< HEAD
     "moment": "^2.29.1",
     "primeflex": "^3.1.2",
+=======
+    "dotenv": "^10.0.0",
+    "primeflex": "^2.0.0",
+>>>>>>> 2bcc96153ae9f51375bbd5836d7d7ec605d31f40
     "primeicons": "^5.0.0",
-    "primereact": "^7.0.1",
+    "primereact": "^7.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
     "react-hook-form": "^7.24.0",
     "react-router-dom": "^6.1.1",
+=======
+    "react-hook-form": "^7.22.5",
+    "react-router-dom": "^6.2.1",
+>>>>>>> 2bcc96153ae9f51375bbd5836d7d7ec605d31f40
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "4.0.3",
     "react-transition-group": "^4.4.2",
@@ -22,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider; gatsby build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -49,6 +59,6 @@
     "init": "^0.1.2",
     "npx": "^10.2.2",
     "postcss": "^8.4.4",
-    "tailwindcss": "^3.0.0"
+    "tailwindcss": "^3.0.7"
   }
 }
