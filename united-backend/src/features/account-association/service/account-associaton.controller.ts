@@ -10,11 +10,11 @@ export class AccountAssociatonController {
     @Get()
     async showAllService() {
         const services =  await this.service.GetAll();
-            return {
-                statusCode: HttpStatus.OK,
-                message: 'Services fetched successfully',
-                services
-            };
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Services fetched successfully',
+            services
+        };
     }
 
     @Post()
@@ -22,7 +22,7 @@ export class AccountAssociatonController {
         const serviceCreated = await this.service.createService(data);
         return {
             statusCode: HttpStatus.OK,
-            message: 'Service created successfully',
+            message: 'Service crée avec succès',
             serviceCreated
         };
     }
@@ -32,7 +32,7 @@ export class AccountAssociatonController {
         await this.service.updateService(id, data);
         return {
             statusCode: HttpStatus.OK,
-            message: 'Service updated successfully',
+            message: 'Service modifier avec succès',
         };
     }
 
@@ -41,7 +41,7 @@ export class AccountAssociatonController {
         await this.service.destroy(id);
         return {
             statusCode: HttpStatus.OK,
-            message: 'Service deleted successfully',
+            message: 'Service suprimé avec succès',
         };
     }
 }

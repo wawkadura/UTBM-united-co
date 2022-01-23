@@ -3,13 +3,15 @@ import {Button} from "primereact/button";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {TabView, TabPanel } from 'primereact/tabview';
-import {useEffect, useState } from 'react';
+import {useEffect, useState,useRef } from 'react';
 import {Card} from "primereact/card";
 import {Divider} from "primereact/divider";
 import {Panel} from "primereact/panel";
 import { useForm } from "react-hook-form";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { AccountAssociationApi } from '../../api/accountAssociationApi';
+import { Toast } from 'primereact/toast';
+
 
 function UserServices(){
     const [activeIndex] = useState(0)
@@ -21,7 +23,13 @@ function UserServices(){
     const [displayBasic2, setDisplayBasic2] = useState(false);
     const dialogFuncMap2 = {'displayBasic2': setDisplayBasic2};
     const [id, setId]= useState();
+    const toast = useRef(null);
 
+     //Message showed when the form is fill correctly
+     const showToast = (resp) => {
+        if (resp.statusCode===200) toast.current.show({severity:'success', summary: 'Service', detail:resp.message, life: 3000});
+        else if(resp.statusCode===500) toast.current.show({severity:'error', summary: 'Service', detail:"Contacter le support", life: 3000});
+    }
     useEffect(()=>{
         fetchAll();
     },[]);
@@ -60,9 +68,8 @@ function UserServices(){
         if (data&&id){
             const resp = await AccountAssociationApi.updateService(id,data); //sent data to the api in oder to update database
             if (resp){
-                // console.log("update",resp)
                 fetchAll();
-                // showToast(resp);
+                showToast(resp);
             }
             onHide('displayBasic')
         }
@@ -73,7 +80,7 @@ function UserServices(){
             const resp = await AccountAssociationApi.createService(data); //sent data to the api in oder to populate database
             if (resp){
                 fetchAll();
-                // showToast(resp);
+                showToast(resp);
             }
             onHide2('displayBasic2')
         }
@@ -83,9 +90,8 @@ function UserServices(){
         if(data){
             const resp = await AccountAssociationApi.deleteService(data.id); //sent data to the api in oder to delete service
             if (resp){
-                // console.log("delete",resp)
                 fetchAll();
-                // showToast(resp);
+                showToast(resp);
             }
         }
     };
@@ -102,6 +108,7 @@ function UserServices(){
     );
     
     return <div>
+        <Toast ref={toast} />
         <div className="p-d-flex p-flex-column p-flex-md-row">
             {services.services ? services.services.map((item, index) => (
                 <div key={index} className="p-mb-2 p-mr-2">
