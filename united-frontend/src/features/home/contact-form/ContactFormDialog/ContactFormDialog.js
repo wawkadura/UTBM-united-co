@@ -24,7 +24,6 @@ function ContactFormDialog({displayBasic, setDisplayBasic,headerDialog}) {
   }
   //action made when the form is submited 
   const onSubmit = (data) => {
-    console.log({data});
     if (data) {
       onHide();
       showSuccess();

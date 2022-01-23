@@ -5,10 +5,10 @@ import 'primeicons/primeicons.css';
 import Navbar from "./shared/navigation/navbar/Navbar";
 import Footer from "./shared/navigation/footer/Footer";
 import Home from "./features/home/Home";
+import AccountAssociation from "./features/account-association/AccountAssociation";
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NotFound from "./shared/not-found/NotFound";
-
 import './App.css';
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
                       <Route exact path="/" element={<Home/>}/>
                       <Route exact path="/home" element={<Home/>}/>
                       <Route path="*" element={<NotFound/>}/>
+                      <Route path="/accountassociation" element={<AccountAssociation/>}/>
                   </Routes>
               </div>
               <Footer/>
