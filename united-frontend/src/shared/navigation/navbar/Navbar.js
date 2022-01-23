@@ -15,8 +15,6 @@ function Navbar() {
     const menu = useRef(null);
     const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
     const user = "Tony LE";
     const items = [
         { label: 'Mon profil', icon: 'pi pi-user-edit' },
@@ -42,7 +40,7 @@ function Navbar() {
                     <div className="auth">
                         <Button label="Inscription" className="p-button-rounded" onClick={() => navigate("/sign-up")} />
 
-                        <Button label="Connexion" className="p-button-rounded" onClick={() => setAuth(true)} />
+                        <Button label="Connexion" className="p-button-rounded" onClick={() => navigate("/home/signIn")} />
                     </div> :
                     <div className="dropdown" >
                         <TieredMenu model={items} popup ref={menu} />
