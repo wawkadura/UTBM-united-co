@@ -1,0 +1,35 @@
+.sign-up-form{
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2%;
+  border-color: grey;
+}
+.sign-up-form .card {
+  min-width: 450px;
+}
+.sign-up-form .card form {
+  margin-top: 2rem;
+}
+.sign-up-form .card .p-field {
+  margin-bottom: 1.5rem;
+}
+
+.p-field-checkbox{
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+@media screen and (max-width: 960px) {
+  .sign-up-form .card {
+      width: 80%;
+  }
+}
+@media screen and (max-width: 1260px) {
+  .sign-up-form .card {
+      width: 100%;
+      min-width: 0;
+  }
+}
