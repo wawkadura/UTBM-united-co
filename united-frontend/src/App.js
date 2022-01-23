@@ -6,11 +6,8 @@ import 'primeflex/primeflex.css';
 import Navbar from "./shared/navigation/navbar/Navbar";
 import Footer from "./shared/navigation/footer/Footer";
 import Home from "./features/home/Home";
-<<<<<<< HEAD
 import Subscription from "./features/subscription/Subscription"
-=======
 import SignUp from "./features/sign-up/SignUp";
->>>>>>> 2bcc96153ae9f51375bbd5836d7d7ec605d31f40
 import Associations from './features/Associations/Associations';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
@@ -20,25 +17,6 @@ import './App.css';
 
 function App() {
 
-<<<<<<< HEAD
-  return (
-      <Router>
-          <div className="app">
-              <Navbar/>
-              <div className="app-contents">
-                  <Routes>
-                      <Route exact path="/" element={<Home/>}/>
-                      <Route exact path="/home" element={<Home/>}/>
-                      <Route exact path="/sub" element={<Subscription/>}/>
-                      <Route exact path="/associations" element={<Associations/>}/>
-                      <Route path="*" element={<NotFound/>}/>
-                  </Routes>
-              </div>
-              <Footer/>
-          </div>
-      </Router>
-  );
-=======
     return (
         <Router>
             <div className="app">
@@ -48,6 +26,7 @@ function App() {
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/home" element={<Home />} />
                         <Route exact path="/sign-up" element={<SignUp />} />
+                        <Route exact path="/sub" element={<Subscription/>}/>
                         <Route exact path="/associations" element={<Associations />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
@@ -56,7 +35,6 @@ function App() {
             </div>
         </Router>
     );
->>>>>>> 2bcc96153ae9f51375bbd5836d7d7ec605d31f40
 }
 
 export default App;

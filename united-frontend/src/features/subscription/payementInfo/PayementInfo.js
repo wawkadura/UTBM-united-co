@@ -58,18 +58,18 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
     return (
         <div>
             <Toast ref={successToast}/>
-            <div className="grid mx-3 my-2">
+            <div className="p-grid p-mx-3 p-my-2">
                 {typesPayement.length > 0 ? (
                     typesPayement.map(({id, owner, cardNumber, expirationDate})=>
-                        <div className="flex justify-content-center align-items-center col-6">
+                        <div className="p-d-flex p-jc-center p-ai-center p-col-6">
                             <RadioButton inputId={id} value={id} name="Virement banquaire" 
                                 onChange={() => setSelectedPayement({idCopy: id, ownerCopy: owner, cardNumberCopy: cardNumber, expirationDateCopy: expirationDate})} 
                                 checked={selectedPayement.idCopy === id} 
-                                className="flex align-items-center justify-content-center my-2"
+                                className="p-d-flex p-ai-center p-jc-center p-my-2"
                             />
-                            <label htmlFor={id} className="-mx-6">
-                                <Card key={id} title={"Carte de " + owner} className="flex flex-column justify-content-center align-items-center mx-8 my-3">
-                                    <p className="flex justify-content-center mt-2">
+                            <label htmlFor={id} className="p-mx-6">
+                                <Card key={id} title={"Carte de " + owner} className="p-d-flex p-flex-column p-jc-center p-ai-center p-mx-8 p-my-3">
+                                    <p className="p-d-flex p-jc-center p-mt-2" style={{color: 'black'}}>
                                         Date d'expiration : {expirationDate} <br/>
                                         Numero de carte : {cardNumber}
                                     </p>
@@ -79,8 +79,8 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
                     )
                     :
                     (
-                        <Card className="flex justify-content-center align-items-center mx-8 my-4">
-                            <p className="flex justify-content-center">
+                        <Card className="p-d-flex p-jc-center p-ai-center p-mx-8 p-my-4">
+                            <p className="p-d-flex p-jc-center">
                                 Aucune carte banquaire enregistrée. Veuillez en renseigner une.
                             </p>
                         </Card>
@@ -88,26 +88,26 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
                 }
             </div>
 
-            <Button label="Ajouter une carte" onClick={() => setDisplayAddDialog(true)} className="flex align-items-center perso-color-blue m-auto" />
+            <Button label="Ajouter une carte" onClick={() => setDisplayAddDialog(true)} className="p-d-flex p-ai-center perso-color-blue p-m-auto" />
 
             <Dialog header="Nouvelle carte" visible={displayAddDialog} onHide={() => setDisplayAddDialog(false)} draggable={false}>
                 <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
-                    <div className="flex grid justify-content-center my-1">
-                            <span className="p-float-label col-6">
+                    <div className="p-d-flex p-grid p-jc-center p-my-1">
+                            <span className="p-float-label p-col-6">
                                 <Controller name="cardNumber" control={control} rules={{ required: 'Le numéro de carte est requis', pattern: { value: /\d{4} \d{4} \d{4} \d{4}/i, message: 'Le format ne correspond pas.'}}} render={({ field, fieldState }) => (
                                     <InputMask id={field.name} {...field} autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} mask="9999 9999 9999 9999" />
                                 )} />
                                 <label htmlFor="cardNumber" className={classNames({ 'p-error': errors.cardNumber })}>Numéro de carte</label>
                                 {getFormErrorMessage('cardNumber')}
                             </span>
-                            <span className="p-float-label col-3">
+                            <span className="p-float-label p-col-3">
                                 <Controller name="owner" control={control} rules={{ required: 'Le titulaire de la carte est requis' }} render={({ field, fieldState }) => (
                                     <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                                 )} />
                                 <label htmlFor="owner" className={classNames({ 'p-error': errors.owner })}>Nom</label>
                                 {getFormErrorMessage('owner')}
                             </span>
-                            <span className="p-float-label col-3">
+                            <span className="p-float-label p-col-3">
                                 <Controller name="expirationDate" control={control} rules={{ required: 'La date d\'expiration est requise' }} render={({ field, fieldState }) => (
                                     <Calendar id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} className={classNames({ 'p-invalid': fieldState.invalid })} showIcon view="month" dateFormat="mm/yy" yearNavigator yearRange="2022:2100" mask="99/9999"/>
                                 )} />
@@ -115,11 +115,11 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
                                 {getFormErrorMessage('expirationDate')}
                             </span>
                     </div>
-                        <Button type="submit" label="Valider" className="flex justify-content-center m-auto w-3"/>
+                        <Button type="submit" label="Valider" className="p-d-flex p-jc-center p-m-auto p-w-3"/>
                 </form>
             </Dialog>
 
-            <span className="flex p-buttonset justify-content-center mb-4 mt-4">
+            <span className="p-d-flex p-buttonset p-jc-center p-mb-4 p-mt-4">
                 <Button label="Précédent" className="perso-color-blue" onClick={() => setActiveIndex(1)}/>
                 <Button label="Suivant" className="perso-color-blue" onClick={() => setActiveIndex(3)} disabled={selectedPayement.idCopy === null}/>
             </span>

@@ -1,5 +1,7 @@
 p{
     font-size: large;
+    color: white;
+    border-radius: var(--border-radius);
 }
 
 .perso-color-gray{

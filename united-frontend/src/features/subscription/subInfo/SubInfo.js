@@ -22,32 +22,32 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
     
     return (
         <div>
-            <div className="flex flex-column align-items-center my-3">
+            <div className="p-d-flex p-flex-column p-ai-center p-my-3">
                 <h1>Détail de l'abonnement</h1>
                 <p>
                     Saisissez les informations relatives à votre abonnement
                 </p>
             </div>
             {subInfo.price !== null && subInfo.price !== 0? //if price is providing (sub for further months)
-                <div className="flex flex-column align-items-center">
-                    <p className="flex text-white perso-color-gray border-round justify-content-center align-items-center h-2rem w-3">
+                <div className="p-d-flex p-flex-column p-ai-center">
+                    <p className="p-d-flex perso-color-gray p-jc-center p-ai-center" style={{height: 2+'rem', width: 25+'%'}}>
                         Montant mensuel : {subInfo.price}€
                     </p>
-                    <p className="flex perso-color-black-blue text-white border-round align-items-center mt-3 pl-3 w-7 h-2rem">
+                    <p className="p-d-flex perso-color-black-blue p-ai-center p-mt-3 p-pl-3" style={{width: 58.3333+'%', height: 2+'rem'}}>
                         Abonnement
                     </p>
-                    <div className="flex flex-column my-2 w-full justify-content-center align-items-center">
-                        <div className="flex w-full justify-content-center align-items-center my-2">
-                            <p className="flex flex-order-0 text-white perso-color-gray border-round justify-content-center align-items-center mr-4 h-2rem px-2">
+                    <div className="p-d-flex p-flex-column p-my-2 p-jc-center p-ai-center" style={{width: 100+'%'}}>
+                        <div className="p-d-flex w-full p-jc-center p-ai-center p-my-2">
+                            <p className="p-d-flex perso-color-gray p-jc-center p-ai-center p-mr-4 p-px-2" style={{height: 2+'rem'}}>
                                 Durée de l'abonnement : 
                             </p>
                             
-                            <InputNumber className="flex-order-1" value={subInfo.duration} onValueChange={(e) => {SetInfo(e.value, e.value*subInfo.price)}} mode="decimal" showButtons min={0} max={12} 
+                            <InputNumber value={subInfo.duration} onValueChange={(e) => {SetInfo(e.value, e.value*subInfo.price)}} mode="decimal" showButtons min={0} max={12} 
                             incrementButtonClassName="perso-color-blue" decrementButtonClassName="perso-color-blue" allowEmpty={false} size={2} suffix=" mois"
                             />
                         </div>
                         
-                        <p className="flex flex-order-2 text-white perso-color-gray border-round justify-content-center align-items-center h-2rem w-1">
+                        <p className="p-d-flex perso-color-gray p-jc-center p-ai-center" style={{height: 2+'rem', width: 8.3333+'%'}}>
                             Total : {subInfo.total}
                         </p>
                     </div>                
@@ -55,12 +55,12 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
             
             : //else, it's a unique donation (feel free to the amount)
             
-                <div className="flex flex-column align-items-center">
-                    <p className="flex perso-color-black-blue text-white border-round align-items-center mt-3 pl-3 w-7 h-2rem">
+                <div className="p-d-flex p-flex-column p-ai-center">
+                    <p className="p-d-flex perso-color-black-blue text-white border-round p-ai-center p-mt-3 p-pl-3" style={{width: 58.3333+'%', height: 2+'rem'}}>
                         Donation libre
                     </p>
-                    <div className="flex w-full justify-content-center align-items-center my-2">
-                        <p className="flex flex-order-0 text-white perso-color-gray border-round justify-content-center align-items-center mr-4 h-2rem px-2">
+                    <div className="p-d-flex p-jc-center p-ai-center p-my-2" style={{width: 100+'%'}}>
+                        <p className="p-d-flex perso-color-gray p-jc-center p-ai-center p-mr-4 p-px-2" style={{height: 2+'rem'}}>
                             Montant de votre don : 
                         </p>
                         
@@ -70,7 +70,7 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
                     </div>
                 </div>
             }
-            <span className="flex p-buttonset justify-content-center mb-4 mt-2">
+            <span className="p-d-flex p-buttonset p-jc-center p-mb-4 p-mt-2">
                 <Button label="Précédent" className="perso-color-blue" onClick={()=>setActiveIndex(0)}/>
                 <Button label="Suivant" className="perso-color-blue" onClick={()=>setActiveIndex(2)} disabled={subInfo.total===0}/>
             </span>

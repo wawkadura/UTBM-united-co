@@ -8,11 +8,11 @@ import Summary from "./summary/Summary";
 
 function Subscription(){
     //first component show
-    const savedActiveIndex = localStorage.getItem('activeIndex');
+    const savedActiveIndex = sessionStorage.getItem('activeIndex');
     const [activeIndex, setActiveIndex] = useState(savedActiveIndex ? JSON.parse(savedActiveIndex) : 0);
     
     useEffect(() => {
-        localStorage.setItem('activeIndex', JSON.stringify(activeIndex))
+        sessionStorage.setItem('activeIndex', JSON.stringify(activeIndex))
     }, [activeIndex])
     
     //TODO : get to initialise
@@ -51,18 +51,18 @@ function Subscription(){
         email : "matthis.pinon@utbm.fr"
     };
     
-    const savedSubInfo = localStorage.getItem('subInfo');
+    const savedSubInfo = sessionStorage.getItem('subInfo');
     const [subInfo, setSubInfo] = useState( savedSubInfo ? JSON.parse(savedSubInfo) : {
-        price : 0,
+        price : 1,
         duration : 0,
         total : 0
     });
 
     useEffect(() => {
-        localStorage.setItem('subInfo', JSON.stringify(subInfo))
+        sessionStorage.setItem('subInfo', JSON.stringify(subInfo))
     }, [subInfo])
 
-    const savedSelectedPayement = localStorage.getItem('selectedPayement');
+    const savedSelectedPayement = sessionStorage.getItem('selectedPayement');
     const [selectedPayement, setSelectedPayement] = useState(savedSelectedPayement ? JSON.parse(savedSelectedPayement) : {
         idCopy: null,
         cardNumberCopy: null,
@@ -71,7 +71,7 @@ function Subscription(){
     });
 
     useEffect(() => {
-        localStorage.setItem('selectedPayement', JSON.stringify(selectedPayement))
+        sessionStorage.setItem('selectedPayement', JSON.stringify(selectedPayement))
     }, [selectedPayement])
 
     const stepItems = [
