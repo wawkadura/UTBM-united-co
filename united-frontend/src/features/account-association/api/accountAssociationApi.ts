@@ -18,7 +18,7 @@ export class AccountAssociationApi{
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
-                tittle: value.tittle,
+                title: value.title,
                 description : value.description,
                 price: value.price,
                 state:true,
@@ -28,16 +28,16 @@ export class AccountAssociationApi{
         return data
     }
 
-    public static async UpdateService(id:number,value:any){
+    public static async updateService(id:number,value:any){
         const resp = await fetch(`http://localhost:4200/account-association/${id}`,{
             method : "PUT",
             headers : {
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
-                tittle: value.tittle,
+                title: value.title,
                 description : value.description,
-                prix: value.price
+                price: value.price
             })
         })
         const data = await resp.json();

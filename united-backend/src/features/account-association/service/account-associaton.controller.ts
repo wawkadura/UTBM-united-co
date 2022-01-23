@@ -28,7 +28,7 @@ export class AccountAssociatonController {
     }
 
     @Put(':id')
-    async uppdateService(@Param('id') id: number, @Body() data: Partial<serviceDTO>) {
+    async updateService(@Param('id') id: number, @Body() data: Partial<serviceDTO>) {
         await this.service.updateService(id, data);
         return {
             statusCode: HttpStatus.OK,

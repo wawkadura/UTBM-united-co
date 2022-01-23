@@ -7,7 +7,7 @@ export class service{
   id: number;
 
   @Column("varchar", { length: 100 })
-  tittle;
+  title;
 
   @Column("varchar", { length: 500, nullable: true})
   description;

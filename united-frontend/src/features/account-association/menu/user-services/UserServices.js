@@ -14,16 +14,6 @@ import { AccountAssociationApi } from '../../api/accountAssociationApi';
 function UserServices(){
     const [activeIndex] = useState(0)
     const [services, setServices]=useState([]);
-
-    useEffect(()=>{
-        fetchAll();
-    },[]);
- 
-    async function fetchAll(){
-        const resp = await AccountAssociationApi.getServices();
-        setServices(resp)
-    }
-
     const { register, handleSubmit,reset, formState: { errors } } = useForm();
     const [dataModal, setDataModal] = useState({})
     const [displayBasic, setDisplayBasic] = useState(false);
@@ -32,6 +22,14 @@ function UserServices(){
     const dialogFuncMap2 = {'displayBasic2': setDisplayBasic2};
     const [id, setId]= useState();
 
+    useEffect(()=>{
+        fetchAll();
+    },[]);
+ 
+    async function fetchAll(){
+        const resp = await AccountAssociationApi.getServices();
+        setServices(resp)
+    };
     const onClick = (name, data) => { 
         dialogFuncMap[`${name}`](true); 
         setDataModal(data);
@@ -58,11 +56,11 @@ function UserServices(){
         );
     };
     //update a service
-    const UpdateService = async(id,data) => {
+    const UpdateService = async(data) => {
         if (data&&id){
             const resp = await AccountAssociationApi.updateService(id,data); //sent data to the api in oder to update database
             if (resp){
-                console.log("update",resp)
+                // console.log("update",resp)
                 fetchAll();
                 // showToast(resp);
             }
@@ -71,7 +69,6 @@ function UserServices(){
     }; 
     //create new service 
     const AddService = async(data) => {
-        console.log("Add data",data) // content value add service
         if(data){
             const resp = await AccountAssociationApi.createService(data); //sent data to the api in oder to populate database
             if (resp){
@@ -86,7 +83,7 @@ function UserServices(){
         if(data){
             const resp = await AccountAssociationApi.deleteService(data.id); //sent data to the api in oder to delete service
             if (resp){
-                console.log("delete",resp)
+                // console.log("delete",resp)
                 fetchAll();
                 // showToast(resp);
             }
@@ -109,10 +106,10 @@ function UserServices(){
             {services.services ? services.services.map((item, index) => (
                 <div key={index} className="p-mb-2 p-mr-2">
                     <TabView activeIndex={activeIndex} >
-                        <TabPanel header={"Service "+item.tittle} icon="pi pi-info-circle">
+                        <TabPanel header={"Service "+item.title} icon="pi pi-info-circle">
                         <Card footer={cardFooter(item)} style={{ height: '100%' }}>
                             <Panel className="panel-color">
-                                <p><b>Titre : </b>{item.tittle}</p>
+                                <p><b>Titre : </b>{item.title}</p>
                                 <Divider />
                                 <p><b>Description : </b>{item.description}</p>
                                 <Divider />
@@ -128,9 +125,9 @@ function UserServices(){
                 <form >
                     <div className="p-fluid p-formgrid p-grid" >
                         <div className="p-field p-col-12">
-                            <label htmlFor="tittle1"><b>Titre </b></label>
-                            <InputText type="text" {...register("tittle", {required:"Choisir un nouveau titre", maxLength:{value:50, message:"Saisir 50 carractères max."}})} placeholder={dataModal.tittle} />
-                            {errors?.tittle && <ErrorMessage message={errors.tittle.message}/>}  
+                            <label htmlFor="title1"><b>Titre </b></label>
+                            <InputText type="text" {...register("title", {required:"Choisir un nouveau titre", maxLength:{value:50, message:"Saisir 50 carractères max."}})} placeholder={dataModal.title} />
+                            {errors?.title && <ErrorMessage message={errors.title.message}/>}  
                         </div>
                         <div className="p-field p-col-12">
                             <label htmlFor="description"><b>Description</b></label>
@@ -146,7 +143,7 @@ function UserServices(){
                 </form>
             </Dialog>
             
-            { services.services? services.services.length ?
+            { services.services? services.services.length<3 ?
              <div className="p-mb-2 p-mr-2">
                 <Button type="submit" label="Ajouter un service" icon="pi pi-plus" onClick={() => {openFormAddservice("displayBasic2")}}/>
             </div>: <></> :''
@@ -158,9 +155,9 @@ function UserServices(){
                 <Divider/>
                 <div className="p-fluid p-formgrid p-grid">
                     <div className="p-field p-col-12">
-                        <label htmlFor="tittle1"><b>Titre </b></label>
-                        <InputText type="text" {...register("tittle", {required:"Choisir un nouveau titre", maxLength:{value:50, message:"Saisir 50 carractères max."}})} placeholder={"Entrer une titre"} />
-                        {errors?.tittle && <ErrorMessage message={errors.tittle.message}/>}  
+                        <label htmlFor="title1"><b>Titre </b></label>
+                        <InputText type="text" {...register("title", {required:"Choisir un nouveau titre", maxLength:{value:50, message:"Saisir 50 carractères max."}})} placeholder={"Entrer une titre"} />
+                        {errors?.title && <ErrorMessage message={errors.title.message}/>}  
                     </div>
                     <div className="p-field p-col-12">
                         <label htmlFor="description"><b>Description</b></label>

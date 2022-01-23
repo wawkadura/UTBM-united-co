@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class Init1641911527574 implements MigrationInterface {
-    name = 'Init1641911527574'
+export class init21642963965856 implements MigrationInterface {
+    name = 'init21642963965856'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE \`association\` (\`id\` int NOT NULL AUTO_INCREMENT, \`Name\` varchar(20) NOT NULL, \`acronym\` varchar(10) NULL, \`type\` varchar(50) NULL, \`email\` varchar(320) NOT NULL, \`description\` varchar(200) NULL, \`address\` varchar(100) NULL, \`city\` varchar(50) NULL, \`website\` varchar(200) NULL, \`telephone\` varchar(12) NULL, \`iban\` varchar(50) NULL, \`state\` tinyint NOT NULL, \`user_id\` int NOT NULL, \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP, UNIQUE INDEX \`IDX_6879674c7109f0cd3273e057d0\` (\`user_id\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
@@ -12,7 +12,7 @@ export class Init1641911527574 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE \`newsletter\` (\`id\` int NOT NULL AUTO_INCREMENT, \`email\` varchar(320) NOT NULL, \`status\` int NOT NULL DEFAULT '1', UNIQUE INDEX \`IDX_7e3d2b10221e8b16279dac5831\` (\`email\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`password_reset\` (\`id\` int NOT NULL AUTO_INCREMENT, \`email\` varchar(320) NOT NULL, \`token\` varchar(200) NOT NULL, \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`payment\` (\`id\` int NOT NULL AUTO_INCREMENT, \`iban\` varchar(50) NULL, \`card_number\` int NULL, \`expire_date\` date NULL, \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
-        await queryRunner.query(`CREATE TABLE \`service\` (\`id\` int NOT NULL AUTO_INCREMENT, \`tittle\` varchar(100) NOT NULL, \`description\` varchar(500) NULL, \`price\` int NULL, \`state\` tinyint NOT NULL, \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`service\` (\`id\` int NOT NULL AUTO_INCREMENT, \`title\` varchar(100) NOT NULL, \`description\` varchar(500) NULL, \`price\` int NULL, \`state\` tinyint NOT NULL, \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`subscription\` (\`id\` int NOT NULL AUTO_INCREMENT, \`price\` int NULL, \`duration\` int NOT NULL, \`date\` datetime NOT NULL, \`state\` tinyint NOT NULL, \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
     }
 
