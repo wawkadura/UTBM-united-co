@@ -12,6 +12,11 @@ export class PayementService {
     }
 
     async Add(payement: payment){
-        return await this.paymentRepository.save(payement);
+        const alreadyExist = this.paymentRepository.findOne({where: {card_number: payement.card_number}})
+
+        if(alreadyExist){
+            return await this.paymentRepository.save(payement);
+        }
+        return null;
     }
 }
