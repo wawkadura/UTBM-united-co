@@ -1,5 +1,8 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { users } from 'src/entity/user.entity';
+import { PayloadToken } from './payloadToken';
 import { SignIn } from './dto/sign-in.dto';
+import { JwtAuthGuard } from './jwt-auth.guard';
 import { SingInService } from './sign-in.service';
 
 @Controller('account')
@@ -9,13 +12,16 @@ export class SingInController {
     
     @Post('sign-in')
     async SignIn(@Body() data: SignIn){
-        console.log(data);
-        const isOk = await this.signInService.isPassOk(data.email, data.password);
-        if (isOk){
+        const user = await this.signInService.isPassOk(data.email, data.password);
+        
+        if (user){
+            const payload:PayloadToken={userId: user.id}
+            const token = await this.signInService.Login(payload);
             return {
                 statusCode: HttpStatus.OK,
                 message: 'signIn ok',
-                isOk
+                token,
+                payload
             };
         }
         else{
@@ -27,7 +33,7 @@ export class SingInController {
     }
 
     @Post('forgot-pass')
-    async ForgotPassword(@Body() data: SignIn){
+    async ForgotPassword(@Body() data: users){
         const user = await this.signInService.isEmailExist(data.email);
         if (user){
             const result = await this.signInService.updatePass(user, data.password);

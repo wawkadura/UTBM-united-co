@@ -2,10 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { users } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
+import { PayloadToken } from './payloadToken';
 
 @Injectable()
 export class SingInService {
-    constructor(@InjectRepository(users) private usersRepository: Repository<users>) {}
+    constructor(
+        @InjectRepository(users) private usersRepository: Repository<users>, 
+        private jwtService: JwtService
+    ) {}
 
     async isEmailExist(email: string){
         const user = await this.usersRepository.findOne({where: {email: email}});
@@ -16,8 +21,7 @@ export class SingInService {
     async isPassOk(email: string, pass : string){
         const user = await this.isEmailExist(email); 
         if (user.password === pass) {
-            const { password, ...result } = user;
-            return result;
+            return user;
         }
         return null;
     }
@@ -26,5 +30,11 @@ export class SingInService {
         user.password = newPass;
         const newUser = await this.usersRepository.save(user);
         return newUser;
+    }
+
+    async Login(payload: PayloadToken){
+        return {
+            access_token: this.jwtService.sign(payload)
+        };
     }
 }
