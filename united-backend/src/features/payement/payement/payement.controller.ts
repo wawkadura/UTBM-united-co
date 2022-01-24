@@ -7,9 +7,7 @@ export class PayementController {
 
     @Get()
     async GetPaymentById(@Body() id: number){
-        console.log(id);
         const payments = await this.paymentService.FindAllById(id);
-        console.log(payments);
 
         if (payments.length !== 0){
             return{
