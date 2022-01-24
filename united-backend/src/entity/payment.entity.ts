@@ -6,7 +6,7 @@ export class payment{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'bigint' })
   card_number: number;
 
   @Column("date", { nullable: true })

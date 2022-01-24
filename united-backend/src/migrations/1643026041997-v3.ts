@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class v21643015963293 implements MigrationInterface {
-    name = 'v21643015963293'
+export class v31643026041997 implements MigrationInterface {
+    name = 'v31643026041997'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`acronym\` \`acronym\` varchar(10) NULL`);
@@ -12,7 +12,6 @@ export class v21643015963293 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`website\` \`website\` varchar(200) NULL`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`telephone\` \`telephone\` varchar(12) NULL`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`iban\` \`iban\` varchar(50) NULL`);
-        await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`state\` \`state\` tinyint NOT NULL DEFAULT 1`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
         await queryRunner.query(`ALTER TABLE \`users\` CHANGE \`email_verified_at\` \`email_verified_at\` datetime NULL`);
         await queryRunner.query(`ALTER TABLE \`users\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
@@ -35,18 +34,17 @@ export class v21643015963293 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`image\` CHANGE \`ticketIdId\` \`ticketIdId\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`password_reset\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
         await queryRunner.query(`ALTER TABLE \`payment\` DROP FOREIGN KEY \`FK_3dd21505bf38aeefe2e7fe6d404\``);
-        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`card_number\` \`card_number\` int NULL`);
+        await queryRunner.query(`ALTER TABLE \`payment\` DROP COLUMN \`card_number\``);
+        await queryRunner.query(`ALTER TABLE \`payment\` ADD \`card_number\` bigint NULL`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`expire_date\` \`expire_date\` date NULL`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`userIdId\` \`userIdId\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`description\` \`description\` varchar(500) NULL`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`price\` \`price\` int NULL`);
-        await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`state\` \`state\` tinyint NOT NULL DEFAULT 1`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
         await queryRunner.query(`ALTER TABLE \`subscription\` DROP FOREIGN KEY \`FK_76f954b0122c58a298dc4f4d9d6\``);
         await queryRunner.query(`ALTER TABLE \`subscription\` DROP FOREIGN KEY \`FK_632356bdd9bafd8079c702fcdc9\``);
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`price\` \`price\` int NULL`);
-        await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`state\` \`state\` tinyint NOT NULL DEFAULT 1`);
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`userIdId\` \`userIdId\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`serviceIdId\` \`serviceIdId\` int NULL`);
@@ -72,18 +70,17 @@ export class v21643015963293 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`serviceIdId\` \`serviceIdId\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`userIdId\` \`userIdId\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
-        await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`state\` \`state\` tinyint NOT NULL`);
         await queryRunner.query(`ALTER TABLE \`subscription\` CHANGE \`price\` \`price\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`subscription\` ADD CONSTRAINT \`FK_632356bdd9bafd8079c702fcdc9\` FOREIGN KEY (\`serviceIdId\`) REFERENCES \`service\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`subscription\` ADD CONSTRAINT \`FK_76f954b0122c58a298dc4f4d9d6\` FOREIGN KEY (\`userIdId\`) REFERENCES \`users\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
-        await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`state\` \`state\` tinyint NOT NULL`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`price\` \`price\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`description\` \`description\` varchar(500) NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`userIdId\` \`userIdId\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`expire_date\` \`expire_date\` date NULL DEFAULT 'NULL'`);
-        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`card_number\` \`card_number\` int NULL DEFAULT 'NULL'`);
+        await queryRunner.query(`ALTER TABLE \`payment\` DROP COLUMN \`card_number\``);
+        await queryRunner.query(`ALTER TABLE \`payment\` ADD \`card_number\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`payment\` ADD CONSTRAINT \`FK_3dd21505bf38aeefe2e7fe6d404\` FOREIGN KEY (\`userIdId\`) REFERENCES \`users\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`password_reset\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
         await queryRunner.query(`ALTER TABLE \`image\` CHANGE \`ticketIdId\` \`ticketIdId\` int NULL DEFAULT 'NULL'`);
@@ -106,7 +103,6 @@ export class v21643015963293 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`users\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
         await queryRunner.query(`ALTER TABLE \`users\` CHANGE \`email_verified_at\` \`email_verified_at\` datetime NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
-        await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`state\` \`state\` tinyint NOT NULL`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`iban\` \`iban\` varchar(50) NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`telephone\` \`telephone\` varchar(12) NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`website\` \`website\` varchar(200) NULL DEFAULT 'NULL'`);
