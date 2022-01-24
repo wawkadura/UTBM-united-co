@@ -1,0 +1,36 @@
+.tabview-demo .tabview-header-icon i, .tabview-demo .tabview-header-icon span {
+    vertical-align: middle;
+}
+
+.tabview-header-icon span {
+    margin: 0 .5rem;
+}
+
+.tabview-demo .p-tabview p {
+    line-height: 1.5;
+    margin: 0;
+}
+            
+@keyframes ui-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #d62d20;
+    }
+    40% {
+        stroke: #0057e7;
+    }
+    66% {
+        stroke: #008744;
+    }
+    80%,
+    90% {
+        stroke: #ffa700;
+    }
+  }
+  
+  
+  .spinner {
+    text-align:center;
+    margin-top: 10%;
+    width: 100%;
+  }
