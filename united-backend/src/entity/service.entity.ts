@@ -15,7 +15,7 @@ export class service{
   @Column({nullable:true})
   price: number;
 
-  @Column()
+  @Column({default:true})
   state: boolean;
 
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
