@@ -33,7 +33,10 @@ function Navbar() {
                     <li><HashLink smooth to="/home#services">Nos services</HashLink></li>
                     <li><Link to="/associations">Associations</Link></li>
                     <li><HashLink smooth to="/home#about">À propos</HashLink></li>
-                    <li><HashLink smooth to="/home#contact">Contact</HashLink></li>
+                    { !auth ?
+                        <li><HashLink smooth to="/home#contact">Contact</HashLink></li> :
+                        <li><Link to="/ticket">Contact</Link></li>
+                    }
                 </ul>
             </nav>
             <div className="buttons">
