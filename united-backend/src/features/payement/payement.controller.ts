@@ -1,6 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import { payment } from 'src/entity/payment.entity';
-import { Payement } from './dto/payement.dto';
 import { PayementService } from './payement.service';
 
 @Controller('payement')
