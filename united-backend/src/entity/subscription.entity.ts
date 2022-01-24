@@ -16,7 +16,7 @@ export class subscription{
   @Column("datetime")
   date; 
   
-  @Column()
+  @Column({default:true})
   state: boolean;
 
   @ManyToOne(() => users, users => users.id)
