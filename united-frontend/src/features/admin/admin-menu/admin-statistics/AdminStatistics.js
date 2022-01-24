@@ -67,7 +67,7 @@ function AdminStatistics() {
             <div className="card">
                 {isPending ? <div className="spinner"> <ProgressSpinner /></div> :
                     <TabView className="tabview-header-icon">
-                        <TabPanel header="Donations" leftIcon="pi pi-heart">
+                        <TabPanel header="Dons" leftIcon="pi pi-heart">
                             <GraphDonations data={dataDonations} />
                         </TabPanel>
                         <TabPanel header="Utilisateurs" leftIcon="pi pi-user">
