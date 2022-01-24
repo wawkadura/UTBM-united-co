@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { payment } from 'src/entity/payment.entity';
 import { Repository } from 'typeorm';
-import { threadId } from 'worker_threads';
 
 @Injectable()
 export class PayementService {
