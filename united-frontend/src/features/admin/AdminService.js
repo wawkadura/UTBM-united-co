@@ -11,7 +11,7 @@ export class AdminService {
         }).then(res => res.json());
     }
 
-    getDonors() {
+   async getDonors() {
         return fetch("http://localhost:4200/admin/donors", {
             method: "GET",
             headers: {
@@ -20,7 +20,7 @@ export class AdminService {
         });
     }
 
-    deleteDonor(id) {
+    async deleteDonor(id) {
         return fetch("http://localhost:4200/admin/donor", {
             method: "DELETE",
             headers: {
@@ -32,7 +32,7 @@ export class AdminService {
         })
     }
 
-    deleteAssociation(id) {
+    async deleteAssociation(id) {
         return fetch("http://localhost:4200/admin/association", {
             method: "DELETE",
             headers: {
@@ -43,7 +43,7 @@ export class AdminService {
             })
         })
     }
-    sendEmail(emailData) {
+    async sendEmail(emailData) {
         return emailjs.send("service_6rcafdk", "template_tlhsphk", {
             subject: emailData.subject,
             message: emailData.message,
@@ -51,7 +51,7 @@ export class AdminService {
         }, "user_SIDEoCNlWwROUDulWRZJK")
     }
 
-    getAdminInfo(id) {
+    async getAdminInfo(id) {
         return fetch("http://localhost:4200/admin/"+id, {
             method: "GET",
             headers: {
@@ -60,7 +60,7 @@ export class AdminService {
         });
     }
 
-    getAdminOverviewStats() {
+    async getAdminOverviewStats() {
         return fetch("http://localhost:4200/admin/overview", {
             method: "GET",
             headers: {
@@ -69,7 +69,16 @@ export class AdminService {
         });
     }
 
-    updateAdminInfo(id, data) {
+    async getAdminStats() {
+        return fetch("http://localhost:4200/admin/statistics", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    async updateAdminInfo(id, data) {
         return fetch("http://localhost:4200/admin/donor", {
             method: "PUT",
             headers: {
@@ -81,6 +90,48 @@ export class AdminService {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     email: data.email
+                }
+            })
+        })
+    }
+
+    async createAssociation(data) {
+        return fetch("http://localhost:4200/admin/association", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                data: {
+                    name: data.name,
+                    acronym: data.acronym,
+                    email: data.email,
+                    description: data.desscription,
+                    type: data.type,
+                    password: data.password
+                }
+            })
+        })
+    }
+
+    async updateAssociation(id, data) {
+        return fetch("http://localhost:4200/admin/association", {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                data: {
+                    name: data.name,
+                    acronym: data.acronym,
+                    email: data.email,
+                    description: data.description,
+                    website: data.website,
+                    address: data.address,
+                    city: data.city,
+                    phone: data.phone,
+                    type: data.type
                 }
             })
         })
