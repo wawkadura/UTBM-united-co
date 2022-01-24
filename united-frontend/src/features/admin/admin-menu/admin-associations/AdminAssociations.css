@@ -19,14 +19,10 @@
 }
 .admin-associations .p-datatable {
   min-height: 100%;
-  max-height: 70vh;
-  
+  max-height: 70vh;  
 }
 .admin-associations .p-datatable .p-datatable-thead tr th {
   background-color: var(--indigo-100);
-}
-.admin-associations .actions button:first-of-type {
-  margin-right: 1rem;
 }
 
 /*# sourceMappingURL=associations.css.map */
@@ -51,4 +47,9 @@
   text-align:center;
   margin-top: 10%;
   width: 100%;
+}
+
+.add-association Button {
+  border-color: var(--indigo-100);
+  background-color: var(--indigo-100);
 }
