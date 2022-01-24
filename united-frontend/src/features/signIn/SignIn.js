@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, get } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
@@ -9,6 +9,9 @@ import "./SignIn.css"
 
 function SignIn(){
 
+    const [IsLoginError, setIsLoginError] = useState(false);
+    const [LoginMessage, setLoginMessage] = useState("");
+
     const defaultValues = {
         email: '',
         password: ''
@@ -17,13 +20,17 @@ function SignIn(){
     const { control, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
     
     async function onSubmit (data) {
-        // setFormData({email: data.email, password: data.password});
-        // console.log(JSON.stringify(formData))
-        console.log(JSON.stringify(data))
         await axios.post('http://localhost:4200/account/sign-in', data
         ).then(
             (response)=>{
-            console.log(response);
+                if(response.data.statusCode === 404){
+                    setLoginMessage(response.data.message);
+                    setIsLoginError(true);
+                }
+                else{
+                    sessionStorage.setItem('token', response.data.token.access_token)
+                    sessionStorage.setItem('userId', response.data.payload.userId)
+                }
         }).catch((error)=>{
             console.log("erreur : "+ error)
         });
@@ -57,6 +64,7 @@ function SignIn(){
                         <label htmlFor="password" className={classNames({ 'p-error': errors.password })}>Password*</label>
                     </span>
                     {getFormErrorMessage('password')}
+                    {IsLoginError?<small className="p-error" >{LoginMessage}</small> : <div></div>}
                     <Button type="submit" label="Submit" className="p-mb-2 p-mt-2 perso-color-blue" />
                 </form>
                 <a href="/home/signIn/forgotPass" className="p-d-flex p-mb-2 p-jc-center">Mot de passe oublié</a>

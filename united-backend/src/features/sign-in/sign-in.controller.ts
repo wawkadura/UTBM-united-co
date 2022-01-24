@@ -2,7 +2,6 @@ import { Body, Controller, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { users } from 'src/entity/user.entity';
 import { PayloadToken } from './payloadToken';
 import { SignIn } from './dto/sign-in.dto';
-import { JwtAuthGuard } from './jwt-auth.guard';
 import { SingInService } from './sign-in.service';
 
 @Controller('account')
@@ -37,12 +36,13 @@ export class SingInController {
         const user = await this.signInService.isEmailExist(data.email);
         if (user){
             const result = await this.signInService.updatePass(user, data.password);
+            const payload: PayloadToken = {userId: result.id}
 
             if(result){
                 return{
                     codeStatus: HttpStatus.OK,
                     message : 'Mot de passe modifier avec succés',
-                    result
+                    payload
                 }
             }
             else{
