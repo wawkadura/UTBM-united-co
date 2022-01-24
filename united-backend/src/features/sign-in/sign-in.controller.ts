@@ -2,13 +2,14 @@ import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import { SignIn } from './dto/sign-in.dto';
 import { SingInService } from './sign-in.service';
 
-@Controller('sign-in')
+@Controller('account')
 export class SingInController {
 
     constructor(private signInService: SingInService){}
     
-    @Get()
+    @Post('sign-in')
     async SignIn(@Body() data: SignIn){
+        console.log(data);
         const isOk = await this.signInService.isPassOk(data.email, data.password);
         if (isOk){
             return {
@@ -25,7 +26,7 @@ export class SingInController {
         }
     }
 
-    @Post()
+    @Post('forgot-pass')
     async ForgotPassword(@Body() data: SignIn){
         const user = await this.signInService.isEmailExist(data.email);
         if (user){

@@ -20,13 +20,8 @@ function SignIn(){
         // setFormData({email: data.email, password: data.password});
         // console.log(JSON.stringify(formData))
         console.log(JSON.stringify(data))
-        await axios.get('http://localhost:4200/sign-in', {
-            params:[{
-                email: "matthis.utbm.fr",
-            },{
-                password: "test1",
-            }]
-        }).then(
+        await axios.post('http://localhost:4200/account/sign-in', data
+        ).then(
             (response)=>{
             console.log(response);
         }).catch((error)=>{
