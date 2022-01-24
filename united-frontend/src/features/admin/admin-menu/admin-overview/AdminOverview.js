@@ -63,8 +63,6 @@ function AdminOverview(data) {
             }
             setIsPending(false)
         });
-
-
     }
 
     const onHide = () => {
