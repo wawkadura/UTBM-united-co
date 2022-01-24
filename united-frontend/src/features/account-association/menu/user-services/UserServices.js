@@ -172,7 +172,7 @@ function UserServices(){
                         {errors?.description && <ErrorMessage message={errors.description.message}/>}                    
                     </div>
                     <div className="p-field p-col-12">
-                        <label htmlFor="price"><b>Prix(£)</b></label>
+                        <label htmlFor="price"><b>Prix(€)</b></label>
                         <InputText type="number" {...register("price", { required:"Prix requis", min:{value:1,message:"Abonnement doit être au moins égale à 1 euro."} })}  placeholder={"Entrer le prix de l'abonnement"}/>
                         {errors?.price && <ErrorMessage message={errors.price.message}/>}  
                     </div>

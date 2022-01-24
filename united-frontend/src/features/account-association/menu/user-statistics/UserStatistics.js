@@ -5,6 +5,9 @@ import { useState } from "react";
 import { ValueScale} from '@devexpress/dx-react-chart';
 import 'primeflex/primeflex.css';
 import { useForm } from "react-hook-form";
+import {InputText} from "primereact/inputtext";
+import { Button } from 'primereact/button';
+
 
 function UserSatistics(){
 
@@ -20,7 +23,7 @@ function UserSatistics(){
             { argument:'Premium', value:2 },
             { argument:'Premiun+', value:5},
         ],
-        "none":[
+        2020:[
             { argument:'Regular', value:0 },
             { argument:'Premium', value:0 },
             { argument:'Premiun+', value:0},
@@ -74,19 +77,23 @@ function UserSatistics(){
     };
 
     const [date, setDate]=useState(new Date().getFullYear());
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit,reset, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         setDate(data.date);
+        // reset();
     }
+    const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) ;
     const onError = (errors, e) => console.log(errors, e);
     
     const inputDate = (
         <form onSubmit={handleSubmit(onSubmit, onError)}>
             <label>
-            <b>date :</b>
-                <input type="text" {...register("date")} style={{ width: '100px', margin: '10px' }}/>
-            </label>
+            <b>Date :</b>
+                <InputText type="number" {...register("date",{required:"Saisir une année", maxLength:{value:4, message:"Saisir une année correct"},minLength:{value:4,message:"Saisir une année correct"}})} style={{ width: '100px', margin: '10px' }}/>
+                {errors?.date && <ErrorMessage message={errors.date.message}/>}  
                 <input type="submit" value="Valider" />
+            </label>
+                
         </form>
     ); 
 

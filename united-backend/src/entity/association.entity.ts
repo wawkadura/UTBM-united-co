@@ -6,7 +6,7 @@ export class association{
   id: number;
 
   @Column("varchar", { length: 20 })
-  Name;
+  name;
 
   @Column("varchar", { length: 10, nullable: true })
   acronym;
