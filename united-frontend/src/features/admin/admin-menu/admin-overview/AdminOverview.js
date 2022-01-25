@@ -10,20 +10,19 @@ import { classNames } from 'primereact/utils';
 import { Toast } from 'primereact/toast';
 import { InputText } from "primereact/inputtext";
 import { AdminService } from "../../AdminService";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 
-function AdminOverview(data) {
+function AdminOverview({toast, admin}) {
     const { control, formState: { errors }, handleSubmit, reset } = useForm({});
     const [displayDialog, setDisplayDialog] = useState(false);
     const [mailExists, setMailExists] = useState(false);
     const [isPending, setIsPending] = useState(false);
     const [isPendingStats, setIsPendingStats] = useState(true);
     const [formData, setFormData] = useState({});
-    const toast = useRef(null);
     const adminService = new AdminService()
-    const adminData = data.admin
+    const adminData = admin
     const [stats, setStats] = useState({
         nbDonations: 43795,
         nbDonateurs: 2736,
@@ -42,7 +41,7 @@ function AdminOverview(data) {
             }
             setIsPendingStats(false)
         });
-    });
+    }, []);
 
     const onClick = () => {
         setDisplayDialog(true)

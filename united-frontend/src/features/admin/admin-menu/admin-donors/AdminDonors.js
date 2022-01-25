@@ -30,15 +30,13 @@ var donors = [
 ]
 
 // TODO: faire des services pour les request vers backend
-function AdminDonors() {
+function AdminDonors({toast}) {
     var idToDelete = ''
-    const toast = useRef(null);
     const adminService = new AdminService();
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         adminService.getDonors().then((response) => {
-            // console.log(response)
             if (!response.ok && toast.current != null) {
                 // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
             }
@@ -64,7 +62,6 @@ function AdminDonors() {
 
     const accept = () => {
         adminService.deleteDonor(idToDelete).then((response) => {
-            // console.log(response)
             if (!response.ok) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
             } else {

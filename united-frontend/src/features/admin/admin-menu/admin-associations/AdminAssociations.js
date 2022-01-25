@@ -29,7 +29,7 @@ var associations = [
     { id: "10", name: "Société protectrice des animaux", acronym: "SPA", email: "dons@spa.com", website: "www.spa.com", phone: "0612345678", type: "animaux" },
 ]
 
-function AdminAssociations() {
+function AdminAssociations({toast}) {
     const { control, watch, formState: { errors }, handleSubmit, reset } = useForm({});
     const [formData, setFormData] = useState({});
     const [isPending, setIsPending] = useState(false);
@@ -40,12 +40,10 @@ function AdminAssociations() {
     const [selectedAssociation, setSelectedAssociation] = useState(null);
     const [detailsDisplay, setDetailsDisplay] = useState(false);
     var idToDelete = ''
-    const toast = useRef(null);
     const adminService = new AdminService();
 
     useEffect(() => {
         adminService.getAssociations().then((response) => {
-            console.log(response)
             if (!response.ok && toast.current != null) {
                 //toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + ": " + response.message, life: 3000 });
             }

@@ -9,9 +9,8 @@ import { InputTextarea } from "primereact/inputtextarea";
 import "./AdminCommunications.css"
 import { useForm, Controller } from 'react-hook-form';
 
-function AdminCommunications() {
+function AdminCommunications({toast}) {
     const [formData, setFormData] = useState({});
-    const toast = useRef(null);
     const [isPending, setIsPending] = useState(false);
     const adminService = new AdminService()
     const defaultValues = {
@@ -24,14 +23,11 @@ function AdminCommunications() {
     function sendEmail(data) {
         setFormData(data);
         setIsPending(true)
-        console.log(formData)
         adminService.sendEmail(formData).then((response) => {
-            console.log(response);
             toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Le mail a bien été envoyé !', life: 3000 });
             setIsPending(false)
             reset()
         }, (error) => {
-            console.log(error.text);
             setIsPending(false)
             // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
         });

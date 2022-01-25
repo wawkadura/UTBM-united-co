@@ -24,7 +24,6 @@ function Admin(adminID) {
 
     useEffect(() => {
         adminService.getAdminInfo(adminID).then((response) => {
-            console.log(response)
             if (!response.ok && toast.current != null) {
                 // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
             }
@@ -41,11 +40,11 @@ function Admin(adminID) {
     });
     const component = () => {
         switch (type) {
-            case "overview": return <AdminOverview admin={data} />;
-            case "donors": return <AdminDonors />;
-            case "associations": return <AdminAssociations />;
-            case "statistics": return <AdminStatistics />;
-            case "communications": return <AdminCommunications />;
+            case "overview": return <AdminOverview toast={toast} admin={data} />;
+            case "donors": return <AdminDonors toast={toast} />;
+            case "associations": return <AdminAssociations toast={toast} />;
+            case "statistics": return <AdminStatistics toast={toast} />;
+            case "communications": return <AdminCommunications toast={toast} />;
 
             default: return <AdminOverview />;
         }
