@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import { service } from './service.entity';
 import { users } from './user.entity';
 
@@ -16,13 +16,13 @@ export class subscription{
   @Column("datetime")
   date; 
   
-  @Column()
+  @Column({default:true})
   state: boolean;
 
-  @OneToMany(() => users, users => users.id)
+  @ManyToOne(() => users, users => users.id)
   user_id:number;
 
-  @OneToMany(() => service, service => service.id)
+  @ManyToOne(() => service, service => service.id)
   service_id:number;
 
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
