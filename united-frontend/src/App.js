@@ -3,7 +3,6 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 
-
 import Navbar from "./shared/navigation/navbar/Navbar";
 import Footer from "./shared/navigation/footer/Footer";
 import Home from "./features/home/Home";

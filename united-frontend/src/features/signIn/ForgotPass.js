@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import axios from 'axios'
+import axios from '../../shared/jwt.interceptor'
 import { InputText } from 'primereact/inputtext';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from 'primereact/button';
@@ -15,10 +15,8 @@ function ForgotPass(){
     const { control, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
 
     async function onSubmit(data){
-        await axios.post("http://localhost:4200/sign-in", {
-            email: data.email,
-            password: data.password
-        }).then((response)=>{
+        await axios.post("http://localhost:4200/account/forgot-pass", data
+        ).then((response)=>{
             console.log(response);
         }).catch((error)=>{
             console.log(error);
@@ -31,7 +29,7 @@ function ForgotPass(){
     };
 
     return (
-        <div className="p-d-flex p-jc-center p-mx-6 p-flex-column">
+        <div className="p-d-flex p-jc-center p-mx-auto p-flex-column" style={{width: 50+'%'}}>
             <h5 className="p-text-center p-my-3">Saisissez votre email et votre nouveau mot de passe</h5>
             <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
                 <span className="p-float-label p-input-icon-right p-my-3">

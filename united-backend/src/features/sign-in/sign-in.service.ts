@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { users } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { PayloadToken } from './payloadToken';
+import { PayloadToken } from './dto/payloadToken';
 
 @Injectable()
 export class SingInService {

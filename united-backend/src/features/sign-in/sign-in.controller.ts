@@ -1,8 +1,9 @@
 import { Body, Controller, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { users } from 'src/entity/user.entity';
-import { PayloadToken } from './payloadToken';
+import { PayloadToken } from './dto/payloadToken';
 import { SignIn } from './dto/sign-in.dto';
 import { SingInService } from './sign-in.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('account')
 export class SingInController {
@@ -32,6 +33,7 @@ export class SingInController {
     }
 
     @Post('forgot-pass')
+    @UseGuards(JwtAuthGuard)
     async ForgotPassword(@Body() data: users){
         const user = await this.signInService.isEmailExist(data.email);
         if (user){
