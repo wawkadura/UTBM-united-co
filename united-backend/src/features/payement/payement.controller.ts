@@ -1,14 +1,15 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { payment } from 'src/entity/payment.entity';
+import { JwtAuthGuard } from '../sign-in/jwt-auth.guard';
 import { PayementService } from './payement.service';
 
 @Controller('payement')
 export class PayementController {
     constructor(private paymentService: PayementService){}
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     async GetPaymentById(@Query('id') id: number){
-        console.log(id);
         const payments = await this.paymentService.FindAllById(id);
 
         if (payments.length !== 0){
@@ -26,6 +27,7 @@ export class PayementController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async AddNewPayement(@Body() payement: payment){
         const newPayement = await this.paymentService.Add(payement);
