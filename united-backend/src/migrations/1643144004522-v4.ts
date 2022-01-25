@@ -1,9 +1,10 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class v31643026041997 implements MigrationInterface {
-    name = 'v31643026041997'
+export class v41643144004522 implements MigrationInterface {
+    name = 'v41643144004522'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE \`payment\` ADD \`owner\` varchar(20) NOT NULL`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`acronym\` \`acronym\` varchar(10) NULL`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`type\` \`type\` varchar(50) NULL`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`description\` \`description\` varchar(200) NULL`);
@@ -34,10 +35,9 @@ export class v31643026041997 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`image\` CHANGE \`ticketIdId\` \`ticketIdId\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`password_reset\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
         await queryRunner.query(`ALTER TABLE \`payment\` DROP FOREIGN KEY \`FK_3dd21505bf38aeefe2e7fe6d404\``);
-        await queryRunner.query(`ALTER TABLE \`payment\` DROP COLUMN \`card_number\``);
-        await queryRunner.query(`ALTER TABLE \`payment\` ADD \`card_number\` bigint NULL`);
-        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`expire_date\` \`expire_date\` date NULL`);
-        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP`);
+        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`card_number\` \`card_number\` bigint NOT NULL`);
+        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`expire_date\` \`expire_date\` date NOT NULL`);
+        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`created_at\` \`created_at\` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`userIdId\` \`userIdId\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`description\` \`description\` varchar(500) NULL`);
         await queryRunner.query(`ALTER TABLE \`service\` CHANGE \`price\` \`price\` int NULL`);
@@ -79,8 +79,7 @@ export class v31643026041997 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`userIdId\` \`userIdId\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
         await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`expire_date\` \`expire_date\` date NULL DEFAULT 'NULL'`);
-        await queryRunner.query(`ALTER TABLE \`payment\` DROP COLUMN \`card_number\``);
-        await queryRunner.query(`ALTER TABLE \`payment\` ADD \`card_number\` int NULL DEFAULT 'NULL'`);
+        await queryRunner.query(`ALTER TABLE \`payment\` CHANGE \`card_number\` \`card_number\` bigint NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`payment\` ADD CONSTRAINT \`FK_3dd21505bf38aeefe2e7fe6d404\` FOREIGN KEY (\`userIdId\`) REFERENCES \`users\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`password_reset\` CHANGE \`created_at\` \`created_at\` datetime NULL DEFAULT CURRENT_TIMESTAMP()`);
         await queryRunner.query(`ALTER TABLE \`image\` CHANGE \`ticketIdId\` \`ticketIdId\` int NULL DEFAULT 'NULL'`);
@@ -111,6 +110,7 @@ export class v31643026041997 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`description\` \`description\` varchar(200) NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`type\` \`type\` varchar(50) NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`association\` CHANGE \`acronym\` \`acronym\` varchar(10) NULL DEFAULT 'NULL'`);
+        await queryRunner.query(`ALTER TABLE \`payment\` DROP COLUMN \`owner\``);
     }
 
 }
