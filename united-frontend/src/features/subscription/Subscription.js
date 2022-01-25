@@ -6,6 +6,8 @@ import SubInfo from "./subInfo/SubInfo";
 import PayementInfo from "./payementInfo/PayementInfo";
 import Summary from "./summary/Summary";
 import axios from "../../shared/jwt.interceptor";
+import Moment from 'moment';
+
 
 function Subscription(){
     //first component show
@@ -16,32 +18,7 @@ function Subscription(){
         sessionStorage.setItem('activeIndex', JSON.stringify(activeIndex))
     }, [activeIndex])
     
-    const [typesPayement, setTypesPayement] = useState([
-        // {
-        //     id : 1,
-        //     owner : "PINON",
-        //     cardNumber : 12331242342,
-        //     expirationDate : "09/2022",
-        // },
-        // {
-        //     id : 2,
-        //     owner : "INFOX",
-        //     cardNumber : 19843194723,
-        //     expirationDate : "10/2020",
-        // },
-        // {
-        //     id : 3,
-        //     owner : "JILLE",
-        //     cardNumber : 19843194723,
-        //     expirationDate : "10/2020",
-        // },
-        // {
-        //     id : 4,
-        //     owner : "LOUPE",
-        //     cardNumber : 19843194723,
-        //     expirationDate : "10/2020",
-        // }
-    ]);
+    const [typesPayement, setTypesPayement] = useState([]);
 
     useEffect(()=>{
         const userId = sessionStorage.getItem('userId')
@@ -50,9 +27,9 @@ function Subscription(){
                     response.data.payments.forEach(element => {
                         setTypesPayement(typesPayement=>[...typesPayement, {
                             id: element.id,
-                            owner: "PINON",
+                            owner: element.owner,
                             cardNumber: element.card_number,
-                            expirationDate: element.expire_date
+                            expirationDate: Moment(element.expire_date).format('MM/YYYY')
                         }])
                     });
                 })

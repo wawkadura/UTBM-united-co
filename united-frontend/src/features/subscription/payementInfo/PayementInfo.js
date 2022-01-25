@@ -11,10 +11,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { classNames } from 'primereact/utils';
 import { Toast } from 'primereact/toast';
 import Moment from 'moment';
+import axios from "../../../shared/jwt.interceptor";
 
 function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selectedPayement, setSelectedPayement }) {
 
     const successToast = useRef(null);
+    const errorToast = useRef(null);
+
     const [displayAddDialog, setDisplayAddDialog] = useState(false);
     
     const defaultValues = {
@@ -24,21 +27,37 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
     };
     const { control, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
     
-    function AddCard(number, name, date){
+    function AddCard(_id, number, name, date){
 		const currentCard = typesPayement.find((c)=>c.cardNumber === number)
 
 		//credit card doesn't exist
 		if(!currentCard){			
 			//add new credit card in array
-            setTypesPayement([...typesPayement, {id: 5, owner: name, cardNumber: number, expirationDate: date}]);
+            setTypesPayement([...typesPayement, {id: _id, owner: name, cardNumber: number, expirationDate: date}]);
 		}
 	}
 
-    const onSubmit = (data) => {
-        //TODO : post wit back
-        AddCard(data.cardNumber, data.owner, Moment(data.expirationDate).format('MM/yyyy'));
+    async function onSubmit (data) {
+        await axios.post('http://localhost:4200/payement', {
+            card_number: data.cardNumber.replace(/ /g, ""),
+            owner: data.owner,
+            expire_date: Moment(data.expirationDate).add(1, "days"),
+            user_id: sessionStorage.getItem('userId')
+        }).then(
+            response=>{
+                if(response.data.codeStatus === 200){
+                    const newCard = response.data.newPayement;
+                    AddCard(newCard.id, newCard.card_number, newCard.owner, Moment(newCard.expire_date).format('MM/yyyy'));
+                    showSuccess();
+                }
+                else{
+                    showError(response.data.message)
+                }
+            }
+        ).catch(
+            error=>console.log(error)
+        )
         setDisplayAddDialog(false);
-        showSuccess();
         reset();
     };
     
@@ -50,6 +69,14 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
             life: 3000
         });
     }
+    const showError = (message) => {
+        errorToast.current.show({
+            severity:'error', 
+            summary: 'Enregistré', 
+            detail: message, 
+            life: 3000
+        });
+    }
 
     const getFormErrorMessage = (name) => {
         return errors[name] && <small className="p-error">{errors[name].message}</small>
@@ -58,6 +85,7 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
     return (
         <div>
             <Toast ref={successToast}/>
+            <Toast ref={errorToast}/>
             <div className="p-grid p-mx-3 p-my-2">
                 {typesPayement.length > 0 ? (
                     typesPayement.map(({id, owner, cardNumber, expirationDate})=>

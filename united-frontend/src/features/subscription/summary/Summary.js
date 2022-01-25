@@ -33,10 +33,10 @@ function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
                         Prix mensuel de l'abonnement : {subInfo.price} €
                     </p>
                     <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-mx-auto p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
-                        Durée de l'abonnement : {subInfo.duration}
+                        Durée de l'abonnement : {subInfo.duration} mois
                     </p>
                     <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-mx-auto p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
-                        Cout total : {subInfo.total}
+                        Cout total : {subInfo.total} €
                     </p>
                 </Card>
             :
