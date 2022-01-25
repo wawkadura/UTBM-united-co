@@ -5,9 +5,10 @@ import { UserModule } from './features/user/user.module';
 import { DatabaseModule } from './database/database.module';
 import { NewslettersModule } from './features/newsletters/newsletters.module';
 import { PayementModule } from './features/payement/payement.module';
+import { SingInModule } from './features/sign-in/sign-in.module';
 
 @Module({
-  imports: [UserModule, DatabaseModule, NewslettersModule, PayementModule],
+  imports: [UserModule, DatabaseModule, NewslettersModule, SingInModule, PayementModule],
   controllers: [AppController],
   providers: [AppService],
 })

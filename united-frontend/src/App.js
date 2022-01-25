@@ -9,6 +9,8 @@ import Home from "./features/home/Home";
 import Subscription from "./features/subscription/Subscription"
 import SignUp from "./features/sign-up/SignUp";
 import Associations from './features/Associations/Associations';
+import SignIn from './features/signIn/SignIn';
+import ForgotPass from './features/signIn/ForgotPass';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NotFound from "./shared/not-found/NotFound";
@@ -27,6 +29,8 @@ function App() {
                         <Route exact path="/home" element={<Home />} />
                         <Route exact path="/sign-up" element={<SignUp />} />
                         <Route exact path="/sub" element={<Subscription/>}/>
+                        <Route exact path="/home/signIn" element={<SignIn/>}/>
+                        <Route exact path="/home/signIn/forgotPass" element={<ForgotPass/>}/>
                         <Route exact path="/associations" element={<Associations />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
