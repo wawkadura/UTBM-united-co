@@ -5,6 +5,7 @@ import NotFound from "../../shared/not-found/NotFound";
 import SubInfo from "./subInfo/SubInfo";
 import PayementInfo from "./payementInfo/PayementInfo";
 import Summary from "./summary/Summary";
+import axios from "../../shared/jwt.interceptor";
 
 function Subscription(){
     //first component show
@@ -15,33 +16,48 @@ function Subscription(){
         sessionStorage.setItem('activeIndex', JSON.stringify(activeIndex))
     }, [activeIndex])
     
-    //TODO : get to initialise
     const [typesPayement, setTypesPayement] = useState([
-        {
-            id : 1,
-            owner : "PINON",
-            cardNumber : 12331242342,
-            expirationDate : "09/2022",
-        },
-        {
-            id : 2,
-            owner : "INFOX",
-            cardNumber : 19843194723,
-            expirationDate : "10/2020",
-        },
-        {
-            id : 3,
-            owner : "JILLE",
-            cardNumber : 19843194723,
-            expirationDate : "10/2020",
-        },
-        {
-            id : 4,
-            owner : "LOUPE",
-            cardNumber : 19843194723,
-            expirationDate : "10/2020",
-        }
+        // {
+        //     id : 1,
+        //     owner : "PINON",
+        //     cardNumber : 12331242342,
+        //     expirationDate : "09/2022",
+        // },
+        // {
+        //     id : 2,
+        //     owner : "INFOX",
+        //     cardNumber : 19843194723,
+        //     expirationDate : "10/2020",
+        // },
+        // {
+        //     id : 3,
+        //     owner : "JILLE",
+        //     cardNumber : 19843194723,
+        //     expirationDate : "10/2020",
+        // },
+        // {
+        //     id : 4,
+        //     owner : "LOUPE",
+        //     cardNumber : 19843194723,
+        //     expirationDate : "10/2020",
+        // }
     ]);
+
+    useEffect(()=>{
+        const userId = sessionStorage.getItem('userId')
+        axios.get('http://localhost:4200/payement', {params:{id: userId}})
+                .then((response)=>{
+                    response.data.payments.forEach(element => {
+                        setTypesPayement(typesPayement=>[...typesPayement, {
+                            id: element.id,
+                            owner: "PINON",
+                            cardNumber: element.card_number,
+                            expirationDate: element.expire_date
+                        }])
+                    });
+                })
+                .catch((error)=>console.log(error));
+    }, []);
     
     //TODO : get to initialise
     const user =

@@ -79,8 +79,8 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
                     )
                     :
                     (
-                        <Card className="p-d-flex p-jc-center p-ai-center p-mx-8 p-my-4">
-                            <p className="p-d-flex p-jc-center">
+                        <Card className="p-d-flex p-jc-center p-ai-center p-mx-auto p-my-4">
+                            <p className="p-d-flex p-jc-center" style={{color: 'black'}}>
                                 Aucune carte banquaire enregistrée. Veuillez en renseigner une.
                             </p>
                         </Card>

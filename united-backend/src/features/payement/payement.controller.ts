@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Query } from '@nestjs/common';
 import { payment } from 'src/entity/payment.entity';
 import { PayementService } from './payement.service';
 
@@ -7,7 +7,8 @@ export class PayementController {
     constructor(private paymentService: PayementService){}
 
     @Get()
-    async GetPaymentById(@Body() id: number){
+    async GetPaymentById(@Query('id') id: number){
+        console.log(id);
         const payments = await this.paymentService.FindAllById(id);
 
         if (payments.length !== 0){
