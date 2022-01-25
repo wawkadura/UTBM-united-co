@@ -4,6 +4,8 @@ import { users } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { PayloadToken } from './dto/payloadToken';
+import * as bcrypt from 'bcrypt';
+import { GlobalConst } from './constants';
 
 @Injectable()
 export class SingInService {
@@ -22,7 +24,9 @@ export class SingInService {
     //check if couple [email, password] exist in db
     async isPassOk(email: string, pass : string){
         const user = await this.isEmailExist(email); 
-        if (user.password === pass) {
+        //compare hash in DB and given password
+        const isMatch = await bcrypt.compare(pass, user.password);
+        if (isMatch) {
             return user;
         }
         return null;
@@ -30,7 +34,9 @@ export class SingInService {
 
     //update user's password in db
     async updatePass(user: users, newPass: string){
-        user.password = newPass;
+        //hash password
+        const hash = await bcrypt.hash(newPass, GlobalConst.salt);
+        user.password = hash;
         const newUser = await this.usersRepository.save(user);
         return newUser;
     }
