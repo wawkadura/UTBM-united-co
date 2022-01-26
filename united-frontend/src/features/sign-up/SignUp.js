@@ -34,7 +34,6 @@ function SignUp() {
         setFormData(data);
         signUpService.CreateDonor(data).then((response) => {
             setIsPending(false)
-            console.log(response)
             if (response.statusCode != 200) {
                 if (response.statusCode == 400) {
                     setMailExists(true)
@@ -46,8 +45,6 @@ function SignUp() {
                 setShowMessage(true);
             }
         })
-
-        console.log()
     };
 
     const resetMailExistance = () => {
