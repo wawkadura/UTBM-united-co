@@ -1,18 +1,19 @@
 export class SignUpService {
-    CreateDonor(data) {
-        return fetch("http://localhost:4200/sign-up", {
+    async CreateDonor(data) {
+        const resp = await fetch("http://localhost:4200/sign-up", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                Data: {
-                    name: data.name,
-                    email: data.email,
-                    password: data.password,
-                }
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password: data.password,
             })
         });
+
+        return await resp.json()
     }
 }

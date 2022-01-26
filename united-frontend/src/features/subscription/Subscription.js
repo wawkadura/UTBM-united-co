@@ -48,7 +48,8 @@ function Subscription(){
     const [subInfo, setSubInfo] = useState( savedSubInfo ? JSON.parse(savedSubInfo) : {
         price : 1,
         duration : 0,
-        total : 0
+        total : 0,
+        type: "sub"
     });
 
     useEffect(() => {

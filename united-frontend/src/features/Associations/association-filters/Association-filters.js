@@ -11,32 +11,51 @@ import { Button } from "primereact/button";
 
 function AssociationFilters({ Filters }) {
     const associationService = new AssociationService();
+    const userId = sessionStorage.getItem('userId');
+
     const { 
         favorites: {onlyFavorites, setOnlyFavorites}, 
         typeFilter: {type, setType}, 
-        country: {searchCountry, setSearchCountry}, 
+        city: {searchcity, setSearchcity}, 
         dateRange: {dateRange, setDateRange}, 
         resetFilters: {setResetFilters} 
     } = Filters;
     const [types, setTypes] = useState(null);
+    const [dateFilterMinMaxValues, setDateFilterMinMaxValues] = useState([1900,2022]);
 
+    // get types values for filtering
     useEffect(() => {
-        associationService.getTypes().then(data => setTypes(data));
+        getFilterOptions();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const getFilterOptions = () => {
+        associationService.getTypes().then(data => setTypes(data));
+        associationService.getDateFilterMinMaxValues().then(data => {
+            if(data) {
+                setDateFilterMinMaxValues([parseInt(data.min), parseInt(data.max)]);
+                setDateRange([data.min, data.max]);
+            } 
+        });
+    }
     return <div className="association-filters">
         
         <h2 className="association-filters-title">Filtres</h2>
-        <Divider/>
 
-        <div className="p-grid">
-            <span className="association-filters-item p-col-9">Vos favoris</span>
-            <Checkbox 
-                className="association-filters-checkbox p-col-3" 
-                onChange={e => setOnlyFavorites(e.checked)} 
-                checked={onlyFavorites}
-            />
-        </div>
+        { userId ? 
+            <div>
+                <Divider/>
+                <div className="p-grid">
+                    <span className="association-filters-item p-col-9">Vos favoris</span>
+                    <Checkbox 
+                        className="association-filters-checkbox p-col-3" 
+                        onChange={e => setOnlyFavorites(e.checked)} 
+                        checked={onlyFavorites}
+                    />
+                </div>
+            </div>
+            : <></>
+        }
+        
 
         <Divider/>
         <div className="association-filters-sub">
@@ -54,8 +73,8 @@ function AssociationFilters({ Filters }) {
             <InputText
                 className="association-filters-input" 
                 placeholder="Rechercher une ville" 
-                value={searchCountry}
-                onChange={(e)=>setSearchCountry(e.target.value)}
+                value={searchcity}
+                onChange={(e)=>setSearchcity(e.target.value)}
             />
 
             <h4 className="association-filters-item">Date de création</h4>
@@ -64,8 +83,8 @@ function AssociationFilters({ Filters }) {
                 value={dateRange} 
                 onChange={(e) => setDateRange(e.value)} 
                 range 
-                min={1900} 
-                max={2022}
+                min={dateFilterMinMaxValues[0]} 
+                max={dateFilterMinMaxValues[1]}
             />
             <h5 className="association-filters-date">{dateRange[0]}, {dateRange[1]}</h5>
             

@@ -27,7 +27,7 @@ function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
                     Email : {user.email}
                 </p>
             </Card>
-            {subInfo.price !== null && subInfo.price !== 0 ? 
+            {subInfo.type === "sub"? 
                 <Card title="Abonnement" className="flex p-flex-column p-jc-center p-ai-center p-my-3" style={{'margin-left': 9+'rem', 'margin-right': 9+'rem'}}>
                     <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-mx-auto p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
                         Prix mensuel de l'abonnement : {subInfo.price} €
@@ -42,7 +42,13 @@ function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
             :
                 <Card title="Don" className="p-d-flex p-flex-column p-jc-center p-ai-center p-my-3" style={{'margin-left': 9+'rem', 'margin-right': 9+'rem'}}>                    
                     <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-mx-auto p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
-                        Montant du don : {subInfo.total} €
+                        Montant total du mensuel : {subInfo.price} €
+                    </p>
+                    <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-mx-auto p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
+                        Durée du don : {subInfo.duration} mois
+                    </p>
+                    <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-mx-auto p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
+                        Montant total du don : {subInfo.total} €
                     </p>
                 </Card>
             }
