@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { association } from './association.entity';
 
 @Entity()
@@ -7,7 +7,7 @@ export class service{
   id: number;
 
   @Column("varchar", { length: 100 })
-  tittle;
+  title;
 
   @Column("varchar", { length: 500, nullable: true})
   description;
@@ -21,7 +21,7 @@ export class service{
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
   created_at;
 
-  @OneToMany(() => association, association => association.id)
+  @ManyToOne(() => association, association => association.id)
   association_id:number;
 
 }

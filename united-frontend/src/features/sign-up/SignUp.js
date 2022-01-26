@@ -19,7 +19,8 @@ function SignUp() {
     const [mailExists, setMailExists] = useState(false);
 
     const defaultValues = {
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -31,20 +32,21 @@ function SignUp() {
     const onSubmit = (data) => {
         setIsPending(true)
         setFormData(data);
-
-        signUpService.CreateDonor(formData).then((response) => {
+        signUpService.CreateDonor(data).then((response) => {
             setIsPending(false)
-
-            if (!response.ok) {
-                // if response = mail existe {setMailExists(true)}
-                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
-                setMailExists(true)
+            if (response.statusCode != 200) {
+                if (response.statusCode == 400) {
+                    setMailExists(true)
+                }else {
+                    toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + ": " + response.message, life: 3000 });
+                }
             } else {
                 reset();
                 setShowMessage(true);
             }
         })
     };
+
     const resetMailExistance = () => {
         setMailExists(false)
     }
@@ -55,7 +57,7 @@ function SignUp() {
 
     const goToConnexion = () => {
         setShowMessage(false)
-        navigate("/home") // TODO: change with sign-in path
+        navigate("/home/signIn") // TODO: change with sign-in path
     }
 
     const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => goToConnexion()} /></div>;
@@ -94,12 +96,22 @@ function SignUp() {
                         <div className="p-field">
                             <span className="p-float-label p-input-icon-right">
                                 <i className="pi pi-user" />
-                                <Controller name="name" control={control} rules={{ required: 'Nom obligatoire.' }} render={({ field, fieldState }) => (
+                                <Controller name="firstName" control={control} rules={{ required: 'Prénom obligatoire.' }} render={({ field, fieldState }) => (
                                     <InputText id={field.name} {...field} autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                )} />
+                                <label htmlFor="name" className={classNames({ 'p-error': errors.name })}>Prénom*</label>
+                            </span>
+                            {getFormErrorMessage('firstName')}
+                        </div>
+                        <div className="p-field">
+                            <span className="p-float-label p-input-icon-right">
+                                <i className="pi pi-user" />
+                                <Controller name="lastName" control={control} rules={{ required: 'Nom obligatoire.' }} render={({ field, fieldState }) => (
+                                    <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                                 )} />
                                 <label htmlFor="name" className={classNames({ 'p-error': errors.name })}>Nom*</label>
                             </span>
-                            {getFormErrorMessage('name')}
+                            {getFormErrorMessage('lastName')}
                         </div>
                         <div className="p-field">
                             <span className="p-float-label p-input-icon-right">
@@ -119,7 +131,7 @@ function SignUp() {
                                     <Password id={field.name} {...field} toggleMask className={classNames({ 'p-invalid': fieldState.invalid })}
                                         header={passwordHeader} footer={passwordFooter} promptLabel=" " weakLabel="Faible" mediumLabel="Moyen" strongLabel="Fort" />
                                 )} />
-                                <label htmlFor="password" className={classNames({ 'p-error': errors.password })}>Mot de passe *</label>
+                                <label htmlFor="password" className={classNames({ 'p-error': errors.password })}>Mot de passe*</label>
                             </span>
                             {getFormErrorMessage('password')}
                         </div>

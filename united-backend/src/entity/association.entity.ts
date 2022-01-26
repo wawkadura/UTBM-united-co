@@ -6,7 +6,7 @@ export class association{
   id: number;
 
   @Column("varchar", { length: 20 })
-  Name;
+  name;
 
   @Column("varchar", { length: 10, nullable: true })
   acronym;
@@ -38,7 +38,7 @@ export class association{
   @Column({default:true})
   state: boolean;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   user_id: number;
   
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
