@@ -10,12 +10,11 @@ import logo from "../../images/united_logo.png";
 import {HashLink} from "react-router-hash-link";
 
 function Navbar() {
-    const [auth, setAuth] = useState(false);
-    const navigate = useNavigate();
-
+    const [auth, setAuth] = useState(sessionStorage.getItem('userId'));
     const menu = useRef(null);
     const navigate = useNavigate();
 
+    const user = "Tony LE";
     const items = [
         { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user") } },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users'},
