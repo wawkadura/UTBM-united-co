@@ -18,7 +18,6 @@ import NotFound from "./shared/not-found/NotFound";
 import './App.css';
 
 function App() {
-
     return (
         <Router>
             <div className="app">
