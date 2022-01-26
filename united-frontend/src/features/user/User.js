@@ -12,18 +12,16 @@ import UserSubscriptions from "./user-menu/user-subscriptions/UserSubscriptions"
 function User() {
     const [type, setType] = useState("info");
     const [user, setUser] = useState({
-        firstname: "Chaeyfijrifijoung",
+        firstname: "Chaeyoung",
         lastname: "Park",
-        role: "KPOP Idol",
-        birthdate: "11/02/1997",
+        role: "donor",
+        birthdate: new Date("1997-02-11"),
         genre: "woman",
         email: "rosie@blackpink.kr",
         phone: "+823532450845",
-        payment: {
-            type: "credit_card",
-            bic: "FRFDFG",
-            iban: "FR04 1234 4584 4652 845"
-        }
+        payment_type: "credit_card",
+        bic: "FRFDFG",
+        iban: "FR04 1234 4584 4652 845"
     });
 
     const component = () => {
@@ -32,7 +30,7 @@ function User() {
             case "favorites": return <UserFavorites/>;
             case "subscriptions": return <UserSubscriptions/>;
             case "invoices": return <UserInvoices/>;
-            case "security": return <UserSecurity user={user}/>;
+            case "security": return <UserSecurity user={user} setUser={setUser}/>;
 
             default: return <UserInfo/>;
         }

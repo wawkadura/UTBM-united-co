@@ -1,11 +1,18 @@
-import {Button} from "primereact/button";
-import {Divider} from "primereact/divider";
-
 import user_man from "../../../shared/images/user-man.png";
+
+import SupportSidenav from "./sidenav/SupportSidenav";
+import DonatorSidenav from "./sidenav/DonatorSidenav";
+
 import "./UserSidenav.css";
 
 function UserSidenav({type, setType, user}) {
     const onChangeType = (type) => { setType(type); }
+    const sidenav = () => {
+        switch (user.role) {
+            case "donor": return <DonatorSidenav onChangeType={onChangeType}/>;
+            case "support": return <SupportSidenav onChangeType={onChangeType}/>;
+        }
+    }
 
     return <div className="user-sidenav">
         <div className="sidenav-header">
@@ -16,19 +23,7 @@ function UserSidenav({type, setType, user}) {
             </div>
         </div>
         <div className="sidenav-contents">
-            <Button onClick={() => {onChangeType("info")}} label="Informations personnelles" icon="pi pi-user" />
-            <Divider/>
-
-            <Button onClick={() => {onChangeType("favorites")}} label="Mes favoris" icon="pi pi-heart" />
-            <Divider />
-
-            <Button onClick={() => {onChangeType("subscriptions")}} label="Mes abonnements" icon="pi pi-list" />
-            <Divider />
-
-            <Button onClick={() => {onChangeType("invoices")}} label="Mes factures" icon="pi pi-file" />
-            <Divider />
-
-            <Button onClick={() => {onChangeType("security")}} label="Sécurité & Paiement" icon="pi pi-shield" />
+            {sidenav()}
         </div>
     </div>
 }

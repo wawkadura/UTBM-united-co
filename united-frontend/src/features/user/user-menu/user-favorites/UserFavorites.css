@@ -11,14 +11,13 @@
 }
 .user-favorites .p-card .user-associations {
   max-width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+  row-gap: 10px;
 }
 .user-favorites .p-card .user-associations .p-card {
-  flex-grow: 1;
-  flex-shrink: 1;
+  width: 100%;
 }
 .user-favorites .p-card .user-associations .association-header {
   padding-top: 1.25rem;
@@ -37,7 +36,8 @@
 .user-favorites .p-panel {
   margin-bottom: 1rem;
 }
-.user-favorites span {
+
+.user-info {
   font-weight: bold;
   color: var(--indigo-900);
 }

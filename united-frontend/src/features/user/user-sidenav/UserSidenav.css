@@ -40,6 +40,7 @@
   color: var(--indigo-900);
   border: none;
   text-align: start;
+  width: 100%;
 }
 .user-sidenav .sidenav-contents button .p-button-icon {
   margin-right: 2rem;
