@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ticketResponses } from 'src/entity/ticket_responses.entity';
+import { users } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
 import { TicketResponsesDTO } from '../dto/ticket-responses.dto';
 
@@ -17,7 +18,11 @@ export class TicketResponsesService {
 
     // get all tickets responses 
     async getTicketResponses(ticketId: number) {
-        return await this.ticketRepository.find({ where: { ticket_id: ticketId } });
+        const query = await this.ticketRepository.createQueryBuilder('resp')
+            .select('distinct resp.*, user.firstName, user.lastName')
+            .innerJoin(users, 'user', `user.id = resp.user_id`)
+            .where({ ticket_id: ticketId })
+        return await query.getRawMany();
     }
 
     // get a ticket

@@ -17,8 +17,8 @@ export class TicketService {
     }
 
     // get all tickets
-    async getTickets() {
-        return await this.ticketRepository.find();
+    async getTickets(userId: number) {
+        return await this.ticketRepository.find({ user_id: userId });
     }
 
     // get a ticket
