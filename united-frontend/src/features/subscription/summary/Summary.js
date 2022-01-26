@@ -8,18 +8,43 @@ import Moment from 'moment';
 function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
     const navigate = useNavigate();
 
-    function HandleClick (){
+    async function HandleClick (){
+        let serviceId = sessionStorage.getItem('serviceId')
+        
+        //if it's donation, we have to determine the service
+        if(sessionStorage.getItem('subType') === "don"){
+            let currentPrice = Number.MAX_VALUE;
+            let resp = await axios.get(`http://localhost:4200/association/services/${serviceId}`)
+                
+            let newServiceId = null;
+            //have we data 
+            if (resp.data.data.lenght !== 0){
+                resp.data.data.forEach(element => {
+                    //affect service by the amount of donation
+                    if((subInfo.price <= element.price && currentPrice > element.price)||newServiceId === null){
+                        newServiceId = element.id; 
+                        currentPrice = element.price;   
+                        console.log("id:"+newServiceId+"/"+currentPrice)                    
+                    }
+                });
+            }
+            serviceId = newServiceId;
+        }
         axios.post('http://localhost:4200/subscription', {
             price: subInfo.price,
 	        duration: subInfo.duration,
             date: Moment(Date.now()).format('yyyy/MM/DD'),
          	user_id: sessionStorage.getItem('userId'),
-            service_id: 1
+            service_id: serviceId
         })
 
+        //clear sub session
         sessionStorage.removeItem('activeIndex');
         sessionStorage.removeItem('subInfo');
         sessionStorage.removeItem('selectedPayement');
+        sessionStorage.removeItem('subType');
+        sessionStorage.removeItem('subPrice');
+        sessionStorage.removeItem('serviceId');
         navigate('/home');
     }
 

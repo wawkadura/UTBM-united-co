@@ -13,7 +13,7 @@ function Subscription(){
     //first component show
     const savedActiveIndex = sessionStorage.getItem('activeIndex');
     const [activeIndex, setActiveIndex] = useState(savedActiveIndex ? JSON.parse(savedActiveIndex) : 0);
-    
+
     useEffect(() => {
         sessionStorage.setItem('activeIndex', JSON.stringify(activeIndex))
     }, [activeIndex])
@@ -46,10 +46,10 @@ function Subscription(){
     
     const savedSubInfo = sessionStorage.getItem('subInfo');
     const [subInfo, setSubInfo] = useState( savedSubInfo ? JSON.parse(savedSubInfo) : {
-        price : 1,
+        price : sessionStorage.getItem('subPrice'),
         duration : 0,
         total : 0,
-        type: "sub"
+        type: sessionStorage.getItem('subType')
     });
 
     useEffect(() => {
