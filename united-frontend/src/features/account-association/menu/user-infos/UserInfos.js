@@ -1,5 +1,5 @@
 import { TabView, TabPanel } from 'primereact/tabview';
-import { useState } from 'react';
+import { useState ,useRef } from 'react';
 import {Card} from "primereact/card";
 import {Divider} from "primereact/divider";
 import {Panel} from "primereact/panel";
@@ -7,128 +7,170 @@ import {Button} from "primereact/button";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import './userInfos.css'
+import { AccountAssociationApi } from '../../api/accountAssociationApi';
+import { useForm } from "react-hook-form";
+import { InputTextarea } from 'primereact/inputtextarea';
+import { Toast } from 'primereact/toast';
 
-function UserInfos({userAssociation, setUserAssociation}){
+//the fonction display assation inforamtion, association can modify some information
+//les pramettres viennet du main contr0ller 
+function UserInfos({infos, fetchAll}){
+
+    // const [infos, setInfos]= useState({})
+    const [id, setId]= useState()
+    const {register, handleSubmit,reset, formState: { errors } } = useForm();
+    const {register:registerInfo, handleSubmit:handleSubmitInfo, reset:resetInfo, formState: { errors:errorsInfo } } = useForm();
     const [activeIndex, setActiveIndex] = useState(0);
-    const [form, setForm] = useState(userAssociation);
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
+    const toast = useRef(null);
+    const onClick = (name,id) => { 
+        setId(id);
+        dialogFuncMap[`${name}`](true);
+    }
+    const onHide = (name) => { 
+        dialogFuncMap[`${name}`](false); 
+        reset();
+        resetInfo();
+    };
+    const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) ;//message show in case on succes or error
+     //Message showed when the form is fill correctly
+     const showToast = (resp) => {
+        if (resp.statusCode===200) toast.current.show({severity:'success', detail:resp.message, life: 3000});
+        else if(resp.statusCode===500 || resp.statusCode===404) toast.current.show({severity:'error', detail:"Contacter le support", life: 6000});
+    }
 
-    const onClick = (name) => { dialogFuncMap[`${name}`](true); }
-    const onHide = (name) => { dialogFuncMap[`${name}`](false); }
-
-    function cardFooter() {
+    function cardFooter(id) {
         return (
             <div className="actions">
-                <Button label="Modifier" icon="pi pi-pencil" iconPos="right" onClick={() => onClick('displayBasic')} />
+                <Button label="Modifier" icon="pi pi-pencil" iconPos="right" onClick={() => onClick('displayBasic',id)} />
             </div>
         );
-    }
+    };
+    //methode to update general infoormation
+    const updateInfos = async(data) => {
+        if (data&&id){
+            const resp = await AccountAssociationApi.updateInfos(id,data); //sent data to the api in oder to update database
+            if (resp){
+                fetchAll(); //allow to init the refresh data 
+                showToast(resp);
+            }
+            onHide('displayBasic')
+        }
+    };
+    //methode to update the association informations
+    const updateInfosContact = async(data) => {
+        if (data&&id){
+            const resp = await AccountAssociationApi.updateInfosContact(id,data); //sent data to the api in oder to update database
+            if (resp){
+                fetchAll();
+                showToast(resp);
+            }
+            onHide('displayBasic')
+        }
+    };
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        let value  = event.target.value;
-        setForm(values => ({...values, [name]: value}));
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setUserAssociation(form);
-    }
-
+    // i return the div to the main contraller we data display...
     return <div> 
-        <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
-            <TabPanel header="Informtions génerale" icon="pi pi-info-circle">
-                
-                <Card footer={cardFooter} subTitle="Vous pouvez sur cette page modifier l'ensemble des données vous concernant" style={{ height: '100%' }}>
+        <Toast ref={toast} />
+        {infos.value? infos.value.map((item, index) => (
+        <TabView key={index} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
+            <TabPanel  header="Informtions génerale" icon="pi pi-info-circle">
+                <Card footer={cardFooter(item.id)} subTitle="Vous pouvez sur cette page modifier modifier certains praramètres  vous concernant" style={{ height: '100%' }}>
                     <Panel className="panel-color" header="Renseignemets essentiels">
-                        <p><b>Nom association : </b>{userAssociation.associationname}</p>
+                        <p><b>Nom association : </b>{item.name}</p>
                         <Divider />
-                        <p><b>Acronyme : </b>{userAssociation.acronym}</p>
+                        <p><b>Acronyme : </b>{item.acronym}</p>
                         <Divider />
-                        <p><b>Date création : </b>{userAssociation.creationdate}</p>
+                        <p><b>Date création : </b>{new Date(item.created_at).toLocaleString().split(',')[0]}</p>
                         <Divider />
-                        <p><b>type :  </b>{userAssociation.type}</p>
+                        <p><b>type :  </b>{item.type}</p>
                         <Divider />
-                        <p><b>description :  </b>{(userAssociation.description)}</p>
+                        <p><b>description :  </b>{(item.description)}</p>
                     </Panel>
                     <Panel className="panel-color" header="Informations de bancaire">
-                        <p><b>IBAN :  </b>{userAssociation.iban}</p>
+                        <p><b>IBAN :  </b>{item.iban}</p>
                     </Panel>
 
                     <Dialog header="Informtions génerale" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
                         <Divider/>
-                        <form onSubmit={handleSubmit}>
+                        <form>
                             <div className="p-fluid p-formgrid p-grid">
                                 <div className="p-field p-col-12">
                                     <label htmlFor="associationname1"><b>Nom association </b></label>
-                                    <InputText name="associationname" type="text" defaultValue={userAssociation.associationname} onChange={handleChange}/>
+                                    <InputText type="text" defaultValue={item.name} {...register("name", {required:"Entrer un non", maxLength:{value:50, message:"Saisir 50 carractères max."}})} />
+                                    {errors?.name && <ErrorMessage message={errors.name.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="acronym"><b>Acronyme</b></label>
-                                    <InputText name="acronym" type="text" defaultValue={userAssociation.acronym}  onChange={handleChange}/>
+                                    <InputText type="text" defaultValue={item.acronym}  {...register("acronym",{required:false, maxLength:{value:10, message:"Saisir 10 carractère max."}})}/>
+                                    {errors?.acronym && <ErrorMessage message={errors.acronym.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="description"><b>Description</b></label>
-                                    <InputText name="description" type="text" defaultValue={userAssociation.description} onChange={handleChange}/>
+                                    <InputTextarea rows={2}  type="text" defaultValue={item.description} {...register("description", {required:"Description requise", maxLength:{value:500, message:"Saisir 500 carractères max."}})}/>
+                                    {errors?.description && <ErrorMessage message={errors.description.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="iban"><b>Iban</b></label>
-                                    <InputText name="iban" type="text" defaultValue={userAssociation.iban}  onChange={handleChange}/>
+                                    <InputText type="text" defaultValue={item.iban}  {...register("iban", {required:"Iban requis", maxLength:{value:50, message:"Saisir 50 carractères max."}})}/>
+                                    {errors?.iban && <ErrorMessage message={errors.iban.message}/>} 
                                 </div>
                             </div>
                             <div className="form-actions">
-                                <Button type="submit" label="Sauvegarder" icon="pi pi-save" onClick={() => { onHide('displayBasic')}}/>
+                                <Button type="submit" label="Sauvegarder" icon="pi pi-save" onClick={handleSubmit(updateInfos)}/>
                             </div>
                         </form>
                     </Dialog>
                 </Card>
             </TabPanel>
-
-            <TabPanel header="Informations de contact">
-
-            <Card footer={cardFooter} subTitle="Vous pouvez sur cette page modifier l'ensemble des données vous concernant" style={{ height: '100%' }}>
+           
+            <TabPanel header="Informations de contact"> 
+            <Card footer={cardFooter(item.id)} subTitle="Vous pouvez sur cette page modifier certains praramètres vous concernant" style={{ height: '100%' }}>
                     <Panel className="panel-color" header="Informations basiques">
-                        <p><b>Email : </b>{userAssociation.email}</p>
+                        <p><b>Email : </b>{item.email}</p>
                         <Divider />
-                        <p><b>Télephone: </b>{userAssociation.phone}</p>
+                        <p><b>Télephone: </b>{item.telephone}</p>
                         <Divider />
-                        <p><b>Adresse: </b>{userAssociation.adresse}</p>
+                        <p><b>Adresse: </b>{item.address}</p>
                         <Divider />
-                        <p><b>Ville : </b>{userAssociation.city}</p>
+                        <p><b>Ville : </b>{item.city}</p>
                         <Divider />
-                        <p><b>Site web : </b>{userAssociation.website}</p>
+                        <p><b>Site web : </b>{item.website}</p>
                     </Panel>
 
                     <Dialog header="Informtions génerale" position="center" draggable={false} visible={displayBasic} style={{ width: '30vw' }} onHide={() => onHide('displayBasic')}>
                         <Divider/>
-                        <form onSubmit={handleSubmit}>
+                        <form>
                             <div className="p-fluid p-formgrid p-grid">
+    
                                 <div className="p-field p-col-12">
                                     <label htmlFor="phone"><b>Télephhone</b></label>
-                                    <InputText name="phone" type="text" defaultValue={userAssociation.phone}  onChange={handleChange}/>
+                                    <InputText type="number" defaultValue={item.telephone}  {...registerInfo("telephone", {required:"Numero de  requis", maxLength:{value:10, message:"Saisir exactement 10 carractères ex: 0698647547"}, minLength:{value:10,message:"Saisir exactement 10 carractères ex: 0698647547"}})}/>
+                                    {errorsInfo?.telephone && <ErrorMessage message={errorsInfo.telephone.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="Adresse"><b>Adresse</b></label>
-                                    <InputText name="adresse" type="text" defaultValue={userAssociation.adresse} onChange={handleChange}/>
+                                    <InputText name="adresse" type="text" defaultValue={item.address} {...registerInfo("address")}/>
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="ville"><b>Ville</b></label>
-                                    <InputText name="Ville" type="text" defaultValue={userAssociation.city}  onChange={handleChange}/>
+                                    <InputText type="text" defaultValue={item.city}  {...registerInfo("city")}/>
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="website"><b>Site web</b></label>
-                                    <InputText name="website" type="text" defaultValue={userAssociation.website}  onChange={handleChange}/>
+                                    <InputText type="text" defaultValue={item.website}  {...registerInfo("website")}/>
                                 </div>
                             </div>
                             <div className="form-actions">
-                                <Button type="submit" label="Sauvegarder" icon="pi pi-save" onClick={() => { onHide('displayBasic')}}/>
+                                <Button type="submit" label="Sauvegarder" icon="pi pi-save" onClick={handleSubmitInfo(updateInfosContact)}/>
                             </div>
                         </form>
                     </Dialog>
                 </Card>
             </TabPanel>
         </TabView>
+        )) : ''} 
     </div>
 }
 

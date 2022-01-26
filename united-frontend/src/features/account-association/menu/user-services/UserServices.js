@@ -16,7 +16,7 @@ import { Toast } from 'primereact/toast';
 function UserServices(){
     const [activeIndex] = useState(0)
     const [services, setServices]=useState([]);
-    const { register, handleSubmit,reset, formState: { errors } } = useForm();
+    const {register, handleSubmit,reset, formState: { errors } } = useForm();
     const [dataModal, setDataModal] = useState({})
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
@@ -25,15 +25,15 @@ function UserServices(){
     const [id, setId]= useState();
     const toast = useRef(null);
 
-     //Message showed when the form is fill correctly
-     const showToast = (resp) => {
+     //Message showed when the form is fill correctly and posted
+    const showToast = (resp) => {
         if (resp.statusCode===200) toast.current.show({severity:'success', summary: 'Service', detail:resp.message, life: 3000});
-        else if(resp.statusCode===500) toast.current.show({severity:'error', summary: 'Service', detail:"Contacter le support", life: 3000});
+        else if(resp.statusCode===500 || resp.statusCode===404) toast.current.show({severity:'error', summary: 'Service', detail:"Contacter le support", life: 3000});
     }
     useEffect(()=>{
         fetchAll();
     },[]);
- 
+    //this methode get all services regading an association 
     async function fetchAll(){
         const resp = await AccountAssociationApi.getServices();
         setServices(resp)
@@ -95,10 +95,10 @@ function UserServices(){
             }
         }
     };
-
+    //check if the button was pressed then make an action 
     const FooterAddService = (
         <div>
-            <Button type="submit" label="Ajouter" icon="pi pi-save"  onClick={handleSubmit(AddService)} />
+            <Button type="submit" label="Ajouter" icon="pi pi-save"  onClick={handleSubmit(AddService)} /> 
         </div>
     );
     const Footer = (
@@ -107,6 +107,7 @@ function UserServices(){
         </div>
     );
     
+    //i return to the main controller association service
     return <div>
         <Toast ref={toast} />
         <div className="p-d-flex p-flex-column p-flex-md-row">
@@ -133,12 +134,12 @@ function UserServices(){
                     <div className="p-fluid p-formgrid p-grid" >
                         <div className="p-field p-col-12">
                             <label htmlFor="title1"><b>Titre </b></label>
-                            <InputText type="text" {...register("title", {required:"Choisir un nouveau titre", maxLength:{value:50, message:"Saisir 50 carractères max."}})} placeholder={dataModal.title} />
+                            <InputText type="text" {...register("title", {required:"Choisir un titre", maxLength:{value:50, message:"Saisir 50 carractères max."}})} defaultValue={dataModal.title} />
                             {errors?.title && <ErrorMessage message={errors.title.message}/>}  
                         </div>
                         <div className="p-field p-col-12">
                             <label htmlFor="description"><b>Description</b></label>
-                            <InputTextarea rows={2}  type="text" {...register("description", { required:"Entrer une nouvelle description" , maxLength:{value:400, message:"Saisir 400 carractères max."}})} placeholder={dataModal.description}/>
+                            <InputTextarea rows={2}  type="text" {...register("description", { required:"Entrer une  description" , maxLength:{value:400, message:"Saisir 400 carractères max."}})} defaultValue={dataModal.description}/>
                             {errors?.description && <ErrorMessage message={errors.description.message}/>} 
                         </div>
                         <div className="p-field p-col-6">

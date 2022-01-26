@@ -4,42 +4,35 @@ import UserInfos from './menu/user-infos/UserInfos';
 import AccountAssocSidnav from './sidnav/AccountAssocSidnav';
 import {useState} from "react";
 import "./AccountAssociation.css";
-
+import {useEffect} from 'react';
+import { AccountAssociationApi } from './api/accountAssociationApi';
 
 function AccountAssociation() {
-
     const [type, setType] = useState("infos");
+    const [infos, setInfos]= useState({})
 
-    // sample data for user association info
-    const [userAssociation, setUserAssociation] = useState({
-        associationname: "This is my association name",
-        acronym: " This is the acronyme",
-        creationdate: "data creation",
-        type:"Not given",
-        description:"None",
-        email: "thisisreal@toto.com",
-        phone: "0653245085",
-        role: "type",
-        iban: "FR04 1234 4584 4652 845",
-        city:"paris",
-        adresse:"15 rue de la joie",
-        website:"http/wilfrid.com"
-    });
-     
-    
+    useEffect(()=>{
+        fetchAll();
+    },[]);
 
+    //this methode get data regarding an association information
+    async function fetchAll(){
+        const resp = await AccountAssociationApi.getInfos();
+        setInfos(resp)
+    };
+ 
     const component = () => {
         switch (type) {
-            case "infos" : return <UserInfos userAssociation={userAssociation} setUserAssociation={setUserAssociation}/>;
+            case "infos" : return <UserInfos infos={infos} fetchAll={fetchAll}/>;
             case "statistics": return <UserStatistics/>;
             case "services": return <UserServices/>;
-            default: return <UserInfos/>;
+            default: return <UserInfos infos={infos} fetchAll={fetchAll}/>;
         }
     }
     return <div className="AccountAssociation">
         <div className="AccountAssociation-container">
             <div className="admin-sidenav"> 
-             <AccountAssocSidnav type={type} setType={setType}/>
+             <AccountAssocSidnav type={type} setType={setType} infos={infos}/>
             </div>
             <div className="admin-contents">
                 {component()}

@@ -1,20 +1,50 @@
 // https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/animation/
 import Paper from '@material-ui/core/Paper';
-import {Chart,PieSeries,Title,ArgumentAxis,ValueAxis,BarSeries,Legend} from '@devexpress/dx-react-chart-material-ui';
+import {Title,ArgumentAxis,ValueAxis,BarSeries,Legend} from '@devexpress/dx-react-chart-material-ui';
 import { useState } from "react";
 import { ValueScale} from '@devexpress/dx-react-chart';
 import 'primeflex/primeflex.css';
 import { useForm } from "react-hook-form";
 import {InputText} from "primereact/inputtext";
+import {useEffect} from 'react';
+import { AccountAssociationApi } from '../../api/accountAssociationApi';
+import { Chart } from 'primereact/chart';
 import { Button } from 'primereact/button';
 
-
 function UserSatistics(){
+
+    const chartData = {
+        labels: ['A', 'B', 'C'],
+        datasets: [
+            {
+                data: [300, 50, 100],
+                backgroundColor: [
+                    "#42A5F5",
+                    "#66BB6A",
+                    "#FFA726"
+                ],
+                hoverBackgroundColor: [
+                    "#64B5F6",
+                    "#81C784",
+                    "#FFB74D"
+                ]
+            }
+        ]
+    };
+    const lightOptions = {
+        plugins: {
+            legend: {
+                labels: {
+                    color: '#495057'
+                }
+            }
+        }
+    };
 
     // Sample data for graphics
     const dataPieseries = {
         2022:[
-            { argument:'Regular', value:10 },
+            { argument:'regular', value:10 },
             { argument:'Premium', value:20 },
             { argument:'Premiun+', value:10},
         ],
@@ -78,9 +108,33 @@ function UserSatistics(){
 
     const [date, setDate]=useState(new Date().getFullYear());
     const { register, handleSubmit,reset, formState: { errors } } = useForm();
+    const {pie,setPie} = useState({});
+
+    useEffect(()=>{
+        fetchPieseries();
+        fetchBarseries();
+    },[]);
+
+    //this methode get data regarding Bieserie graph
+    async function fetchPieseries(){
+        const id=1 
+        const resp = await AccountAssociationApi.getPieSeries(id);
+        // setPie(resp);
+        console.log("pieseries",resp);
+    };
+
+    //this methode get data regarding Barserie graph
+    async function fetchBarseries(){
+        const id=1 
+        const resp = await AccountAssociationApi.getBarSeries(id);
+        console.log("barseries",resp)
+    };
+
+    
+
     const onSubmit = (data) => {
         setDate(data.date);
-        // reset();
+        
     }
     const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) ;
     const onError = (errors, e) => console.log(errors, e);
@@ -98,19 +152,14 @@ function UserSatistics(){
     ); 
 
     return <div>
-        
         <div className="p-grid">
             <div className="p-col">
-                <Paper>
-                    <Chart data={dataPieseries[date]}>
-                        <PieSeries valueField="value" argumentField="argument" />
-                        <Title text="Etude par année"/>
-                        <Legend />
-                    </Chart>
-                </Paper>
+                <div className="card flex justify-content-center">
+                <Chart type="pie" data={chartData} options={lightOptions} style={{ position: 'relative', width: '40%' }} />
+                </div>
             </div>
 
-            <div className="p-col">
+            {/* <div className="p-col">
                 <Paper>
                     <Chart data={dataBarseries[date]}>
                     <ValueScale name="value" />
@@ -121,7 +170,7 @@ function UserSatistics(){
                     <Legend />
                     </Chart>
                 </Paper>
-            </div>
+            </div> */}
         </div>
 
         {inputDate}

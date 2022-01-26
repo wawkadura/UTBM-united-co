@@ -4,21 +4,22 @@ import "./AccountAssocSidnav.css";
 
 import us from "../../../images/shared/united_logo.png"
 
-function AccountAssocSidnav({type, setType}) {
-    const nonassoc = "les boloss";
+function AccountAssocSidnav({type, setType, infos}) {
 
     const onChangeType = (type) => {
         setType(type);
     }
 
     return <div className="accountassociation-sidenav">
-        <div className="sidenav-header">
+        {infos.value? infos.value.map((item, index) => (
+        <div key={index} className="sidenav-header">
             <img src={us} alt="user_logo"/>
             <div>
-                <h3>{nonassoc}</h3>
-                <p>wilfrid in your arrear</p>
+                <h3>{item.name}</h3>
+                <p>{item.acronym}</p>
             </div>
         </div>
+        )) : ''} 
         <div className="sidenav-contents">
             <Button onClick={() => {onChangeType("infos")}} label="Mes Informations" icon="pi pi-info-circle" />
             <Divider/>
