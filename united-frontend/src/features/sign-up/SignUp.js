@@ -60,7 +60,7 @@ function SignUp() {
 
     const goToConnexion = () => {
         setShowMessage(false)
-        navigate("/home") // TODO: change with sign-in path
+        navigate("/home/signIn") // TODO: change with sign-in path
     }
 
     const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => goToConnexion()} /></div>;
