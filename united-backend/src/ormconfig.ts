@@ -12,7 +12,7 @@ import { ConnectionOptions } from 'typeorm';
 // Check typeORM documentation for more information.
 const config: ConnectionOptions = {
     type: 'mysql',
-    host: 'localhost',
+    host: 'host.docker.internal',
     port: 3306,
     username: 'root',
     password: '',
@@ -40,3 +40,5 @@ const config: ConnectionOptions = {
 };
 
 export default config
+
+// For Walid : docker container exec -u 0 -it priceless_goodall bash + 'host.docker.internal'
