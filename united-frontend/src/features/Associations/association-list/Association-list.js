@@ -11,12 +11,9 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Divider } from 'primereact/divider';
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
-=======
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Link } from "react-router-dom";
->>>>>>> 5afafd9a086dcc5ff2adbdc9e34cc4c846df25ac
 
 import { AssociationService } from '../AssociationService';
 import './Association-list.css';
@@ -246,14 +243,10 @@ const AssociationList = ({ Filters }) => {
                                     </React.Fragment>}>
                                         <div>{service.description}</div>
                                         <div className="dataview-modal-button">
-<<<<<<< HEAD
-                                            <Button label="Souscrire" onClick={() => (navigate('/sub'))}/>
-=======
                                             { userId ? 
-                                                <Button label="Souscrire" />
+                                                <Button label="Souscrire" onClick={() => (navigate('/sub'))}/>
                                                 :<Link style={{textDecoration:'none'}} to="/home/signIn"><Button label="Se connecter"/></Link>
                                             }
->>>>>>> 5afafd9a086dcc5ff2adbdc9e34cc4c846df25ac
                                         </div>
 
                                     </AccordionTab>
@@ -266,14 +259,10 @@ const AssociationList = ({ Filters }) => {
                         </React.Fragment>}>
                             <div>Destinés à ceux qui veulent choisir leur implication. <br></br><br></br> Vous bénéficierez des avantages correspondants à chaque palier</div>
                             <div className="dataview-modal-button">
-<<<<<<< HEAD
-                                <Button label="Souscrire" onClick={() => (navigate('/sub'))}/>
-=======
                                 { userId ? 
-                                    <Button label="Souscrire" />
+                                    <Button label="Souscrire" onClick={() => (navigate('/sub'))}/>
                                     :<Link style={{textDecoration:'none'}} to="/home/signIn"><Button label="Se connecter"/></Link>
                                 }
->>>>>>> 5afafd9a086dcc5ff2adbdc9e34cc4c846df25ac
                             </div>
                             
                         </AccordionTab>

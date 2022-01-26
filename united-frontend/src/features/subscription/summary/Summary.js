@@ -2,11 +2,21 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Card } from 'primereact/card';
 import "./Summary.css"
+import axios from "../../../shared/jwt.interceptor"
+import Moment from 'moment';
 
 function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
     const navigate = useNavigate();
 
     function HandleClick (){
+        axios.post('http://localhost:4200/subscription', {
+            price: subInfo.price,
+	        duration: subInfo.duration,
+            date: Moment(Date.now()).format('yyyy/MM/DD'),
+         	user_id: sessionStorage.getItem('userId'),
+            service_id: 1
+        })
+
         sessionStorage.removeItem('activeIndex');
         sessionStorage.removeItem('subInfo');
         sessionStorage.removeItem('selectedPayement');
