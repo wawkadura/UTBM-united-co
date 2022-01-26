@@ -11,7 +11,7 @@ import logo from "../../../images/shared/united_logo.png";
 import { HashLink } from "react-router-hash-link";
 
 function Navbar() {
-    const [auth, setAuth] = useState(false);
+    const [auth, setAuth] = useState(sessionStorage.getItem('userId'));
     const menu = useRef(null);
     const navigate = useNavigate();
 
