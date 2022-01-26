@@ -218,6 +218,12 @@
     margin-top: 1rem;
 }
 
+.loading-header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 @media screen and (max-width: 576px) {
     .dataview-demo .product-list-item {
         flex-direction: column;
