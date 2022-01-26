@@ -5,7 +5,9 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
+import { Calendar } from 'primereact/calendar';
 import { DataTable } from "primereact/datatable";
+import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
 import { useForm, Controller } from 'react-hook-form';
 import { confirmPopup } from 'primereact/confirmpopup';
@@ -29,7 +31,7 @@ var associations = [
     { id: "10", name: "Société protectrice des animaux", acronym: "SPA", email: "dons@spa.com", website: "www.spa.com", phone: "0612345678", type: "animaux" },
 ]
 
-function AdminAssociations({toast}) {
+function AdminAssociations({ toast }) {
     const { control, watch, formState: { errors }, handleSubmit, reset } = useForm({});
     const [formData, setFormData] = useState({});
     const [isPending, setIsPending] = useState(false);
@@ -66,7 +68,7 @@ function AdminAssociations({toast}) {
             accept,
         });
     };
-    
+
     const update = (data) => {
         setSelectedAssociation(data)
         setUpdateDisplay(true)
@@ -83,6 +85,9 @@ function AdminAssociations({toast}) {
         });
         idToDelete = ''
     };
+    const onUpload = () => {
+        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+    }
 
     const onClick = () => {
         setAddDisplay(true)
@@ -122,6 +127,7 @@ function AdminAssociations({toast}) {
 
     const createAssociation = (data) => {
         setFormData(data);
+        console.log(data)
         setIsPending(true)
         adminService.createAssociation(formData).then((response) => {
             // console.log(response)
@@ -214,6 +220,16 @@ function AdminAssociations({toast}) {
                         {getFormErrorMessage('type')}
                     </div>
                     <div className="p-field p-col-14 p-md-6">
+                        <label htmlFor="email">Date de création</label>
+                        <span className="p-input-icon-left">
+                            <i className="pi calendar" />
+                            <Controller name="createdAt" control={control} rules={{ required: 'Date de création obligatoire.' }} render={({ field, fieldState }) => (
+                                <Calendar id={field.name}  {...field}  monthNavigator yearNavigator yearRange="1900:2022" mask="99/99/9999"  showIcon  className={classNames({ 'p-invalid': fieldState.invalid })} />
+                            )} />
+                        </span>
+                        {getFormErrorMessage('createdAt')}
+                    </div>
+                    <div className="p-field p-col-12">
                         <label htmlFor="email">Adresse email</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-at" />
@@ -245,6 +261,8 @@ function AdminAssociations({toast}) {
                         </span>
                         {getFormErrorMessage('confirmPassword')}
                     </div>
+
+                    <br/>
                     <div className="p-field p-col-12">
                         <label htmlFor="description">Description</label>
                         <span className="p-input-icon-left">
@@ -253,6 +271,17 @@ function AdminAssociations({toast}) {
                             )} />
                         </span>
                     </div>
+                    {/* <div className="p-field p-col-12">
+                        <label htmlFor="description">Logo</label>
+                        <span className="p-input-icon-left">
+                            <Controller name="logo" rules={{ required: 'Logo obligatoire.' }} control={control} render={({ field, fieldState }) => (
+                                <FileUpload name={field.name} accept="image/*" maxFileSize={1000000}
+                                    emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                            )} />
+
+                        </span>
+                    </div> */}
+
                 </div>
                 <br />
                 {dialogFooter()}
