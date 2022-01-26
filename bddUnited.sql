@@ -53,7 +53,7 @@ create table subscription (
 
 create table ticket (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  type varchar(100),
+  subject varchar(100),
   comment varchar(500),
   pickup_date datetime,
   resolved_date datetime,
@@ -92,4 +92,9 @@ create table favorites (
   association_id int not null,
   FOREIGN KEY (users_id) REFERENCES users(id),
   FOREIGN KEY (association_id) REFERENCES association(id)
+)ENGINE=InnoDB ;
+
+create table newsletter (
+  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  email varchar(350) not null
 )ENGINE=InnoDB ;

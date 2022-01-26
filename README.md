@@ -62,6 +62,9 @@ Nous allons maintenant installer toutes les dépendances citées ci-dessus.
 > npm install -D tailwindcss 
 > npx tailwindcss init
 
+##### Instalation des routes react
+> npm install react-router-dom
+
 react-boilerplate : https://github.com/react-boilerplate/react-boilerplate
 
 

@@ -14,7 +14,7 @@ function Navbar() {
     const navigate = useNavigate();
 
     const menu = useRef(null);
-    const user = "Park Chaeyoung";
+    const navigate = useNavigate();
 
     const items = [
         { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user") } },
@@ -25,25 +25,29 @@ function Navbar() {
 
     return <div className="header">
         <header>
-            <img src={logo} alt="logo"/>
+            <img src={logo} alt="logo" />
             <nav>
                 <ul>
                     <li><Link to="/home">Accueil</Link></li>
                     <li><HashLink smooth to="/home#services">Nos services</HashLink></li>
                     <li><Link to="/associations">Associations</Link></li>
                     <li><HashLink smooth to="/home#about">À propos</HashLink></li>
-                    <li><HashLink smooth to="/home#contact">Contact</HashLink></li>
+                    { !auth ?
+                        <li><HashLink smooth to="/home#contact">Contact</HashLink></li> :
+                        <li><Link to="/ticket">Contact</Link></li>
+                    }
                 </ul>
             </nav>
             <div className="buttons">
-                { !auth ?
+                {!auth ?
                     <div className="auth">
-                        <Button label="Inscription" className="p-button-rounded"/>
-                        <Button label="Connexion" className="p-button-rounded" onClick={() => setAuth(true)}/>
+                        <Button label="Inscription" className="p-button-rounded" onClick={() => navigate("/sign-up")} />
+
+                        <Button label="Connexion" className="p-button-rounded" onClick={() => navigate("/home/signIn")} />
                     </div> :
                     <div className="dropdown" >
                         <TieredMenu model={items} popup ref={menu} />
-                        <Button label={user} className="p-button-rounded" icon="pi pi-user" onClick={(event) => menu.current.toggle(event)}/>
+                        <Button label={user} className="p-button-rounded" icon="pi pi-user" onClick={(event) => menu.current.toggle(event)} />
                     </div>
                 }
             </div>

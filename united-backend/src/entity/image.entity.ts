@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import { ticket } from './ticket.entity';
 
 @Entity()
@@ -9,7 +9,7 @@ export class image{
   @Column("blob")
   image;
 
-  @OneToMany(() => ticket, ticket => ticket.id)
+  @ManyToOne(() => ticket, ticket => ticket.id)
   ticket_id: number; 
 
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
