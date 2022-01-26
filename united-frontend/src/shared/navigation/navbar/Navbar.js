@@ -13,7 +13,6 @@ import { HashLink } from "react-router-hash-link";
 function Navbar() {
     const [auth, setAuth] = useState(false);
     const menu = useRef(null);
-
     const navigate = useNavigate();
 
     const user = "Tony LE";
@@ -44,7 +43,7 @@ function Navbar() {
                     <div className="auth">
                         <Button label="Inscription" className="p-button-rounded" onClick={() => navigate("/sign-up")} />
 
-                        <Button label="Connexion" className="p-button-rounded" onClick={() => setAuth(true)} />
+                        <Button label="Connexion" className="p-button-rounded" onClick={() => navigate("/home/signIn")} />
                     </div> :
                     <div className="dropdown" >
                         <TieredMenu model={items} popup ref={menu} />
