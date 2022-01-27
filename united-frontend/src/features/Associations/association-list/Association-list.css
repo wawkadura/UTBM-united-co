@@ -224,6 +224,11 @@
     flex-direction: column;
 }
 
+.dataview-modal-items .dataview-modal-accordion {
+    line-height: 1.5;
+    margin: 0;
+}
+
 @media screen and (max-width: 576px) {
     .dataview-demo .product-list-item {
         flex-direction: column;
