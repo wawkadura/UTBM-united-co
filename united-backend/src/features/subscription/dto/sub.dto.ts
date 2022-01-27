@@ -1,7 +1,7 @@
 export class SubDto{
     price: number;
-    duration: number;
     date: Date;
+    endDate: Date;
     user_id: number;
     service_id: number;
 }

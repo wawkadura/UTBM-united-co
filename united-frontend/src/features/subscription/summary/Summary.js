@@ -8,6 +8,7 @@ import Moment from 'moment';
 function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
     const navigate = useNavigate();
 
+    //when confirm
     async function HandleClick (){
         let serviceId = sessionStorage.getItem('serviceId')
         
@@ -32,7 +33,7 @@ function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
         }
         axios.post('http://localhost:4200/subscription', {
             price: subInfo.price,
-	        duration: subInfo.duration,
+	        endDate: Moment(Date.now()).add(subInfo.duration, "months").format('yyyy/MM/DD'),
             date: Moment(Date.now()).format('yyyy/MM/DD'),
          	user_id: sessionStorage.getItem('userId'),
             service_id: serviceId
@@ -45,6 +46,7 @@ function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
         sessionStorage.removeItem('subType');
         sessionStorage.removeItem('subPrice');
         sessionStorage.removeItem('serviceId');
+
         navigate('/home');
     }
 
