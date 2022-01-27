@@ -10,9 +10,10 @@ const TicketList = ({setActiveTicket}) => {
     const [tickets, setTickets] = useState(null);
 
     const ticketService = new TicketService();
+    const userId = sessionStorage.getItem('userId');
 
     useEffect(() => {
-        ticketService.getTickets().then(data => {
+        ticketService.getTickets(userId).then(data => {
             setTickets(data); 
         });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

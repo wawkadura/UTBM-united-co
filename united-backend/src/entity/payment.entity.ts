@@ -6,16 +6,19 @@ export class payment{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true, type: 'bigint' })
+  @Column("varchar", { length: 20 })
+  owner: string;
+
+  @Column({ type: 'bigint' })
   card_number: number;
 
-  @Column("date", { nullable: true })
+  @Column("date")
   expire_date;
 
   @ManyToOne(() => users, users => users.id)
   user_id: number; 
 
-  @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
+  @Column("datetime", { default: () => "CURRENT_TIMESTAMP" })
   created_at;
 }
 
