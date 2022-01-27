@@ -1,4 +1,4 @@
-import { Controller, Body, Post,HttpStatus ,Get} from '@nestjs/common';
+import { Controller, Body, Post, HttpStatus, Get, Param } from '@nestjs/common';
 import { TicketDTO } from './dto/ticket.dto';
 import { TicketService } from './ticket.service';
 
@@ -17,9 +17,9 @@ export class TicketController {
       
     }
 
-    @Get()
-    async getTickets() {
-      const data =  await this.TicketService.getTickets();
+    @Get(':userId')
+    async getTickets(@Param('userId') userId: number) {
+      const data =  await this.TicketService.getTickets(userId);
       return {
         statusCode: HttpStatus.OK,
         message: 'Tickets fetched successfully',
