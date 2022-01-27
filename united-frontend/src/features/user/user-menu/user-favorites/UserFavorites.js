@@ -5,7 +5,7 @@ import {Divider} from "primereact/divider";
 import {ScrollPanel} from 'primereact/scrollpanel';
 import {Button} from "primereact/button";
 
-import image from "../../../../shared/images/association.png";
+import image from "../../../../images/shared/association.png";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {useState} from "react";

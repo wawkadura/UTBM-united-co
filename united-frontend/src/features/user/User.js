@@ -2,16 +2,31 @@ import "./User.css";
 
 import UserSidenav from "./user-sidenav/UserSidenav";
 import UserInfo from "./user-menu/user-info/UserInfo";
-import {useState} from "react";
+
+import {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 
 import UserSecurity from "./user-menu/user-security/UserSecurity";
 import UserFavorites from "./user-menu/user-favorites/UserFavorites";
 import UserInvoices from "./user-menu/user-invoices/UserInvoices";
 import UserSubscriptions from "./user-menu/user-subscriptions/UserSubscriptions";
+import {UserService} from "./UserService";
 
 function User() {
+    const location = useLocation();
+    const userService = new UserService();
+
     const [type, setType] = useState("info");
-    const [user, setUser] = useState({
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        userService.getUser(location.state.id).then(data => {
+            setUser(data);
+            console.log(user);
+        });
+    }, []);
+
+/*    const [user, setUser] = useState({
         firstname: "Chaeyoung",
         lastname: "Park",
         role: "donor",
@@ -22,7 +37,8 @@ function User() {
         payment_type: "credit_card",
         bic: "FRFDFG",
         iban: "FR04 1234 4584 4652 845"
-    });
+    });*/
+
 
     const component = () => {
         switch (type) {

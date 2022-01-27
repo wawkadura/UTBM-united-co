@@ -67,23 +67,23 @@ function UserInfo({user, setUser}) {
             <Divider/>
 
             <Panel header="Informations basiques">
-                <p><span>Prénom : </span>{user.firstname}</p>
+                <p><span>Prénom : </span>{user.firstName}</p>
                 <Divider />
 
-                <p><span>Nom de famille : </span>{user.lastname}</p>
+                <p><span>Nom de famille : </span>{user.lastName}</p>
                 <Divider />
 
-                <p><span>Date de naissance : </span>{birthdate(user.birthdate)}</p>
+{/*                <p><span>Date de naissance : </span>{birthdate(user.birthdate)}</p>
                 <Divider />
 
-                <p><span>Genre :  </span>{genre(user.genre)}</p>
+                <p><span>Genre :  </span>{genre(user.genre)}</p>*/}
             </Panel>
 
             <Panel header="Informations de contact">
                 <p><span>Adresse mail :  </span>{user.email}</p>
              <Divider />
-
-                <p><span>Numéro de téléphone :  </span> {user.phone}</p>
+{/*
+                <p><span>Numéro de téléphone :  </span> {user.phone}</p>*/}
             </Panel>
 
 
@@ -95,14 +95,14 @@ function UserInfo({user, setUser}) {
                             <label htmlFor="firstname1">Prénom</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText name="firstname" type="text" defaultValue={user.firstname} keyfilter="alpha" onChange={handleChange}/>
+                            <InputText name="firstname" type="text" defaultValue={user.firstName} keyfilter="alpha" onChange={handleChange}/>
                         </span>
                         </div>
                         <div className="p-field p-col">
                             <label htmlFor="lastname1">Nom de famille</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText name="lastname" type="text" defaultValue={user.lastname} keyfilter="alpha"  onChange={handleChange}/>
+                            <InputText name="lastname" type="text" defaultValue={user.lastName} keyfilter="alpha"  onChange={handleChange}/>
                         </span>
                         </div>
 

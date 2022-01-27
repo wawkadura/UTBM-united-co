@@ -6,7 +6,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 import './Navbar.css';
 
-import logo from "../../images/united_logo.png";
+import logo from "../../../images/shared/united_logo.png";
 import {HashLink} from "react-router-hash-link";
 
 function Navbar() {
@@ -16,7 +16,7 @@ function Navbar() {
 
     const user = "Tony LE";
     const items = [
-        { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user") } },
+        { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user", {state: {id: auth}})} },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users'},
         { separator:true },
         { label:'Se déconnecter', icon:'pi pi-fw pi-power-off', command: () => { setAuth(false)} }
