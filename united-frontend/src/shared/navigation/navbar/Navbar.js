@@ -16,7 +16,7 @@ function Navbar() {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(sessionStorage.getItem('token'))
+        if(!auth && sessionStorage.getItem('token'))
             setAuth(true);
     });
 
@@ -30,7 +30,12 @@ function Navbar() {
             }
         },
         { separator: true },
-        { label: 'Se déconnecter', icon: 'pi pi-fw pi-power-off', command: () => { setAuth(false); sessionStorage.clear() } }
+        { label: 'Se déconnecter', icon: 'pi pi-fw pi-power-off', command: () => { 
+                setAuth(false);
+                sessionStorage.clear();
+                navigate("/home");
+            } 
+        }
     ];
 
     return <div className="header">
