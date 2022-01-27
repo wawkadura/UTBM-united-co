@@ -17,9 +17,9 @@ export class StatisticService {
         .from(subscription, "sub")
         .innerJoin(service, "sev", "sev.id = sub.id")
         .innerJoin(association, "ass", "sev.id = ass.id")
-        .where("ass.id = :id", {
-            id: id
-        })
+        // .where("ass.id = :id", {
+        //     id: id
+        // })
         .groupBy("sev.title")
         .addGroupBy("DATE_FORMAT(sub.date, '%Y')")
 

@@ -15,10 +15,10 @@ export class AccountAssociatonInfosController {
             message: 'Infomation modifier avec succès',
         };
     }
-
-    @Get()
-    async showAllService() {
-        const value =  await this.Infos.GetAll();
+    
+    @Get(':id')
+    async showAllService(@Param('id') id: number) {
+        const value =  await this.Infos.GetAll(id);
         return {
             statusCode: HttpStatus.OK,
             message: 'association information fetched successfully',

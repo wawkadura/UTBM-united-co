@@ -35,7 +35,8 @@ function UserServices(){
     },[]);
     //this methode get all services regading an association 
     async function fetchAll(){
-        const resp = await AccountAssociationApi.getServices();
+        const id=1;
+        const resp = await AccountAssociationApi.getServices(id);
         setServices(resp)
     };
     const onClick = (name, data) => { 

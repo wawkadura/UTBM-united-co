@@ -10,11 +10,12 @@ import {useEffect} from 'react';
 import { AccountAssociationApi } from '../../api/accountAssociationApi';
 import { Chart } from 'primereact/chart';
 import { Button } from 'primereact/button';
+import { Card } from 'primereact/card';
 
 function UserSatistics(){
 
     const chartData = {
-        labels: ['A', 'B', 'C'],
+        labels: ['regular', 'premium', 'premium +'],
         datasets: [
             {
                 data: [300, 50, 100],
@@ -106,9 +107,12 @@ function UserSatistics(){
         
     };
 
+
+
     const [date, setDate]=useState(new Date().getFullYear());
     const { register, handleSubmit,reset, formState: { errors } } = useForm();
-    const {pie,setPie} = useState({});
+    const [piedata,setPiedata] = useState({});
+    const [pie,setPie] = useState();
 
     useEffect(()=>{
         fetchPieseries();
@@ -119,7 +123,7 @@ function UserSatistics(){
     async function fetchPieseries(){
         const id=1 
         const resp = await AccountAssociationApi.getPieSeries(id);
-        // setPie(resp);
+        setPie(resp.allDate);
         console.log("pieseries",resp);
     };
 
@@ -127,15 +131,57 @@ function UserSatistics(){
     async function fetchBarseries(){
         const id=1 
         const resp = await AccountAssociationApi.getBarSeries(id);
-        console.log("barseries",resp)
+        // console.log("barseries",resp)
     };
-
     
+    if (pie){
 
+        const testDD=()=>{
+            let chartD = {
+                labels: [pie[0].title],
+                datasets: [
+                    {
+                        data: [pie[0]],
+                        backgroundColor: [
+                            "#42A5F5",
+                            "#66BB6A",
+                            "#FFA726"
+                        ],
+                        hoverBackgroundColor: [
+                            "#64B5F6",
+                            "#81C784",
+                            "#FFB74D"
+                        ]
+                    } 
+                ]
+            };
+          
+        }
+    }
+    if(pie){
+        //setPiedata(chartD)
+        
+        const label = [];
+        const date = [];
+        const data = [];
+        for (let i=0; i<pie.length; i++){
+            label.push(pie[i].title);
+            data.push(pie[i].total);
+            date.push(pie[i].date);
+            // console.log(drowData(pie.allDate[i].date))
+            // setPiedata(chartData);
+            // console.log(chartData); 
+
+
+        }
+        console.log(label,data,date)
+        // console.log(pie.allDate.length);
+        // console.log(pie.allDate.map((item)=>item));
+    }
+   
     const onSubmit = (data) => {
         setDate(data.date);
-        
-    }
+    };
     const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) ;
     const onError = (errors, e) => console.log(errors, e);
     
@@ -152,28 +198,40 @@ function UserSatistics(){
     ); 
 
     return <div>
-        <div className="p-grid">
-            <div className="p-col">
-                <div className="card flex justify-content-center">
-                <Chart type="pie" data={chartData} options={lightOptions} style={{ position: 'relative', width: '40%' }} />
+        <Card title='Statistiques génerales ' style={{ height: '100%', width:'100%'}}>
+            <div className="p-grid">
+                <div className="p-col">
+                    <Card  subTitle={"Nombre d'adhérent par service "+2022} style={{ height: '100%' }}>
+                        <div className="card flex justify-content-center">
+                        <Chart type="pie" data={chartData} options={lightOptions} style={{ position: 'relative', width: '100%' }} />
+                        </div>
+                    </Card>
+                </div>
+
+                <div className="p-col">
+                    <Card subTitle={"Nombre d'adhérent en "+2022} style={{ height: '100%' }}>
+                        {/* <div className="card flex justify-content-center">
+                        <Chart type="pie" data={chartData} options={lightOptions} style={{ position: 'relative', width: '100%' }} />
+                        </div> */}
+                    
+                    {/* <Paper>
+                        <Chart data={dataBarseries[date]}>
+                        <ValueScale name="value" />
+                        <ArgumentAxis />
+                        <ValueAxis scaleName="value" showGrid={false} showLine showTicks />
+                        <BarSeries name={"nb adhérent en "+ date} valueField="value" argumentField="month" scaleName="value"/>
+                        <Title text="Nombre d'adhérents par mois"/>
+                        <Legend />
+                        </Chart>
+                    </Paper> */}
+
+                    </Card>
                 </div>
             </div>
 
-            {/* <div className="p-col">
-                <Paper>
-                    <Chart data={dataBarseries[date]}>
-                    <ValueScale name="value" />
-                    <ArgumentAxis />
-                    <ValueAxis scaleName="value" showGrid={false} showLine showTicks />
-                    <BarSeries name={"nb adhérent en "+ date} valueField="value" argumentField="month" scaleName="value"/>
-                    <Title text="Nombre d'adhérents par mois"/>
-                    <Legend />
-                    </Chart>
-                </Paper>
-            </div> */}
-        </div>
-
-        {inputDate}
+            {inputDate}
+        </Card>
+        
     </div>
 }
 

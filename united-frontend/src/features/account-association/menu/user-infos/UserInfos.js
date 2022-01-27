@@ -73,23 +73,23 @@ function UserInfos({infos, fetchAll}){
     // i return the div to the main contraller we data display...
     return <div> 
         <Toast ref={toast} />
-        {infos.value? infos.value.map((item, index) => (
-        <TabView key={index} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
+        {infos.value? 
+        <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
             <TabPanel  header="Informtions génerale" icon="pi pi-info-circle">
-                <Card footer={cardFooter(item.id)} subTitle="Vous pouvez sur cette page modifier modifier certains praramètres  vous concernant" style={{ height: '100%' }}>
+                <Card footer={cardFooter(infos.value.id)} subTitle="Vous pouvez sur cette page modifier modifier certains praramètres  vous concernant" style={{ height: '100%' }}>
                     <Panel className="panel-color" header="Renseignemets essentiels">
-                        <p><b>Nom association : </b>{item.name}</p>
+                        <p><b>Nom association : </b>{infos.value.name}</p>
                         <Divider />
-                        <p><b>Acronyme : </b>{item.acronym}</p>
+                        <p><b>Acronyme : </b>{infos.value.acronym}</p>
                         <Divider />
-                        <p><b>Date création : </b>{new Date(item.created_at).toLocaleString().split(',')[0]}</p>
+                        <p><b>Date création : </b>{new Date(infos.value.created_at).toLocaleString().split(',')[0]}</p>
                         <Divider />
-                        <p><b>type :  </b>{item.type}</p>
+                        <p><b>type :  </b>{infos.value.type}</p>
                         <Divider />
-                        <p><b>description :  </b>{(item.description)}</p>
+                        <p><b>description :  </b>{(infos.value.description)}</p>
                     </Panel>
                     <Panel className="panel-color" header="Informations de bancaire">
-                        <p><b>IBAN :  </b>{item.iban}</p>
+                        <p><b>IBAN :  </b>{infos.value.iban}</p>
                     </Panel>
 
                     <Dialog header="Informtions génerale" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
@@ -98,22 +98,22 @@ function UserInfos({infos, fetchAll}){
                             <div className="p-fluid p-formgrid p-grid">
                                 <div className="p-field p-col-12">
                                     <label htmlFor="associationname1"><b>Nom association </b></label>
-                                    <InputText type="text" defaultValue={item.name} {...register("name", {required:"Entrer un non", maxLength:{value:50, message:"Saisir 50 carractères max."}})} />
+                                    <InputText type="text" defaultValue={infos.value.name} {...register("name", {required:"Entrer un non", maxLength:{value:50, message:"Saisir 50 carractères max."}})} />
                                     {errors?.name && <ErrorMessage message={errors.name.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="acronym"><b>Acronyme</b></label>
-                                    <InputText type="text" defaultValue={item.acronym}  {...register("acronym",{required:false, maxLength:{value:10, message:"Saisir 10 carractère max."}})}/>
+                                    <InputText type="text" defaultValue={infos.value.acronym}  {...register("acronym",{required:false, maxLength:{value:10, message:"Saisir 10 carractère max."}})}/>
                                     {errors?.acronym && <ErrorMessage message={errors.acronym.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="description"><b>Description</b></label>
-                                    <InputTextarea rows={2}  type="text" defaultValue={item.description} {...register("description", {required:"Description requise", maxLength:{value:500, message:"Saisir 500 carractères max."}})}/>
+                                    <InputTextarea rows={2}  type="text" defaultValue={infos.value.description} {...register("description", {required:"Description requise", maxLength:{value:500, message:"Saisir 500 carractères max."}})}/>
                                     {errors?.description && <ErrorMessage message={errors.description.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="iban"><b>Iban</b></label>
-                                    <InputText type="text" defaultValue={item.iban}  {...register("iban", {required:"Iban requis", maxLength:{value:50, message:"Saisir 50 carractères max."}})}/>
+                                    <InputText type="text" defaultValue={infos.value.iban}  {...register("iban", {required:"Iban requis", maxLength:{value:50, message:"Saisir 50 carractères max."}})}/>
                                     {errors?.iban && <ErrorMessage message={errors.iban.message}/>} 
                                 </div>
                             </div>
@@ -126,17 +126,17 @@ function UserInfos({infos, fetchAll}){
             </TabPanel>
            
             <TabPanel header="Informations de contact"> 
-            <Card footer={cardFooter(item.id)} subTitle="Vous pouvez sur cette page modifier certains praramètres vous concernant" style={{ height: '100%' }}>
+            <Card footer={cardFooter(infos.value.id)} subTitle="Vous pouvez sur cette page modifier certains praramètres vous concernant" style={{ height: '100%' }}>
                     <Panel className="panel-color" header="Informations basiques">
-                        <p><b>Email : </b>{item.email}</p>
+                        <p><b>Email : </b>{infos.value.email}</p>
                         <Divider />
-                        <p><b>Télephone: </b>{item.telephone}</p>
+                        <p><b>Télephone: </b>{infos.value.telephone}</p>
                         <Divider />
-                        <p><b>Adresse: </b>{item.address}</p>
+                        <p><b>Adresse: </b>{infos.value.address}</p>
                         <Divider />
-                        <p><b>Ville : </b>{item.city}</p>
+                        <p><b>Ville : </b>{infos.value.city}</p>
                         <Divider />
-                        <p><b>Site web : </b>{item.website}</p>
+                        <p><b>Site web : </b>{infos.value.website}</p>
                     </Panel>
 
                     <Dialog header="Informtions génerale" position="center" draggable={false} visible={displayBasic} style={{ width: '30vw' }} onHide={() => onHide('displayBasic')}>
@@ -146,20 +146,20 @@ function UserInfos({infos, fetchAll}){
     
                                 <div className="p-field p-col-12">
                                     <label htmlFor="phone"><b>Télephhone</b></label>
-                                    <InputText type="number" defaultValue={item.telephone}  {...registerInfo("telephone", {required:"Numero de  requis", maxLength:{value:10, message:"Saisir exactement 10 carractères ex: 0698647547"}, minLength:{value:10,message:"Saisir exactement 10 carractères ex: 0698647547"}})}/>
+                                    <InputText type="number" defaultValue={infos.value.telephone}  {...registerInfo("telephone", {required:"Numero de  requis", maxLength:{value:10, message:"Saisir exainfos.valueent 10 carractères ex: 0698647547"}, minLength:{value:10,message:"Saisir exainfos.valueent 10 carractères ex: 0698647547"}})}/>
                                     {errorsInfo?.telephone && <ErrorMessage message={errorsInfo.telephone.message}/>} 
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="Adresse"><b>Adresse</b></label>
-                                    <InputText name="adresse" type="text" defaultValue={item.address} {...registerInfo("address")}/>
+                                    <InputText name="adresse" type="text" defaultValue={infos.value.address} {...registerInfo("address")}/>
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="ville"><b>Ville</b></label>
-                                    <InputText type="text" defaultValue={item.city}  {...registerInfo("city")}/>
+                                    <InputText type="text" defaultValue={infos.value.city}  {...registerInfo("city")}/>
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="website"><b>Site web</b></label>
-                                    <InputText type="text" defaultValue={item.website}  {...registerInfo("website")}/>
+                                    <InputText type="text" defaultValue={infos.value.website}  {...registerInfo("website")}/>
                                 </div>
                             </div>
                             <div className="form-actions">
@@ -170,7 +170,7 @@ function UserInfos({infos, fetchAll}){
                 </Card>
             </TabPanel>
         </TabView>
-        )) : ''} 
+        : ''} 
     </div>
 }
 

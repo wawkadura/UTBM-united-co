@@ -16,17 +16,18 @@ function AccountAssociation() {
     },[]);
 
     //this methode get data regarding an association information
+    //id==user id connected
     async function fetchAll(){
-        const resp = await AccountAssociationApi.getInfos();
+        const id=1
+        const resp = await AccountAssociationApi.getInfos(id);
         setInfos(resp)
     };
- 
     const component = () => {
         switch (type) {
-            case "infos" : return <UserInfos infos={infos} fetchAll={fetchAll}/>;
+            case "infos" : if(infos) return <UserInfos infos={infos} fetchAll={fetchAll}/>;
             case "statistics": return <UserStatistics/>;
             case "services": return <UserServices/>;
-            default: return <UserInfos infos={infos} fetchAll={fetchAll}/>;
+            default: if(infos) return <UserInfos infos={infos} fetchAll={fetchAll}/>;
         }
     }
     return <div className="AccountAssociation">

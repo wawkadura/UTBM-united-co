@@ -7,9 +7,9 @@ export class AccountAssociatonController {
 
     constructor(private readonly service: AccountAssociatonService){}
 
-    @Get()
-    async showAllService() {
-        const services =  await this.service.GetAll();
+    @Get(':id')
+    async showAllService(@Param('id') id: number) {
+        const services =  await this.service.GetAll(id);
         return {
             statusCode: HttpStatus.OK,
             message: 'Services fetched successfully',

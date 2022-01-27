@@ -25,8 +25,8 @@ export class AccountAssociatonService {
         return { deleted: true };
     }
     //methode to get all services
-    async GetAll() {
-        return await this.serviceRepository.find();
+    async GetAll(id:number){
+        return await this.serviceRepository.find({ where: { association_id: id } });
     }
 
 }

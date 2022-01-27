@@ -1,7 +1,7 @@
 export class AccountAssociationApi{
 
-    public static async getServices(){
-        const resp = await fetch("http://localhost:4200/account-association",{
+    public static async getServices(id:number){
+        const resp = await fetch(`http://localhost:4200/account-association/${id}`,{
             method : "GET",
             headers : {
                 'Content-Type':'application/json'
@@ -11,8 +11,8 @@ export class AccountAssociationApi{
         return data
     }
 
-    public static async getInfos(){
-        const resp = await fetch("http://localhost:4200/account-association-infos",{
+    public static async getInfos(id:number){
+        const resp = await fetch(`http://localhost:4200/account-association-infos/${id}`,{
             method : "GET",
             headers : {
                 'Content-Type':'application/json'
