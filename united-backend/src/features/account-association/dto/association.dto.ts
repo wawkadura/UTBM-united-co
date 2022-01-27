@@ -5,12 +5,13 @@ export interface serviceDTO{
     title: any;  //error when type "string"
     description : any;
     state: boolean;
+    association_id:number;
 }
 
 export interface InfosDTO{
     id: number;
     name: any;
-    acronym: any;  //error when type "string"
+    acronym: any;  
     type : any;
     email : any;
     state: boolean;
