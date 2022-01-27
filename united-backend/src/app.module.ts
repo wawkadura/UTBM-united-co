@@ -21,9 +21,9 @@ import { SignUpModule } from './features/sign-up/sign-up.module';
     StatisticModule,
     AccountAssociatonInfosModule,
     SingInModule,
-     AssociationModule, 
-     TicketModule,
-      SignUpModule
+    AssociationModule, 
+    TicketModule,
+    SignUpModule
   ],
   controllers: [AppController],
   providers: [AppService],
