@@ -53,7 +53,7 @@ create table subscription (
 
 create table ticket (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  type varchar(100),
+  subject varchar(100),
   comment varchar(500),
   pickup_date datetime,
   resolved_date datetime,

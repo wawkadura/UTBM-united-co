@@ -1,0 +1,15 @@
+.associations {
+    height: 100%;
+    width: 100%;
+    padding: 3rem 5%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+#AssoTitle {
+    text-align: center;
+    margin: 20px;
+    flex-basis: 100%;
+}
+  /*# sourceMappingURL=Associations.css.map */
+  

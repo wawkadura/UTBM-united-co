@@ -40,3 +40,5 @@ const config: ConnectionOptions = {
 };
 
 export default config
+
+// For Walid : docker container exec -u 0 -it priceless_goodall bash + 'host.docker.internal'

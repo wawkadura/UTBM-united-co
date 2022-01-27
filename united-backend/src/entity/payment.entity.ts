@@ -1,24 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import { users } from './user.entity';
 
 @Entity()
 export class payment{
   @PrimaryGeneratedColumn()
   id: number;
-  
-  @Column("varchar", { length: 50, nullable: true })
-  iban;
 
-  @Column({ nullable: true })
+  @Column("varchar", { length: 20 })
+  owner: string;
+
+  @Column({ type: 'bigint' })
   card_number: number;
 
-  @Column("date", { nullable: true })
+  @Column("date")
   expire_date;
 
-  @OneToMany(() => users, users => users.id)
+  @ManyToOne(() => users, users => users.id)
   user_id: number; 
 
-  @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
+  @Column("datetime", { default: () => "CURRENT_TIMESTAMP" })
   created_at;
 }
 

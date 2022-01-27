@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { users } from './user.entity';
 
 @Entity()
@@ -7,7 +7,7 @@ export class ticket{
   id: number;
   
   @Column("varchar", { length: 100, nullable: true })
-  type;
+  subject;
 
   @Column("varchar", { length: 500, nullable: true })
   comment;
@@ -18,10 +18,10 @@ export class ticket{
   @Column("datetime", { nullable: true })
   resolved_date;
 
-  @OneToMany(() => users, users => users.id)
+  @ManyToOne(() => users, users => users.id)
   user_id: number; 
 
-  @OneToMany(() => users, users => users.id)
+  @ManyToOne(() => users, users => users.id)
   support_id: number; 
   
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })

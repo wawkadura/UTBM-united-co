@@ -35,10 +35,10 @@ export class association{
   @Column("varchar", { length: 50 , nullable: true })
   iban;
 
-  @Column()
+  @Column({default:true})
   state: boolean;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   user_id: number;
   
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })

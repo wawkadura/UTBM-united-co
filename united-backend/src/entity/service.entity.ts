@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { association } from './association.entity';
 
 @Entity()
@@ -15,13 +15,13 @@ export class service{
   @Column({nullable:true})
   price: number;
 
-  @Column()
+  @Column({default:true})
   state: boolean;
 
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
   created_at;
 
-  @OneToMany(() => association, association => association.id)
+  @ManyToOne(() => association, association => association.id)
   association_id:number;
 
 }
