@@ -1,9 +1,10 @@
 import { Button } from 'primereact/button';
 import { TieredMenu } from 'primereact/tieredmenu';
 
-import {useRef, useState} from "react";
-import { useNavigate } from 'react-router-dom';
-import {Link} from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 
 import './Navbar.css';
 import logo from "../../../images/shared/united_logo.png";
@@ -14,12 +15,27 @@ function Navbar() {
     const menu = useRef(null);
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        if(!auth && sessionStorage.getItem('token'))
+            setAuth(true);
+    });
+
     const user = "Tony LE";
     const items = [
-        { label:'Mon profil', icon:'pi pi-user-edit' },
-        { label: 'Changer d\'utilisateur', icon: 'pi pi-users'},
-        { separator:true },
-        { label:'Se déconnecter', icon:'pi pi-fw pi-power-off', command: () => { setAuth(false)} }
+        { label: 'Mon profil', icon: 'pi pi-user-edit' },
+        { label: 'Changer d\'utilisateur', icon: 'pi pi-users', command: () => { 
+                setAuth(false); 
+                sessionStorage.clear(); 
+                navigate("/home/signIn") 
+            }
+        },
+        { separator: true },
+        { label: 'Se déconnecter', icon: 'pi pi-fw pi-power-off', command: () => { 
+                setAuth(false);
+                sessionStorage.clear();
+                navigate("/home");
+            } 
+        }
     ];
 
     return <div className="header">
