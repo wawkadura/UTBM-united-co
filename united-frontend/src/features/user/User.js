@@ -11,24 +11,17 @@ import UserFavorites from "./user-menu/user-favorites/UserFavorites";
 import UserInvoices from "./user-menu/user-invoices/UserInvoices";
 import UserSubscriptions from "./user-menu/user-subscriptions/UserSubscriptions";
 import {UserService} from "./UserService";
+import stringUtil from "../../utils/StringUtil";
 
 function User() {
     const location = useLocation();
     const userService = new UserService();
 
     const [type, setType] = useState("info");
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        userService.getUser(location.state.id).then(data => {
-            setUser(data);
-            console.log(user);
-        });
-    }, []);
-
-/*    const [user, setUser] = useState({
-        firstname: "Chaeyoung",
-        lastname: "Park",
+    const [userId, setUserId] = useState(location.state.id);
+    const [user, setUser] = useState({
+        firstName: "Chaeyoung",
+        lastName: "Park",
         role: "donor",
         birthdate: new Date("1997-02-11"),
         genre: "woman",
@@ -37,13 +30,19 @@ function User() {
         payment_type: "credit_card",
         bic: "FRFDFG",
         iban: "FR04 1234 4584 4652 845"
-    });*/
+    });
 
+    useEffect(() => {
+        userService.getUser(userId).then(data => {
+            setUser(data);
+            console.log(user);
+        });
+    }, []);
 
     const component = () => {
         switch (type) {
-            case "info" : return <UserInfo user={user} setUser={setUser}/>;
-            case "favorites": return <UserFavorites/>;
+            case "info" : return <UserInfo user={user} userId={userId} setUser={setUser} stringUtil={stringUtil}/>;
+            case "favorites": return <UserFavorites userId={userId}/>;
             case "subscriptions": return <UserSubscriptions/>;
             case "invoices": return <UserInvoices/>;
             case "security": return <UserSecurity user={user} setUser={setUser}/>;
@@ -54,7 +53,7 @@ function User() {
     return <div className="user">
         <div className="user-container">
             <div className="user-sidenav">
-                <UserSidenav type={type} setType={setType} user={user}/>
+                <UserSidenav type={type} setType={setType} user={user} stringUtil={stringUtil}/>
             </div>
             <div className="user-contents">
                 {component()}
@@ -64,3 +63,18 @@ function User() {
 }
 
 export default User
+
+
+/*
+{
+    firstName: "Chaeyoung",
+        lastName: "Park",
+    role: "donor",
+    birthdate: new Date("1997-02-11"),
+    genre: "woman",
+    email: "rosie@blackpink.kr",
+    phone: "+823532450845",
+    payment_type: "credit_card",
+    bic: "FRFDFG",
+    iban: "FR04 1234 4584 4652 845"
+}*/

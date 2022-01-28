@@ -8,8 +8,9 @@ import {Button} from "primereact/button";
 import image from "../../../../images/shared/association.png";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Panel} from "primereact/panel";
+import {UserService} from "../../UserService";
 
 const _associations = [
     {id: 1, name: "SPA", type: "Protection animale", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do", isFavorite: true},
@@ -20,13 +21,19 @@ const _associations = [
     {id: 6,name: "Médecin", type: "Santé", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do", isFavorite: true}
 ]
 
-function UserFavorites() {
+function UserFavorites({userId}) {
+    const userService = new UserService();
     const [associations, setAssociations] = useState(_associations);
+
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
 
     const onClick = (name) => { dialogFuncMap[`${name}`](true); }
     const onHide = (name) => { dialogFuncMap[`${name}`](false); }
+
+    useEffect(() => {
+        userService.getFavoriteAssociations(userId).then(data => console.log(data));
+    });
 
     function header(id, name, isFavorite) {
         return (

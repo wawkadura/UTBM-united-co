@@ -1,35 +1,34 @@
 import user_man from "../../../images/shared/user-man.png";
 
-import SupportSidenav from "./sidenav/SupportSidenav";
-import DonatorSidenav from "./sidenav/DonatorSidenav";
-
 import "./UserSidenav.css";
+import {Button} from "primereact/button";
+import {Divider} from "primereact/divider";
 
-function UserSidenav({type, setType, user}) {
+function UserSidenav({type, setType, user, stringUtil}) {
     const onChangeType = (type) => { setType(type); }
-    const sidenav = () => {
-        switch (user.role) {
-            case "donor": return <DonatorSidenav onChangeType={onChangeType}/>;
-            case "support": return <SupportSidenav onChangeType={onChangeType}/>;
-            case "admin": return <SupportSidenav onChangeType={onChangeType}/>;
-            case "association": return <SupportSidenav onChangeType={onChangeType}/>;
-        }
-    }
-
-    function userRole(type) {
-        return type === "donor" ? "Donateur" : type === "association" ? "Association" : type === "admin" ? "Administrateur" : "Support"
-    }
 
     return <div className="user-sidenav">
         <div className="sidenav-header">
             <img src={user_man} alt="user_logo"/>
             <div>
-                <h3>{`${user.lastName} ${user.firstName}`}</h3>
-                <p>{userRole(user.role)}</p>
+                <h3>{`${stringUtil.capitalize(user.firstName)}  ${user.lastName.toUpperCase()}`}</h3>
+                <p>Donateur</p>
             </div>
         </div>
         <div className="sidenav-contents">
-            {sidenav()}
+            <Button onClick={() => {onChangeType("info")}} label="Informations personnelles" icon="pi pi-user" />
+            <Divider/>
+
+            <Button onClick={() => {onChangeType("favorites")}} label="Mes favoris" icon="pi pi-heart" />
+            <Divider />
+
+            <Button onClick={() => {onChangeType("subscriptions")}} label="Mes abonnements" icon="pi pi-list" />
+            <Divider />
+
+            <Button onClick={() => {onChangeType("invoices")}} label="Mes factures" icon="pi pi-file" />
+            <Divider />
+
+            <Button onClick={() => {onChangeType("security")}} label="Sécurité & Paiement" icon="pi pi-shield" />
         </div>
     </div>
 }

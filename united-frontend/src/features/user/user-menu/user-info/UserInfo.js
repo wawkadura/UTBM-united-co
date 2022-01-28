@@ -11,11 +11,13 @@ import { Dropdown } from 'primereact/dropdown';
 import { validate } from 'email-validator';
 
 import {useState} from "react";
+import {UserService} from "../../UserService";
 
 
-function UserInfo({user, setUser}) {
+function UserInfo({user, userId, setUser, stringUtil}) {
     const [form, setForm] = useState(user);
     const [emailValid, setEmailValid] = useState(true);
+    const userService = new UserService();
 
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
@@ -60,6 +62,8 @@ function UserInfo({user, setUser}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         setUser(form);
+        console.log(form);
+        //userService.modifyUser(userId, {form}).then(r => console.log(r));
     }
 
     return <div className="user-contents">
@@ -67,11 +71,10 @@ function UserInfo({user, setUser}) {
             <Divider/>
 
             <Panel header="Informations basiques">
-                <p><span>Prénom : </span>{user.firstName}</p>
+                <p><span>Prénom : </span>{stringUtil.capitalize(user.firstName)}</p>
                 <Divider />
 
-                <p><span>Nom de famille : </span>{user.lastName}</p>
-                <Divider />
+                <p><span>Nom de famille : </span>{user.lastName.toUpperCase()}</p>
 
 {/*                <p><span>Date de naissance : </span>{birthdate(user.birthdate)}</p>
                 <Divider />
