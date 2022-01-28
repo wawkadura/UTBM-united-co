@@ -11,6 +11,7 @@ import { confirmPopup } from 'primereact/confirmpopup';
 import './Ticket-form.css';
 
 const ticketService = new TicketService();
+const userId = sessionStorage.getItem('userId');
 
 const TicketForm = ({tickets, setTickets}) => { 
     const [subject, setsubject] = useState('');
@@ -36,7 +37,7 @@ const TicketForm = ({tickets, setTickets}) => {
 
     const addTicket = () => {
         const body = {
-            name: "Tony Le", 
+            user_id: userId, 
             subject: subject,
             comment: description,
         }

@@ -2,8 +2,8 @@ import { TicketApi } from "./api/Ticket.api";
 
 export class TicketService {
 
-    getTickets() {
-        return TicketApi.getTickets();
+    getTickets(userId) {
+        return TicketApi.getTickets(userId);
     }
 
     addTicket(body) {
