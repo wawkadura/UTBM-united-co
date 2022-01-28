@@ -12,6 +12,7 @@ import Associations from './features/Associations/Associations';
 import SignIn from './features/signIn/SignIn';
 import ForgotPass from './features/signIn/ForgotPass';
 import Ticket from './features/Ticket/Ticket';
+import Faq from './features/faq/Faq';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NotFound from "./shared/not-found/NotFound";
@@ -34,6 +35,7 @@ function App() {
                         <Route exact path="/home/signIn/forgotPass" element={<ForgotPass/>}/>
                         <Route exact path="/ticket" element={<Ticket/>}/>
                         <Route exact path="/associations" element={<Associations />} />
+                        <Route exact path="/FAQ" element={<Faq />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

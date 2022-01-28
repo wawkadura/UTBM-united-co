@@ -19,7 +19,7 @@ function Associations() {
     };
 
     return <div className="associations">
-        <h2 id="AssoTitle">Liste des associations</h2>
+        <h2 className="AssoTitle">Liste des associations</h2>
         <AssociationFilters Filters={Filters}/>
         <AssociationList Filters={Filters}/>
     </div>

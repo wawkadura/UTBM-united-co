@@ -1,0 +1,19 @@
+.faq {
+    height: 100%;
+    width: 100%;
+    padding: 3rem 5%;
+}
+
+.faq .p-accordion p {
+    line-height: 1.5;
+    margin: 0;
+}
+
+.faq-item {
+    margin: 10px 0;
+    white-space: pre-line;
+
+}
+
+  /*# sourceMappingURL=Tickets.css.map */
+  
