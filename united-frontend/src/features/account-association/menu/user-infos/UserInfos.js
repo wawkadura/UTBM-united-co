@@ -16,7 +16,6 @@ import { Toast } from 'primereact/toast';
 //les pramettres viennet du main contr0ller 
 function UserInfos({infos, fetchAll}){
 
-    // const [infos, setInfos]= useState({})
     const [id, setId]= useState()
     const {register, handleSubmit,reset, formState: { errors } } = useForm();
     const {register:registerInfo, handleSubmit:handleSubmitInfo, reset:resetInfo, formState: { errors:errorsInfo } } = useForm();

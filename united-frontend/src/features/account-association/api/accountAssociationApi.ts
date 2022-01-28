@@ -22,8 +22,8 @@ export class AccountAssociationApi{
         return data
     }
     // id correspond to the association connected
-    public static async getPieSeries(id:number){
-        const resp = await fetch(`http://localhost:4200/account-association-statistic/pieseries/${id}`,{
+    public static async getPieSeries(id:number,date:string){
+        const resp = await fetch(`http://localhost:4200/account-association-statistic/pieseries/id=${id}&date=${date}`,{
             method : "GET",
             headers : {
                 'Content-Type':'application/json'
@@ -33,8 +33,19 @@ export class AccountAssociationApi{
         return data
     }
     // id correspond to the association connected
-    public static async getBarSeries(id:number){
-        const resp = await fetch(`http://localhost:4200/account-association-statistic/barseries/${id}`,{
+    public static async getDate(id:number){
+        const resp = await fetch(`http://localhost:4200/account-association-statistic/dates/${id}`,{
+            method : "GET",
+            headers : {
+                'Content-Type':'application/json'
+            },
+        })
+        const data = await resp.json();
+        return data
+    }
+    // id correspond to the association connected
+    public static async getBarSeries(id:number, date:string){
+        const resp = await fetch(`http://localhost:4200/account-association-statistic/barseries/id=${id}&date=${date}`,{
             method : "GET",
             headers : {
                 'Content-Type':'application/json'
@@ -44,7 +55,7 @@ export class AccountAssociationApi{
         return data
     }
 
-    public static async createService(value:any){
+    public static async createService(value:any,association_id:number){
         const resp= await fetch("http://localhost:4200/account-association",{
             method : "POST",
             headers : {
@@ -55,6 +66,7 @@ export class AccountAssociationApi{
                 description : value.description,
                 price: value.price,
                 state:true,
+                association_id: association_id
             })
         })
         const data = await resp.json();

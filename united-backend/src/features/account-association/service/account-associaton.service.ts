@@ -1,8 +1,9 @@
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getManager, Repository } from 'typeorm';
 import { service } from 'src/entity/service.entity';
 import { serviceDTO} from '../dto/association.dto';
+import { association } from 'src/entity/association.entity';
 
 @Injectable()
 export class AccountAssociatonService {
@@ -26,7 +27,22 @@ export class AccountAssociatonService {
     }
     //methode to get all services
     async GetAll(id:number){
-        return await this.serviceRepository.find({ where: { association_id: id } });
+        //return await this.serviceRepository.find({ where: { association_id: id } });
+        const allDateQuery = getManager().createQueryBuilder()
+        .select("sev.description","description")
+        .addSelect("sev.price","price")
+        .addSelect("sev.title","title")
+        .addSelect("sev.id","id")
+        .addSelect("ass.id","association_id")
+        .from(service, "sev")
+        .innerJoin(association, "ass", "sev.associationIdId = ass.user_id")
+        .where("ass.user_id = :id", {
+            id: id
+        })
+        //exécute de serie
+        const data = await allDateQuery.getRawMany();
+        return data; 
+
     }
 
 }

@@ -16,7 +16,7 @@ export class AccountAssociatonInfosService {
 
     //methode to get all association information
     async GetAll(id:number): Promise<InfosDTO> {
-        return await this.associationInfosRepository.findOne({ where: { id: id } });
+        return await this.associationInfosRepository.findOne({ where: { user_id: id } });
     }
 
 }

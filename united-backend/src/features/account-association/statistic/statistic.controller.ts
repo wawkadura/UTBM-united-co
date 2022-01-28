@@ -5,25 +5,34 @@ import { StatisticService } from './statistic.service';
 export class StatisticController {
     constructor(private readonly statistic: StatisticService){}
 
-    @Get("pieseries/:id")
-    async showAllbydate(@Param('id') id: number) {
-        const allDate =  await this.statistic.getDataBydate(id);
+    @Get("pieseries/id=:id&date=:date")
+    async showAllbydate(@Param('id') id: number, @Param('date') date:string) {
+        const allDate =  await this.statistic.getDataBydate(id,date);
         return {
             statusCode: HttpStatus.OK,
-            message: 'date pieSeries fetched successfully',
+            message: 'data pieSeries fetched successfully',
             allDate
         };
     }
 
-    @Get("barseries/:id")
-    async showAllBymonth(@Param('id') id: number) {
-        const allMonth =  await this.statistic.getDataByMonth(id);
+    @Get("barseries/id=:id&date=:date")
+    async showAllBymonth(@Param('id') id: number, @Param('date') date:string) {
+        const allMonth =  await this.statistic.getDataByMonth(id, date);
         return {
             statusCode: HttpStatus.OK,
-            message: 'date barSeries fetched successfully',
+            message: 'data barSeries fetched successfully',
             allMonth
         };
     }
 
+    @Get("dates/:id")
+    async showDates(@Param('id') id: number) {
+        const date =  await this.statistic.getDate(id);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'date fetched successfully',
+            date
+        };
+    }
 
 }

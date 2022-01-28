@@ -16,10 +16,9 @@ function AccountAssociation() {
     },[]);
 
     //this methode get data regarding an association information
-    //id==user id connected
+    //sesionstorage...==user id connected
     async function fetchAll(){
-        const id=1
-        const resp = await AccountAssociationApi.getInfos(id);
+        const resp = await AccountAssociationApi.getInfos(sessionStorage.getItem('userId'));
         setInfos(resp)
     };
     const component = () => {

@@ -35,10 +35,11 @@ function UserServices(){
     },[]);
     //this methode get all services regading an association 
     async function fetchAll(){
-        const id=1;
-        const resp = await AccountAssociationApi.getServices(id);
+        //sessionStorage.getItem('userId'); correspond to user id connected
+        const resp = await AccountAssociationApi.getServices(sessionStorage.getItem('userId'));
         setServices(resp)
     };
+    
     const onClick = (name, data) => { 
         dialogFuncMap[`${name}`](true); 
         setDataModal(data);
@@ -75,10 +76,12 @@ function UserServices(){
             onHide('displayBasic')
         }
     }; 
+     
     //create new service 
     const AddService = async(data) => {
-        if(data){
-            const resp = await AccountAssociationApi.createService(data); //sent data to the api in oder to populate database
+        const association_id=services.services[0].association_id
+        if(data&&association_id){
+            const resp = await AccountAssociationApi.createService(data,association_id); //sent data to the api in oder to populate database
             if (resp){
                 fetchAll();
                 showToast(resp);

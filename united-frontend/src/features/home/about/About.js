@@ -23,7 +23,7 @@ function About() {
             <div>
                 <img className="image-apropo" src={sharing} alt='sharing'/>
                 <h2> Notre vision</h2>
-                <h4 className="space-text ">Nous avons une vision d'entraide, solidarité, ensemble, unité, amour, fraternité, bonté, coopération, charité, et de partage. Ainsi, nous pensons que chacun peur apporter sa contribution et deviennir le bâtisseur d'un monde fondé</h4>
+                <h4 className="space-text ">Nous avons une vision d'entraide, solidarité, ensemble, unité, amour, fraternité, bonté, coopération, charité, et de partage. Ainsi, nous pensons que chacun peut apporter sa contribution et deviennir le bâtisseur d'un monde fondé</h4>
             </div>
         </div> 
         

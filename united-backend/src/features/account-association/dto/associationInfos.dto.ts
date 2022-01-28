@@ -5,5 +5,6 @@ export interface serviceDTO{
     title: any;  //error when type "string"
     description : any;
     state: boolean;
+    association_id: number
 }
 
