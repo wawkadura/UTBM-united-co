@@ -31,7 +31,6 @@ function AdminStatistics() {
             if (response.statusCode!=200 && toast.current != null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
             }else{
-                console.log(response)
                 setDataUsers({
                     associations: response.data.associations,
                     donors: response.data.donors,

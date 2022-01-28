@@ -107,7 +107,6 @@ function AdminAssociations({Refresh, toast }) {
 
     const updateAssociation = (data) => {
         setIsPending(true)
-        console.log(data)
         adminService.updateAssociation(selectedAssociation.id, data).then((response) => {
             if (response.statusCode!=200 && toast.current != null) {
                 if(response.statusCode==400) {
