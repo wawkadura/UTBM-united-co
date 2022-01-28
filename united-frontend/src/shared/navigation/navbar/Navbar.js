@@ -1,16 +1,10 @@
 import { Button } from 'primereact/button';
 import { TieredMenu } from 'primereact/tieredmenu';
 
-<<<<<<< HEAD
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
-=======
-import {useRef, useState} from "react";
-import { useNavigate } from 'react-router-dom';
-import {Link} from "react-router-dom";
->>>>>>> ef06c29fcb88f84ea5f0df659ed3823ed4971c52
 
 import './Navbar.css';
 import logo from "../../../images/shared/united_logo.png";
@@ -28,7 +22,6 @@ function Navbar() {
 
     const user = "Tony LE";
     const items = [
-<<<<<<< HEAD
         { label: 'Mon profil', icon: 'pi pi-user-edit' },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users', command: () => { 
                 setAuth(false); 
@@ -43,12 +36,6 @@ function Navbar() {
                 navigate("/home");
             } 
         }
-=======
-        { label:'Mon profil', icon:'pi pi-user-edit' },
-        { label: 'Changer d\'utilisateur', icon: 'pi pi-users'},
-        { separator:true },
-        { label:'Se déconnecter', icon:'pi pi-fw pi-power-off', command: () => { setAuth(false)} }
->>>>>>> ef06c29fcb88f84ea5f0df659ed3823ed4971c52
     ];
 
     return <div className="header">
