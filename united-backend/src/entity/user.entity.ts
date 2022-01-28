@@ -5,13 +5,13 @@ export class users{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("varchar", { length: 20 })
+  @Column("varchar", { length: 20, nullable: true })
   firstName;
 
-  @Column("varchar", { length: 20 })
+  @Column("varchar", { length: 20 , nullable: true})
   lastName;
 
-  @Column("varchar", { length: 320 })
+  @Column("varchar", { length: 320, unique: true })
   email;
 
   @Column("varchar", { length: 100 })

@@ -21,9 +21,8 @@ function AdminCommunications({toast}) {
     const { control, formState: { errors }, handleSubmit, reset } = useForm({defaultValues});
 
     function sendEmail(data) {
-        setFormData(data);
         setIsPending(true)
-        adminService.sendEmail(formData).then((response) => {
+        adminService.sendEmail(data).then((response) => {
             toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Le mail a bien été envoyé !', life: 3000 });
             setIsPending(false)
             reset()

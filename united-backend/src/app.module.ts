@@ -8,9 +8,10 @@ import { SingInModule } from './features/sign-in/sign-in.module';
 import { TicketModule } from './features/ticket/ticket.module';
 import { AssociationModule } from './features/association/service/association.module';
 import { SignUpModule } from './features/sign-up/sign-up.module';
+import { AdminModule } from './features/admin/admin.module';
 
 @Module({
-  imports: [UserModule, DatabaseModule, NewslettersModule, SingInModule, AssociationModule, TicketModule, SignUpModule],
+  imports: [UserModule, DatabaseModule, NewslettersModule, SingInModule, AssociationModule, TicketModule, SignUpModule, AdminModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -13,7 +13,7 @@ export class SingInController {
     @Post('sign-in')
     async SignIn(@Body() data: SignIn){
         const user = await this.signInService.isPassOk(data.email, data.password);
-        
+        console.log("wesh")
         //if user exist
         if (user){
             const payload:PayloadToken={userId: user.id}

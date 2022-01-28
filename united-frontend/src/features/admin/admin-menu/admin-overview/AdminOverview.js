@@ -14,7 +14,8 @@ import { useState, useEffect } from "react";
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 
-function AdminOverview({toast, admin}) {
+
+function AdminOverview({ Refresh, dataPending, toast, admin }) {
     const { control, formState: { errors }, handleSubmit, reset } = useForm({});
     const [displayDialog, setDisplayDialog] = useState(false);
     const [mailExists, setMailExists] = useState(false);
@@ -25,19 +26,16 @@ function AdminOverview({toast, admin}) {
     const adminData = admin
     const [stats, setStats] = useState({
         nbDonations: 43795,
-        nbDonateurs: 2736,
+        nbDonors: 2736,
         nbAssociations: 35,
     })
 
     useEffect(() => {
         adminService.getAdminOverviewStats().then((response) => {
-            // console.log(response)
-            if (!response.ok && toast.current != null) {
-                //toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + ": " + response.message, life: 3000 });
-            }
-            if (response.ok && toast.current != null) {
+            if (response.statusCode != 200 && toast.current != null) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + " : " + response.message, life: 3000 });
+            } else {
                 setStats(response.data)
-                //toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les associations ont bien été récupérés', life: 3000 });
             }
             setIsPendingStats(false)
         });
@@ -50,13 +48,14 @@ function AdminOverview({toast, admin}) {
     const save = (data) => {
         setFormData(data);
         setIsPending(true)
-        adminService.updateAdminInfo(adminData.id, formData).then((response) => {
-            // console.log(response)
-            if (!response.ok && toast.current != null) {
-                // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
-                setMailExists(true)
-            }
-            if (response.ok && toast.current != null) {
+        adminService.updateAdminInfo(adminData.id, data).then((response) => {
+            if (response.statusCode != 200 && toast.current != null) {
+                if (response.statusCode == 400) {
+                    setMailExists(true)
+                } else {
+                    toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + " : " + response.message, life: 3000 });
+                }
+            } else {
                 onHide()
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les modifications on bien étais pris en compte !', life: 3000 });
             }
@@ -68,6 +67,7 @@ function AdminOverview({toast, admin}) {
         reset()
         setMailExists(false)
         setDisplayDialog(false)
+        Refresh()
     }
 
     function dialogFooter() {
@@ -102,13 +102,19 @@ function AdminOverview({toast, admin}) {
             <Divider />
 
             <Panel header="Informations personnelles">
-                <p><span>Prénom : </span>{adminData.firstName}</p>
-                <Divider />
+                {dataPending ? <div className="p-d-flex p-jc-evenly"><ProgressSpinner /></div> :
+                    <div>
+                        <p><span>Prénom : </span>{adminData.firstName}</p>
+                        <Divider />
 
-                <p><span>Nom de famille : </span>{adminData.lastName}</p>
-                <Divider />
+                        <p><span>Nom de famille : </span>{adminData.lastName}</p>
+                        <Divider />
 
-                <p><span>Email : </span>{adminData.email}</p>
+                        <p><span>Email : </span>{adminData.email}</p>
+                    </div>
+                }
+
+
             </Panel>
             {cardFooter()}
             <br />
@@ -118,7 +124,7 @@ function AdminOverview({toast, admin}) {
                     {isPendingStats ? <ProgressSpinner /> :
 
                         <div className="p-mr-4">
-                            <Card className="stats-overview-nb" title="Totale de donations">
+                            <Card className="stats-overview-nb" title="Totale de dons">
                                 <p>{stats.nbDonations}€</p>
                             </Card>
                         </div>
@@ -134,7 +140,7 @@ function AdminOverview({toast, admin}) {
                     {isPendingStats ? <ProgressSpinner /> :
                         <div className="p-mr-4">
                             <Card className="stats-overview-nb" title="Nombre de donateurs">
-                                <p>{stats.nbDonateurs}</p>
+                                <p>{stats.nbDonors}</p>
 
                             </Card>
                         </div>

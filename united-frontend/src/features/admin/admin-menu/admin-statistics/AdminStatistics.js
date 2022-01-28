@@ -14,52 +14,34 @@ function AdminStatistics() {
     const adminService = new AdminService()
     const [isPending, setIsPending] = useState(true);
     const toast = useRef(null);
-
-    var dataUsers = {
-        associations: {
-            2022: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-            2021: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-            2020: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-
-        },
-        donors: {
-            2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-            2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-            2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-        },
-    }
+    const [dataUsers, setDataUsers] = useState({
+        associations: {},
+        donors: {},
+    });
 
     var dataDonations = {
-        donations: {
-            2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-            2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-            2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-        },
+        donations: {},
     }
 
     var dataBugs = {
-        bugs: {
-            2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-            2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-            2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-        },
+        bugs: {},
     }
     useEffect(() => {
         adminService.getAdminStats().then((response) => {
-            // console.log(response)
-            if (!response.ok && toast.current != null) {
-                //toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + ": " + response.message, life: 3000 });
-            }
-            if (response.ok && toast.current != null) {
-                setStats(response.data)
-                //toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les associations ont bien été récupérés', life: 3000 });
+            if (response.statusCode!=200 && toast.current != null) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
+            }else{
+                console.log(response)
+                setDataUsers({
+                    associations: response.data.associations,
+                    donors: response.data.donors,
+                })
+                dataDonations.donations = response.data.donations
+                dataBugs.bugs = response.data.tickets
             }
             setIsPending(false)
         });
-    });
-    const setStats = (jsonResponse) => {
-        console.log(jsonResponse)
-     }
+    }, []);
 
     return (
         <Card title="Statistiques générales" style={{ height: '100%' }}>
@@ -67,9 +49,9 @@ function AdminStatistics() {
             <div className="card">
                 {isPending ? <div className="spinner"> <ProgressSpinner /></div> :
                     <TabView className="tabview-header-icon">
-                        <TabPanel header="Dons" leftIcon="pi pi-heart">
+                        {/* <TabPanel header="Dons" leftIcon="pi pi-heart">
                             <GraphDonations data={dataDonations} />
-                        </TabPanel>
+                        </TabPanel> */}
                         <TabPanel header="Utilisateurs" leftIcon="pi pi-user">
                             <GraphUsers data={dataUsers} />
                         </TabPanel>
@@ -84,3 +66,35 @@ function AdminStatistics() {
 }
 
 export default AdminStatistics
+
+
+
+// var dataUsers = {
+//     associations: {
+//         2022: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
+//         2021: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
+//         2020: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
+
+//     },
+//     donors: {
+//         2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
+//         2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
+//         2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
+//     },
+// }
+
+// var dataDonations = {
+//     donations: {
+//         2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
+//         2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
+//         2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
+//     },
+// }
+
+// var dataBugs = {
+//     bugs: {
+//         2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
+//         2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
+//         2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
+//     },
+// }

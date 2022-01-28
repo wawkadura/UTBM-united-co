@@ -73,9 +73,11 @@ function GraphUsers(users) {
         setYears(keys)
         setSelectedYear(keys[0]);
         changeDataYear(keys[0])
-    }, []);
+    }, [data]);
 
     const changeDataYear = (year) => {
+        setAssociationsStats([])
+        setDonorsStats([])
         Object.keys(data.associations).map(function (key) {
             if (key === year) {
                 setAssociationsStats(data.associations[key])

@@ -31,9 +31,9 @@ var associations = [
     { id: "10", name: "Société protectrice des animaux", acronym: "SPA", email: "dons@spa.com", website: "www.spa.com", phone: "0612345678", type: "animaux" },
 ]
 
-function AdminAssociations({ toast }) {
+function AdminAssociations({Refresh, toast }) {
     const { control, watch, formState: { errors }, handleSubmit, reset } = useForm({});
-    const [formData, setFormData] = useState({});
+    const { control : control1, formState: { errors: errors1 } ,handleSubmit:handleSubmit1, reset:reset1 } = useForm({});
     const [isPending, setIsPending] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
     const [mailExists, setMailExists] = useState(false);
@@ -46,12 +46,10 @@ function AdminAssociations({ toast }) {
 
     useEffect(() => {
         adminService.getAssociations().then((response) => {
-            if (!response.ok && toast.current != null) {
-                //toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + ": " + response.message, life: 3000 });
-            }
-            if (response.ok && toast.current != null) {
+            if (response.statusCode!=200 && toast.current != null) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
+            }else {
                 associations = response.data
-                //toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les associations ont bien été récupérés', life: 3000 });
             }
             setIsLoading(false)
         });
@@ -76,18 +74,15 @@ function AdminAssociations({ toast }) {
 
     const accept = () => {
         adminService.deleteAssociation(idToDelete).then((response) => {
-            console.log(response)
-            if (!response.ok) {
-                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
+            if (response.statusCode!=200 && toast.current != null) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
             } else {
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'L\'association a bien été supprimé', life: 3000 });
             }
+            Refresh()
         });
         idToDelete = ''
     };
-    const onUpload = () => {
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-    }
 
     const onClick = () => {
         setAddDisplay(true)
@@ -96,11 +91,13 @@ function AdminAssociations({ toast }) {
     const onHide = () => {
         setAddDisplay(false)
         setDetailsDisplay(false)
-        setSelectedAssociation(null)
         setUpdateDisplay(false)
-        reset()
         setIsPending(false)
         setMailExists(false)
+        setSelectedAssociation(null)
+        reset()
+        reset1()
+        Refresh()
     }
 
     function onChange(value) {
@@ -109,15 +106,16 @@ function AdminAssociations({ toast }) {
     }
 
     const updateAssociation = (data) => {
-        setFormData(data);
         setIsPending(true)
-        adminService.updateAssociation(selectedAssociation.id, formData).then((response) => {
-            // console.log(response)
-            if (!response.ok && toast.current != null) {
-                // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
-                setMailExists(true)
-            }
-            if (response.ok && toast.current != null) {
+        console.log(data)
+        adminService.updateAssociation(selectedAssociation.id, data).then((response) => {
+            if (response.statusCode!=200 && toast.current != null) {
+                if(response.statusCode==400) {
+                    setMailExists(true)
+                }else{
+                    toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
+                }
+            }else {
                 onHide()
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les modifications on bien étais pris en compte !', life: 3000 });
             }
@@ -126,16 +124,15 @@ function AdminAssociations({ toast }) {
     }
 
     const createAssociation = (data) => {
-        setFormData(data);
-        console.log(data)
         setIsPending(true)
-        adminService.createAssociation(formData).then((response) => {
-            // console.log(response)
-            if (!response.ok && toast.current != null) {
-                // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 3000 });
-                setMailExists(true)
-            }
-            if (response.ok && toast.current != null) {
+        adminService.createAssociation(data).then((response) => {
+            if (response.statusCode!=200 && toast.current != null) {
+                if( response.statusCode == 400) {
+                    setMailExists(true)
+                }else{
+                    toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
+                }
+            }else {
                 onHide()
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les modifications on bien étais pris en compte !', life: 3000 });
             }
@@ -147,10 +144,18 @@ function AdminAssociations({ toast }) {
         return errors[name] && <small className="p-error">{errors[name].message}</small>
     };
 
+    const getFormErrorMessage1 = (name) => {
+        return errors1[name] && <small className="p-error">{errors1[name].message}</small>
+    };
+
     function dialogFooter() {
         return (
             <div style={{ textAlign: 'center' }}>
-                <Button label="Valider" icon="pi pi-save" onClick={() => onClick()} />
+                {isPending ? 
+                <Button label="Validation..." type="submit" disabled icon="pi pi-save" />
+                :
+                <Button label="Valider"  type="submit"  icon="pi pi-save" />
+                }
             </div>
         );
     }
@@ -294,14 +299,14 @@ function AdminAssociations({ toast }) {
     function UpdateAssociationDialog() {
         return <Dialog header="Modifications des Informations" position="center" draggable={false} visible={updateDisplay} style={{ width: '50vw' }} onHide={() => onHide()}>
             <Divider />
-            <form onSubmit={handleSubmit(updateAssociation)} className="p-fluid">
+            <form onSubmit={handleSubmit1(updateAssociation)} className="p-fluid">
                 <div className="p-fluid p-formgrid p-grid">
                     <div className="p-field p-col-14 p-md-6">
                         <label htmlFor="nom">Nom</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-building" />
-                            <Controller name="name" control={control} render={({ field, fieldState }) => (
-                                <InputText id={field.name} placeholder={selectedAssociation.name} {...field} autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} />
+                            <Controller name="name" control={control1} render={({ field, fieldState }) => (
+                                <InputText id={field.name} placeholder={selectedAssociation.name} {...field}  autoFocus className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
                     </div>
@@ -309,8 +314,8 @@ function AdminAssociations({ toast }) {
                         <label htmlFor="acronym">Acronym</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-hashtag" />
-                            <Controller name="acronym" control={control} render={({ field, fieldState }) => (
-                                <InputText id={field.name} placeholder={selectedAssociation.acronym} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                            <Controller name="acronym" control={control1} render={({ field, fieldState }) => (
+                                <InputText id={field.name} placeholder={selectedAssociation.acronym}  {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
                     </div>
@@ -318,8 +323,8 @@ function AdminAssociations({ toast }) {
                         <label htmlFor="acronym">Type</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-info-circle" />
-                            <Controller name="type" control={control} render={({ field, fieldState }) => (
-                                <InputText id={field.name} placeholder={selectedAssociation.type} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                            <Controller name="type" control={control1} render={({ field, fieldState }) => (
+                                <InputText id={field.name} placeholder={selectedAssociation.type} {...field}  className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
                     </div>
@@ -327,19 +332,19 @@ function AdminAssociations({ toast }) {
                         <label htmlFor="email">Adresse email</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-at" />
-                            <Controller name="email" control={control}
+                            <Controller name="email" control={control1}
                                 rules={{ pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: 'Adresse email invalide. Ex: example@email.com' } }}
                                 render={({ field, fieldState }) => (
-                                    <InputText id={field.name} onInput={() => setMailExists(false)} placeholder={selectedAssociation.email} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                                    <InputText id={field.name} onInput={() => setMailExists(false)}  placeholder={selectedAssociation.email} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                                 )} />
                         </span>
-                        {getFormErrorMessage('email')}
+                        {getFormErrorMessage1('email')}
                     </div>
                     <div className="p-field p-col-14 p-md-6">
                         <label htmlFor="email">Adresse</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-map" />
-                            <Controller name="address" control={control} render={({ field, fieldState }) => (
+                            <Controller name="address" control={control1} render={({ field, fieldState }) => (
                                 <InputText id={field.name} placeholder={selectedAssociation.address} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
@@ -348,7 +353,7 @@ function AdminAssociations({ toast }) {
                         <label htmlFor="email">Ville</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-map" />
-                            <Controller name="city" control={control} render={({ field, fieldState }) => (
+                            <Controller name="city" control={control1} render={({ field, fieldState }) => (
                                 <InputText id={field.name} placeholder={selectedAssociation.city} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
@@ -357,8 +362,8 @@ function AdminAssociations({ toast }) {
                         <label htmlFor="phone">Téléphone</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-phone" />
-                            <Controller name="phone" control={control} render={({ field, fieldState }) => (
-                                <InputText id={field.name} placeholder={selectedAssociation.phone} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                            <Controller name="telephone" control={control1} render={({ field, fieldState }) => (
+                                <InputText id={field.name} placeholder={selectedAssociation.telephone} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
                     </div>
@@ -366,7 +371,7 @@ function AdminAssociations({ toast }) {
                         <label htmlFor="phone">Site web</label>
                         <span className="p-input-icon-left">
                             <i className="pi pi-globe" />
-                            <Controller name="website" control={control} render={({ field, fieldState }) => (
+                            <Controller name="website" control={control1} render={({ field, fieldState }) => (
                                 <InputText id={field.name} placeholder={selectedAssociation.website} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
@@ -374,7 +379,7 @@ function AdminAssociations({ toast }) {
                     <div className="p-field p-col-12">
                         <label htmlFor="description">Description</label>
                         <span className="p-input-icon-left">
-                            <Controller name="description" control={control} render={({ field, fieldState }) => (
+                            <Controller name="description" control={control1} render={({ field, fieldState }) => (
                                 <InputTextarea id={field.name} rows={4} placeholder={selectedAssociation.description} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />
                         </span>
@@ -419,7 +424,7 @@ function AdminAssociations({ toast }) {
                         <Divider />
                         <div><b>Ville: </b>{selectedAssociation.city}</div>
                         <Divider />
-                        <div><b>Téléphone: </b>{selectedAssociation.phone}</div>
+                        <div><b>Téléphone: </b>{selectedAssociation.telephone}</div>
                         <br />
                     </div>
                 </div>
@@ -443,7 +448,7 @@ function AdminAssociations({ toast }) {
                         <Column field="acronym" header="Acronym" sortable />
                         <Column field="email" header="Email" sortable />
                         <Column field="website" header="Site web" sortable />
-                        <Column field="phone" header="Téléphone" sortable />
+                        <Column field="telephone" header="Téléphone" sortable />
                         <Column field="type" header="Type" sortable />
                         <Column header="Actions" body={(data) => actions(data)} />
                     </DataTable>

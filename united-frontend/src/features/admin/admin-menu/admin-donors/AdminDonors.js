@@ -15,34 +15,31 @@ import { AdminService } from "../../AdminService"
 
 
 var donors = [
-    { id: "1", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "2", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "3", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "4", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "5", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "6", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "7", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "8", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "9", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "10", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "11", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
-    { id: "12", first_name: "El Walid", last_name: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "1", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "2", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "3", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "4", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "5", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "6", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "7", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "8", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "9", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "10", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "11", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
+    { id: "12", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
 ]
 
-// TODO: faire des services pour les request vers backend
-function AdminDonors({toast}) {
+function AdminDonors({Refresh, toast}) {
     var idToDelete = ''
     const adminService = new AdminService();
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         adminService.getDonors().then((response) => {
-            if (!response.ok && toast.current != null) {
-                // toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
-            }
-            if (response.ok && toast.current != null) {
+            if (response.statusCode!=200 && toast.current != null) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 10000 });
+            } else  {
                 donors = response.data
-                toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Les donateurs on bien été récupérés', life: 3000 });
             }
             setIsLoading(false)
         });
@@ -62,12 +59,12 @@ function AdminDonors({toast}) {
 
     const accept = () => {
         adminService.deleteDonor(idToDelete).then((response) => {
-            if (!response.ok) {
-                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.status + ": " + response.statusText, life: 10000 });
+            if (response.statusCode!=200 && toast.current != null) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 10000 });
             } else {
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Le donateur a bien été supprimé', life: 3000 });
             }
-
+            Refresh()
         });
         idToDelete = ''
     };
@@ -89,8 +86,8 @@ function AdminDonors({toast}) {
                 <div className="spinner"> <ProgressSpinner /></div>
                 :
                 <DataTable value={donors} scrollable scrollHeight="41.5rem" size="normal">
-                    <Column field="first_name" header="Prénom" sortable />
-                    <Column field="last_name" header="Nom" sortable />
+                    <Column field="firstName" header="Prénom" sortable />
+                    <Column field="lastName" header="Nom" sortable />
                     <Column field="email" header="Email" sortable />
                     <Column header="Actions" body={(data) => actions(data)} />
                 </DataTable>
