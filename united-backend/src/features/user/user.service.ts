@@ -8,13 +8,16 @@ import {associationDTO} from "../association/dto/association.dto";
 import {UserDto} from "./dto/userDto";
 import { payment } from '../../entity/payment.entity';
 import * as bcrypt from 'bcrypt';
+import { subscription } from "../../entity/subscription.entity";
+import { service } from "../../entity/service.entity";
 
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(users) private userRepository: Repository<users>,
                 @InjectRepository(favorite) private favoriteRepository: Repository<favorite>,
                 @InjectRepository(association) private associationRepository: Repository<association>, 
-                @InjectRepository(payment) private paymentRepository: Repository<payment>) {}
+                @InjectRepository(subscription) private subscriptionRepository: Repository<subscription>,
+                @InjectRepository(payment) private paymentRepository: Repository<payment>,) {}
 
     async getUser(userId) {
         return this.userRepository.findOneOrFail(userId);
@@ -26,9 +29,25 @@ export class UserService {
     }
 
     async getFavoriteAssociations(userId: number) {
-        const favorites = await this.favoriteRepository.find({ where: { user_id: userId } });
-        console.log('favorite');
-        console.log(favorites);
+        const query = this.associationRepository.createQueryBuilder('asso')
+          .select('asso.id, asso.name, asso.acronym, asso.type, asso.email, asso.description, asso.address, asso.city, asso.website')
+          .innerJoin(favorite, 'fav', 'fav.association_id = asso.id')
+          .where("fav.user_id = :id", { id: userId});
+        return await query.getRawMany();
+    }
+
+    async getSubscriptions(userId: number) {
+        const query = this.subscriptionRepository.createQueryBuilder('sub')
+          .select('sub.id, asso.acronym, sub.price, sub.state, ser.price, sub.date, sub.duration')
+          .innerJoin(service, 'ser', 'sub.service_id = ser.id ')
+          .innerJoin(association, 'asso', 'ser.association_id = asso.id')
+          .where("sub.user_id = :id", { id: userId});
+        return await query.getRawMany();
+    }
+
+    async removeSubscription(id: number) {
+        await this.subscriptionRepository.delete({ id });
+        return { deleted: true };
     }
 
     async getUserPayment(userId) {

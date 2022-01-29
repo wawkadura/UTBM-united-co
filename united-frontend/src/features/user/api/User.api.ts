@@ -63,6 +63,34 @@ export class UserApi {
         }
     }
 
+    public static async getSubscriptions(userId: number) {
+        try {
+            const token = sessionStorage.getItem('token');
+            const resp = await fetch(`http://localhost:4200/users/user=${userId}/subscriptions`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            })
+            return await resp.json().then(d => d.data);
+        } catch(e) {
+            console.log("getUser Error : ", e);
+            // return fetch('mocks/users-mock/users.json').then(res => res.json()).then(d => d.data);
+        }
+    }
+
+    public static async deleteSubscription(id: number){
+        const resp = await fetch(`http://localhost:4200/users/subscriptions/${id}/delete`,{
+            method : "DELETE",
+            headers : {
+                'Content-Type':'application/json'
+            },
+        })
+        const data = await resp.json();
+        return data
+    }
+
     public static async getUserPayment(userId: number) {
         try {
             const token = sessionStorage.getItem('token');

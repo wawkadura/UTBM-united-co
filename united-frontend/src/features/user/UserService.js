@@ -1,4 +1,5 @@
 import { UserApi } from "./api/User.api";
+import user from "./User";
 
 export class UserService {
 
@@ -10,10 +11,16 @@ export class UserService {
         return UserApi.modifyUser(user);
     }
 
-
-
     getFavoriteAssociations(userId) {
         return UserApi.getFavoriteAssociations(userId);
+    }
+
+    getSubscriptions(userId) {
+        return UserApi.getSubscriptions(userId);
+    }
+
+    deleteSubscription(userId) {
+        return UserApi.deleteSubscription(userId)
     }
 
     getUserPayment(userId) {

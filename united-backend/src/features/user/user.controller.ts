@@ -1,4 +1,4 @@
-import {Body, Controller, Get, HttpStatus, Param, Post} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from "@nestjs/common";
 import { UserService } from './user.service';
 import {TicketDTO} from "../ticket/dto/ticket.dto";
 import {UserDto} from "./dto/userDto";
@@ -34,8 +34,27 @@ export class UserController {
         const data = await this.userService.getFavoriteAssociations(userId);
         return {
             statusCode: HttpStatus.OK,
-            message: 'User fetched successfully',
+            message: 'User\'s associations fetched successfully',
             data
+        };
+    }
+
+    @Get('user=:userId/subscriptions')
+    async getSubscriptions(@Param('userId') userId: number) {
+        const data = await this.userService.getSubscriptions(userId);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'User\'s subscriptions fetched successfully',
+            data
+        };
+    }
+
+    @Delete('subscriptions/:id/delete')
+    async removeSubscription(@Param('id') id: number) {
+        await this.userService.removeSubscription(id);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Subscription deleted successfully',
         };
     }
 
@@ -44,7 +63,7 @@ export class UserController {
         const data = await this.userService.getUserPayment(userId);
         return {
             statusCode: HttpStatus.OK,
-            message: 'User payment successfully',
+            message: 'User payment fetched successfully',
             data
         };
     }
