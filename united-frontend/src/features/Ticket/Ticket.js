@@ -7,7 +7,7 @@ function Ticket() {
 
     const [activeTicket, setActiveTicket] = useState(null);
     return <div className="tickets">
-        <h2 id="AssoTitle">Mes tickets</h2>
+        <h2 className="AssoTitle">Mes tickets</h2>
         { activeTicket ?    <TicketInfo activeTicket={activeTicket} setActiveTicket={setActiveTicket}/> : 
                             <TicketList setActiveTicket={setActiveTicket}/> }
     </div>

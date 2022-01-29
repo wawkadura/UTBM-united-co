@@ -10,11 +10,11 @@ export class subscription{
   @Column({ nullable:true })
   price: number;
 
-  @Column()
-  duration: number;
-
   @Column("datetime")
   date; 
+  
+  @Column("datetime")
+  endDate;
   
   @Column({default:true})
   state: boolean;
