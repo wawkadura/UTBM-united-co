@@ -10,8 +10,8 @@ import {UserDto} from "./dto/userDto";
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(users) private userRepository: Repository<users>,
-                @InjectRepository(users) private favoriteRepository: Repository<favorite>,
-                @InjectRepository(users) private associationRepository: Repository<association>) {}
+                @InjectRepository(favorite) private favoriteRepository: Repository<favorite>,
+                @InjectRepository(association) private associationRepository: Repository<association>) {}
 
     async getUser(userId) {
         return this.userRepository.findOneOrFail(userId);
@@ -22,9 +22,9 @@ export class UserService {
         return await this.userRepository.findOne({ id });
     }
 
-
-    async getFavoriteAssociations(userId) {
-        const associationId = this.favoriteRepository.find({ where: { user_i: userId } });
-        console.log(associationId);
+    async getFavoriteAssociations(userId: number) {
+        const favorites = await this.favoriteRepository.find({ where: { user_id: userId } });
+        console.log('favorite');
+        console.log(favorites);
     }
 }
