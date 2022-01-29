@@ -22,6 +22,7 @@ export interface UpdateAssociationDTO{
     telephone: any,
     state: boolean,
     created_at: any,
+    logo: any,
     iban: any
 }
 

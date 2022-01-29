@@ -152,6 +152,7 @@ export class AdminApi {
                 address: data.address,
                 city: data.city,
                 telephone: data.telephone,
+                logo:data.logo,
                 type: data.type
             })
         }).then(res => res.json());

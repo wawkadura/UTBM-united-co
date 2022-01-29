@@ -18,14 +18,15 @@ function AdminStatistics() {
         associations: {},
         donors: {},
     });
-
-    var dataDonations = {
-        donations: {},
-    }
-
-    var dataBugs = {
+    
+    const [dataBugs, setDataBugs] = useState({
         bugs: {},
-    }
+    });
+
+    const [dataDonations, setDataDonations] = useState({
+        donations: {},
+    });
+
     useEffect(() => {
         adminService.getAdminStats().then((response) => {
             if (response.statusCode!=200 && toast.current != null) {
@@ -35,8 +36,12 @@ function AdminStatistics() {
                     associations: response.data.associations,
                     donors: response.data.donors,
                 })
-                dataDonations.donations = response.data.donations
-                dataBugs.bugs = response.data.tickets
+                setDataDonations({
+                    donations: response.data.donations,
+                })
+                setDataBugs({
+                    bugs: response.data.tickets,
+                })
             }
             setIsPending(false)
         });

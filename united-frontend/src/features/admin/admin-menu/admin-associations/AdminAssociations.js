@@ -30,6 +30,16 @@ var associations = [
     { id: "9", name: "Société protectrice des animaux", acronym: "SPA", email: "dons@spa.com", website: "www.spa.com", phone: "0612345678", type: "animaux" },
     { id: "10", name: "Société protectrice des animaux", acronym: "SPA", email: "dons@spa.com", website: "www.spa.com", phone: "0612345678", type: "animaux" },
 ]
+function getBase64(file, cb) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        cb(reader.result)
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
 
 function AdminAssociations({Refresh, toast }) {
     const { control, watch, formState: { errors }, handleSubmit, reset } = useForm({});
@@ -38,6 +48,7 @@ function AdminAssociations({Refresh, toast }) {
     const [isLoading, setIsLoading] = useState(true)
     const [mailExists, setMailExists] = useState(false);
     const [addDisplay, setAddDisplay] = useState(false);
+    const [uploadFile, setUploadFile] = useState();
     const [updateDisplay, setUpdateDisplay] = useState(false);
     const [selectedAssociation, setSelectedAssociation] = useState(null);
     const [detailsDisplay, setDetailsDisplay] = useState(false);
@@ -97,6 +108,7 @@ function AdminAssociations({Refresh, toast }) {
         setSelectedAssociation(null)
         reset()
         reset1()
+        setUploadFile(null)
         Refresh()
     }
 
@@ -106,6 +118,9 @@ function AdminAssociations({Refresh, toast }) {
     }
 
     const updateAssociation = (data) => {
+        if(uploadFile != null) {
+            data.logo = uploadFile
+        }
         setIsPending(true)
         adminService.updateAssociation(selectedAssociation.id, data).then((response) => {
             if (response.statusCode!=200 && toast.current != null) {
@@ -123,6 +138,7 @@ function AdminAssociations({Refresh, toast }) {
     }
 
     const createAssociation = (data) => {
+
         setIsPending(true)
         adminService.createAssociation(data).then((response) => {
             if (response.statusCode!=200 && toast.current != null) {
@@ -278,9 +294,8 @@ function AdminAssociations({Refresh, toast }) {
                     {/* <div className="p-field p-col-12">
                         <label htmlFor="description">Logo</label>
                         <span className="p-input-icon-left">
-                            <Controller name="logo" rules={{ required: 'Logo obligatoire.' }} control={control} render={({ field, fieldState }) => (
-                                <FileUpload name={field.name} accept="image/*" maxFileSize={1000000}
-                                    emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} className={classNames({ 'p-invalid': fieldState.invalid })} />
+                            <Controller name="logo" control={control} render={({ field, fieldState }) => (
+                                <FileUpload name={field.name} mode="basic" url="./upload" maxFileSize={10000000} className={classNames({ 'p-invalid': fieldState.invalid })}  ></FileUpload>
                             )} />
 
                         </span>
@@ -293,6 +308,17 @@ function AdminAssociations({Refresh, toast }) {
             {mailExists && <small className="p-error">l'adresse email renseignée est déjà utilisé</small>}
 
         </Dialog>
+    }
+
+    const uploadHandler = (f) => {
+        if(f.files.length > 0) {
+            getBase64(f.files[0], setUploadFile)
+        }
+    };
+
+    const clearUpload= (event) => {
+        event.options.clear()
+        setUploadFile(null)
     }
 
     function UpdateAssociationDialog() {
@@ -383,6 +409,16 @@ function AdminAssociations({Refresh, toast }) {
                             )} />
                         </span>
                     </div>
+                    <div className="p-field p-col-12">
+                        <label htmlFor="description">Logo</label>
+                        <span className="p-input-icon-left">
+                            <Controller name="logo" control={control1} render={({ field, fieldState }) => (
+                               <FileUpload id={field.name} accept="image/*" customUpload={true}  {...field} uploadHandler={clearUpload}  onSelect={uploadHandler} mode="basic" chooseLabel="Upload logo" className={classNames({ 'p-invalid': fieldState.invalid })} />                
+                            )} />
+                        </span>
+                    </div>
+
+
                 </div>
                 <br />
                 {updateFooter()}

@@ -103,17 +103,16 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
 
             <Panel header="Informations personnelles">
                 {dataPending ? <div className="p-d-flex p-jc-evenly"><ProgressSpinner /></div> :
-                    <div>
-                        <p><span>Prénom : </span>{adminData.firstName}</p>
+                    <div >
+                        <p className='info'><span>Prénom : </span>{adminData.firstName}</p>
                         <Divider />
 
-                        <p><span>Nom de famille : </span>{adminData.lastName}</p>
+                        <p className='info'><span>Nom de famille : </span>{adminData.lastName}</p>
                         <Divider />
 
-                        <p><span>Email : </span>{adminData.email}</p>
+                        <p className='info'><span>Email : </span>{adminData.email}</p>
                     </div>
                 }
-
 
             </Panel>
             {cardFooter()}

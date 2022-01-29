@@ -62,8 +62,9 @@ function GraphBugs(bugs) {
         setYears(keys)
         setSelectedYear(keys[0]);
         changeDataYear(keys[0])
-    }, []);
+    }, [data]);
     const changeDataYear = (year) => {
+        setBugsStats([])
         Object.keys(data.bugs).map(function (key) {
             if (key === year) {
                 setBugsStats(data.bugs[key])

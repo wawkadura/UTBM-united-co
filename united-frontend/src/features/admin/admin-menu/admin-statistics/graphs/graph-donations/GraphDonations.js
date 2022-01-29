@@ -64,6 +64,7 @@ function GraphDonations(donations) {
         changeDataYear(keys[0])
     }, []);
     const changeDataYear = (year) => {
+        setDonationsStats([])
         Object.keys(data.donations).map(function (key) {
             if (key === year) {
                 setDonationsStats(data.donations[key])
