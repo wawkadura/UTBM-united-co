@@ -67,7 +67,8 @@ function UserSubscriptions({userId}) {
 
             <DataTable value={subscriptions} scrollable scrollHeight="41.5rem" size="normal">
                 <Column field="acronym" header="Association" sortable/>
-                <Column field="price" header="Prx (euros)" sortable/>
+                <Column field="title" header="Abonnement" sortable/>
+                <Column field="price" header="Prix (euros)" sortable/>
                 <Column field="status" header="Statut" sortable/>
                 <Column field="date" header="Date" sortable/>
                 <Column field="duration" header="Durée (mois)" sortable/>

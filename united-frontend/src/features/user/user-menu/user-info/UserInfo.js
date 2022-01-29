@@ -83,7 +83,6 @@ function UserInfo({user, userId, setUser, stringUtil}) {
 
             <Panel header="Informations de contact">
                 <p><span>Adresse mail :  </span>{StringUtil.checkValue(user.email, user.email)}</p>
-             <Divider />
 {/*
                 <p><span>Numéro de téléphone :  </span> {user.phone}</p>*/}
             </Panel>

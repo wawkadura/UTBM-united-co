@@ -41,7 +41,7 @@ function User() {
             case "info" : return <UserInfo user={user} userId={userId} setUser={setUser} stringUtil={stringUtil}/>;
             case "favorites": return <UserFavorites userId={userId}/>;
             case "subscriptions": return <UserSubscriptions userId={userId}/>;
-            case "invoices": return <UserInvoices/>;
+            case "invoices": return <UserInvoices userId={userId}/>;
             case "security": return <UserSecurity user={user} setUser={setUser} userId={userId}/>;
 
             default: return <UserInfo/>;

@@ -23,6 +23,10 @@ export class UserService {
         return UserApi.deleteSubscription(userId)
     }
 
+    getInvoices(userId) {
+        return UserApi.getInvoices(userId);
+    }
+
     getUserPayment(userId) {
         return UserApi.getUserPayment(userId)
     }

@@ -5,8 +5,10 @@ import {Divider} from "primereact/divider";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Button} from "primereact/button";
+import {useEffect, useState} from "react";
+import {UserService} from "../../UserService";
 
-const invoices = [
+const _invoices = [
     {id: "1", name: "Facture 01.pdf", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", date: "01/02/2012"},
     {id: "1", name: "Facture 02.pdf", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", date: "01/02/2012"},
     {id: "1", name: "Facture 03.pdf", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", date: "01/02/2012"},
@@ -27,7 +29,14 @@ const invoices = [
     {id: "1", name: "Facture 01.pdf", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", date: "01/02/2012"},
 ]
 
-function UserInvoices() {
+function UserInvoices({userId}) {
+    const [invoices, setInvoices] = useState([]);
+
+    useEffect(() => {
+        const userService = new UserService();
+        userService.getInvoices(userId).then(data => setInvoices(data));
+    });
+
     function actions() {
         return (
             <div className="actions">
@@ -42,10 +51,9 @@ function UserInvoices() {
             <Divider />
             <DataTable value={invoices} scrollable scrollHeight="41.5rem" size="normal">
                 <Column field="name" header="Nom" sortable/>
-                <Column field="association" header="Association" sortable/>
-                <Column field="sub_type" header="Abonnement" sortable/>
+                <Column field="acronym" header="Association" sortable/>
+                <Column field="title" header="Abonnement" sortable/>
                 <Column field="price" header="Prix" sortable/>
-                <Column field="payment_type" header="Paiement" sortable/>
                 <Column field="date" header="Date" sortable/>
                 <Column header="Actions" body={actions}/>
             </DataTable>
