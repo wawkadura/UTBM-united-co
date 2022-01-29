@@ -12,35 +12,28 @@ import { validate } from 'email-validator';
 
 import {useState} from "react";
 import {UserService} from "../../UserService";
-
+import {set} from "react-hook-form";
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { Skeleton } from 'primereact/skeleton';
+import { ProgressBar } from 'primereact/progressbar';
+import { Messages } from 'primereact/messages';
+import { Message } from 'primereact/message';
 
 function UserInfo({user, userId, setUser, stringUtil}) {
-    const [form, setForm] = useState(user);
+    const [form, setForm] = useState({
+        firstname: user.firstName,
+        lastname: user.lastName,
+        email: user.email
+    });
     const [emailValid, setEmailValid] = useState(true);
+    const [loading, setLoading] = useState(false);
     const userService = new UserService();
 
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
-    const genres = [
-        {label: 'Homme', value: 'man'},
-        {label: 'Femme', value: 'woman'},
-        {label: 'Autre', value: 'other'}
-    ];
 
     const onClick = (name) => { dialogFuncMap[`${name}`](true); }
     const onHide = (name) => { dialogFuncMap[`${name}`](false); }
-
-    function genre(genre) {
-        return genre === "man" ? "Homme" : genre === "woman" ? "Femme" : "Autre";
-    }
-
-    function birthdate(date) {
-        return new Intl.DateTimeFormat("fr-FR", {
-            year: "numeric",
-            month: "long",
-            day: "2-digit"
-        }).format(date);
-    }
 
     function cardFooter() {
         return (
@@ -55,15 +48,27 @@ function UserInfo({user, userId, setUser, stringUtil}) {
         let value  = event.target.value;
 
         if(name === "email") setEmailValid(validate(value));
-        // if(name === "birthdate") { value = value.toISOString(); }
-        setForm(values => ({...values, [name]: value}));
+        if(name === "firstname") form.firstname = value;
+        if(name === "lastname") form.lastname = value;
+        if(name === "email") form.email = value;
+
+        setForm(form);
     }
 
     const handleSubmit = (event) => {
+        setLoading(true);
         event.preventDefault();
-        setUser(form);
-        console.log(form);
-        //userService.modifyUser(userId, {form}).then(r => console.log(r));
+
+        user.firstName = form.firstname;
+        user.lastName = form.lastname;
+        user.email = form.email;
+
+        userService.modifyUser(user).then(data => {
+            userService.getUser(userId).then(data => {
+                setUser(data);
+                setLoading(false);
+            });
+        });
     }
 
     return <div className="user-contents">
@@ -71,7 +76,7 @@ function UserInfo({user, userId, setUser, stringUtil}) {
             <Divider/>
 
             <Panel header="Informations basiques">
-                <p><span>Prénom : </span>{stringUtil.capitalize(user.firstName)}</p>
+                <p className="user-info-row"><span>Prénom : </span>{stringUtil.capitalize(user.firstName)}     </p>
                 <Divider />
 
                 <p><span>Nom de famille : </span>{user.lastName.toUpperCase()}</p>

@@ -17,13 +17,15 @@ export class UserApi {
         }
     }
 
-    public static async modifyUser(userId: number, user: any) {
+    public static async modifyUser(user: any) {
+        const token = sessionStorage.getItem('token');
         return await fetch("http://localhost:4200/users/modify",{
             method : "POST",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({userId, user})
+            body: JSON.stringify(user)
         })
     }
 

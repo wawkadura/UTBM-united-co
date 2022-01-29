@@ -18,12 +18,12 @@ export class UserController {
     }
 
     @Post('modify')
-    async updateUser(@Body() body: UserDto) {
+    async updateUser(@Body() body: any) {
         console.log(body);
         const data = await this.userService.updateUser(body.id, body);
         return {
             statusCode: HttpStatus.OK,
-            message: 'Ticket enregistré avec succès.',
+            message: 'User updated successfully.',
             data
         };
 

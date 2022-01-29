@@ -23,19 +23,16 @@ function User() {
         firstName: "Chaeyoung",
         lastName: "Park",
         role: "donor",
-        birthdate: new Date("1997-02-11"),
-        genre: "woman",
         email: "rosie@blackpink.kr",
-        phone: "+823532450845",
+/*        phone: "+823532450845",
         payment_type: "credit_card",
         bic: "FRFDFG",
-        iban: "FR04 1234 4584 4652 845"
+        iban: "FR04 1234 4584 4652 845"*/
     });
 
     useEffect(() => {
         userService.getUser(userId).then(data => {
             setUser(data);
-            console.log(user);
         });
     }, []);
 

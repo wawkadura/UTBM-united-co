@@ -2,10 +2,6 @@ import { Button } from 'primereact/button';
 import { TieredMenu } from 'primereact/tieredmenu';
 
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { Link } from "react-router-dom";
-import {useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 import './Navbar.css';
@@ -25,7 +21,7 @@ function Navbar() {
 
     const user = "Tony LE";
     const items = [
-        { label: 'Mon profil', icon: 'pi pi-user-edit' },
+        { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user", {state: {id: auth}})} },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users', command: () => {
                 setAuth(false);
                 sessionStorage.clear();

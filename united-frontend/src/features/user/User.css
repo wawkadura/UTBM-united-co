@@ -9,5 +9,8 @@
   font-family: "Nunito", sans-serif;
   background-color: var(--indigo-100);
 }
+.user p {
+  color: var(--indigo-900);
+}
 
 /*# sourceMappingURL=User.css.map */

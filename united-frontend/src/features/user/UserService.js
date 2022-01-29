@@ -6,8 +6,8 @@ export class UserService {
         return UserApi.getUser(userId);
     }
 
-    modifyUser(userId, user) {
-        return UserApi.modifyUser(userId, user);
+    modifyUser(user) {
+        return UserApi.modifyUser(user);
     }
 
     getFavoriteAssociations(userId) {
