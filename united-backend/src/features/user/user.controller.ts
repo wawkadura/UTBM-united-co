@@ -58,6 +58,16 @@ export class UserController {
         };
     }
 
+    @Get('user=:userId/invoices')
+    async getInvoices(@Param('userId') userId: number) {
+        const data = await this.userService.getInvoices(userId);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'User\'s invoices fetched successfully',
+            data
+        };
+    }
+
     @Get('user=:userId/payment')
     async getUserPayment(@Param('userId') userId: number) {
         const data = await this.userService.getUserPayment(userId);

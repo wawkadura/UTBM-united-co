@@ -10,6 +10,7 @@ import { payment } from '../../entity/payment.entity';
 import * as bcrypt from 'bcrypt';
 import { subscription } from "../../entity/subscription.entity";
 import { service } from "../../entity/service.entity";
+import { invoice } from "../../entity/invoice.entity";
 
 @Injectable()
 export class UserService {
@@ -17,7 +18,8 @@ export class UserService {
                 @InjectRepository(favorite) private favoriteRepository: Repository<favorite>,
                 @InjectRepository(association) private associationRepository: Repository<association>, 
                 @InjectRepository(subscription) private subscriptionRepository: Repository<subscription>,
-                @InjectRepository(payment) private paymentRepository: Repository<payment>,) {}
+                @InjectRepository(payment) private paymentRepository: Repository<payment>,
+                @InjectRepository(invoice) private invoiceRepository: Repository<invoice>) {}
 
     async getUser(userId) {
         return this.userRepository.findOneOrFail(userId);
@@ -38,7 +40,7 @@ export class UserService {
 
     async getSubscriptions(userId: number) {
         const query = this.subscriptionRepository.createQueryBuilder('sub')
-          .select('sub.id, asso.acronym, sub.price, sub.state, ser.price, sub.date, sub.duration')
+          .select('sub.id, asso.acronym, ser.title, sub.price, sub.state, ser.price, sub.date')
           .innerJoin(service, 'ser', 'sub.service_id = ser.id ')
           .innerJoin(association, 'asso', 'ser.association_id = asso.id')
           .where("sub.user_id = :id", { id: userId});
@@ -48,6 +50,16 @@ export class UserService {
     async removeSubscription(id: number) {
         await this.subscriptionRepository.delete({ id });
         return { deleted: true };
+    }
+
+    async getInvoices(userId: number) {
+        const query = this.invoiceRepository.createQueryBuilder('inv')
+          .select('inv.name, asso.acronym, ser.title, sub.price, sub.date')
+          .innerJoin(subscription, 'sub', 'inv.subscription_id = sub.id')
+          .innerJoin(service, 'ser', 'sub.service_id = ser.id')
+          .innerJoin(association, 'asso', 'ser.association_id = asso.id')
+          .where("inv.user_id = :id", { id: userId});
+        return await query.getRawMany();
     }
 
     async getUserPayment(userId) {
