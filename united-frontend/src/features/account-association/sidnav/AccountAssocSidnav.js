@@ -14,17 +14,17 @@ function AccountAssocSidnav({type, setType, infos}) {
         fetchLogo();
     },[]);
 
-    //i convert de binany data to sting
+    //convert the binany data to string
     async function fetchLogo(){
         const base64String = btoa(String.fromCharCode(...new Uint8Array(infos.value.logo.data)));
         convSet(base64String)
     }
-    //oon volu change display différent menu
+    //on change display différent menu
     const onChangeType = (type) => {
         setType(type);
     }
 
-    //retun lab pressed
+    //retun tab pressed
     return <div className="accountassociation-sidenav">
         {infos.value? 
         <div className="sidenav-header">
