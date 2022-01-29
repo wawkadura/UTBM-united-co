@@ -2,7 +2,7 @@ import emailjs from '@emailjs/browser';
 
 export class ContactSentEmailApi {
     public static async sendEmail(emailData: any) {
-        return emailjs.send("service_mv99147", "template_rfu3584", {
+        return emailjs.send("service_1wkxg78", "template_rfu3584", {
             subject: emailData.subject,
             message: emailData.message,
             email: emailData.email,

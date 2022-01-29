@@ -38,6 +38,9 @@ export class association{
   @Column({default:true})
   state: boolean;
 
+  @Column("blob")
+  logo;
+
   @Column({ unique: true, nullable: true })
   user_id: number;
   

@@ -31,7 +31,6 @@ function ContactFormDialog({displayBasic, setDisplayBasic,headerDialog}) {
         onHide();
         showSuccess();
         reset()
-        console.log(send)
       }
     }
   }
