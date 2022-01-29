@@ -13,14 +13,15 @@ const TicketInfo = ({activeTicket, setActiveTicket}) => {
     const [fileUpload, setFileUpload] = useState(null);
     const toast = useRef(null);
     const fileUploadRef = useRef(null);
-
+    
     const ticketService = new TicketService();
+    const userId = sessionStorage.getItem('userId');
 
     useEffect(() => {
-        ticketService.getTicketResponses(activeTicket.id).then(data => {
-            setTicketsResponses(data);
-        });
+        getResponses();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const getResponses = () => ticketService.getTicketResponses(activeTicket.id).then(data => setTicketsResponses(data));
 
     const formatDate = (value) => {
         return new Date (value).toLocaleDateString("fr-FR",
@@ -34,23 +35,26 @@ const TicketInfo = ({activeTicket, setActiveTicket}) => {
             });
     }
 
+    const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+    const formatName = (response) => capitalize(response.firstName) + ' ' + capitalize(response.lastName);
+
     const header = (response) => <div className="p-grid"> 
-        <span className="p-col-8"><b>{response.name}</b></span>
+        <span className="p-col-8"><b>{response.firstName && formatName(response)}</b></span>
         <div className="p-col-4" style={{textAlign:'right'}}>{ formatDate(response.created_at) }</div>
     </div>
 
     const sendResponse = () => {
         const body = {
             ticket_id: activeTicket.id, 
-            name: "Tony Le", 
+            user_id: userId, 
             comment: message,
             created_at: new Date().toLocaleString('en'),
         }
 
         ticketService.addTicketResponse(body).then(data => {
             toast.current.show({severity: 'success', detail: 'Votre commentaire a été ajouté'});
-            setTicketsResponses([...ticketResponses, data]);
-
+            getResponses();
             setMessage('');
         });
     };
