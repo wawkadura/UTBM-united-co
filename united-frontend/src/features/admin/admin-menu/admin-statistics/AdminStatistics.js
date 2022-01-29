@@ -53,9 +53,9 @@ function AdminStatistics() {
             <div className="card">
                 {isPending ? <div className="spinner"> <ProgressSpinner /></div> :
                     <TabView className="tabview-header-icon">
-                        {/* <TabPanel header="Dons" leftIcon="pi pi-heart">
+                        <TabPanel header="Dons" leftIcon="pi pi-heart">
                             <GraphDonations data={dataDonations} />
-                        </TabPanel> */}
+                        </TabPanel>
                         <TabPanel header="Utilisateurs" leftIcon="pi pi-user">
                             <GraphUsers data={dataUsers} />
                         </TabPanel>
@@ -70,35 +70,3 @@ function AdminStatistics() {
 }
 
 export default AdminStatistics
-
-
-
-// var dataUsers = {
-//     associations: {
-//         2022: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-//         2021: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-//         2020: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-
-//     },
-//     donors: {
-//         2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-//         2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-//         2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-//     },
-// }
-
-// var dataDonations = {
-//     donations: {
-//         2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-//         2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-//         2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-//     },
-// }
-
-// var dataBugs = {
-//     bugs: {
-//         2022: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-//         2021: [12, 51, 62, 33, 21, 62, 45, 12, 51, 62, 33, 50],
-//         2020: [65, 59, 80, 81, 56, 55, 40, 40, 65, 59, 65, 59],
-//     },
-// }

@@ -2,17 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { users } from 'src/entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection } from 'typeorm';
-import { Repository } from 'typeorm';
+import { getManager,Repository } from 'typeorm';
 import { association } from 'src/entity/association.entity';
+
 import { ticket } from 'src/entity/ticket.entity';
 import { AssociationDTO, UpdateAssociationDTO, UpdateUserDTO, UserDTO } from './dto/admin.dto';
 import { exit } from 'process';
+import { invoice } from 'src/entity/invoice.entity';
 
 @Injectable()
 export class AdminService {
     constructor(@InjectRepository(users) private userRespository: Repository<users>,
         @InjectRepository(association) private associationRespository: Repository<association>,
-        @InjectRepository(ticket) private ticketRepository: Repository<ticket>) { }
+        @InjectRepository(ticket) private ticketRepository: Repository<ticket>,
+        @InjectRepository(invoice) private invoiceRepository: Repository<invoice>) { }
 
     async getAdmin(id: any) {
         return await this.userRespository.findOne({ where: { id: id } });
@@ -71,6 +74,10 @@ export class AdminService {
         return await this.userRespository.findOne({ where: { email: email } });
     }
 
+    async getInvoicesWithPrice() {
+        return await this.invoiceRepository.find({order: { created_at: "ASC" }, relations:["subscription_id"]});
+    }
+
     async getUserById(id: number) {
         return await this.userRespository.findOne({ where: { id: id } });
     }
@@ -111,6 +118,40 @@ export class AdminService {
                     return true
                 }
                 result[y][month]+=1
+
+                return true
+            });
+        })
+
+        return result
+    }
+
+    async getInvoiceStatsFromList(list) {
+        var result= new Map()
+        var years = new Array()
+        var year= 0
+        list.forEach(element => {
+            var newYear = element.created_at.getFullYear()
+            if(newYear> year){
+                year = newYear
+                years.push(year)
+            }
+        });
+
+        years.forEach(y=> {
+            result[y] = [0,0,0,0,0,0,0,0,0,0,0,0]
+            list.every(element => {
+                var newYear = element.created_at.getFullYear()
+                var month = element.created_at.getMonth()
+
+                if(newYear> y){
+                    return false
+                }else if(newYear< y){
+                    return true
+                }
+                if(element.subscription_id!= null){
+                    result[y][month]+=element.subscription_id.price
+                }
 
                 return true
             });

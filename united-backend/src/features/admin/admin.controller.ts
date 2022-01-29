@@ -3,6 +3,7 @@ import { CreateAssociationDTO, UpdateAssociationDTO, UpdateUserDTO } from './dto
 import { AdminService } from './admin.service';
 import * as bcrypt from 'bcrypt';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { invoice } from 'src/entity/invoice.entity';
 
 @Controller('admin')
 export class AdminController {
@@ -56,14 +57,13 @@ export class AdminController {
 
   @Get('overview')
   async getAdminOverviewStats() {
-    // TODO: add the donations 
     const associations = await this.adminService.getAssociations(false);
     const donors = await this.adminService.getDonors(false);
-    //const invoices = await this.adminService.getInvoices();
+    const invoices = await this.adminService.getInvoicesWithPrice();
     var totalPrices = 0
-    // invoices.forEach(invoice => {
-    //   totalPrices += invoice.price
-    // });
+    invoices.forEach(invoice => {
+      totalPrices += invoice.subscription_id.price
+    });
     var data = {
       nbAssociations: associations.length,
       nbDonors: donors.length,
@@ -82,13 +82,13 @@ export class AdminController {
     const associations = await this.adminService.getAssociations(true);
     const donors = await this.adminService.getDonors(true);
     const tickets = await this.adminService.getTicketsOrderByDate();
-    //const invoices = await this.adminService.getInvoicesWithPrice();
+    const invoices = await this.adminService.getInvoicesWithPrice();
 
     var data = {
       donors: await this.adminService.getStatsFromList(donors),
       associations: await this.adminService.getStatsFromList(associations),
       tickets: await this.adminService.getStatsFromList(tickets),
-      donations: {}
+      donations: await this.adminService.getInvoiceStatsFromList(invoices)
     }
 
     return {
