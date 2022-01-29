@@ -23,7 +23,7 @@ function ContactFormDialog({displayBasic, setDisplayBasic,headerDialog}) {
   const showSuccess = () => {
     toast.current.show({severity:'success', summary: 'Message envoyé', detail:'Votre message à été envoyé avec succès', life: 3000});
   }
-  //action made when the form is submited 
+  //action made when the form is submited ( i send a email using emailjs api)
   const onSubmit = async(data) => {
     if (data) {
       const send=await ContactSentEmailApi.sendEmail(data)

@@ -3,16 +3,34 @@ import {Divider} from "primereact/divider";
 import "./AccountAssocSidnav.css";
 
 import us from "../../../images/shared/united_logo.png"
+import { useState } from "react";
+import {useEffect} from 'react';
 
 function AccountAssocSidnav({type, setType, infos}) {
 
+    const [conv, convSet] =useState();
+    
+    useEffect(()=>{
+        fetchLogo();
+    },[]);
+
+    //i convert de binany data to sting
+    async function fetchLogo(){
+        const base64String = btoa(String.fromCharCode(...new Uint8Array(infos.value.logo.data)));
+        convSet(base64String)
+    }
+    //oon volu change display différent menu
     const onChangeType = (type) => {
         setType(type);
     }
+
+    //retun lab pressed
     return <div className="accountassociation-sidenav">
         {infos.value? 
         <div className="sidenav-header">
-            <img src={us} alt="user_logo"/>
+            {conv?
+                <img src={`data:image/png;base64,${conv}`} alt="logo"/>
+            :''}
             <div>
                 <h3>{infos.value.name}</h3>
                 <p>{infos.value.acronym}</p>

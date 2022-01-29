@@ -54,9 +54,9 @@ function UserSatistics(){
     };
  
     const handleSubmit = (event) => {
-        setDate(event.value);
         if (date)
-        {
+        {   
+            setDate(event.value.date);
             fetchPieseries(event.value.date);
             fetchBarseries(event.value.date);
         }
@@ -107,7 +107,7 @@ function UserSatistics(){
             },
         ]
     };
-   
+
     return <div>
         <Card title='Statistiques génerales ' style={{ height: '200%', width:'100%'}}>
             <div className="p-grid">

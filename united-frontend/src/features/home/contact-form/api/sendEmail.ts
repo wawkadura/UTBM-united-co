@@ -1,5 +1,6 @@
 import emailjs from '@emailjs/browser';
 
+//api d'envoie de mail
 export class ContactSentEmailApi {
     public static async sendEmail(emailData: any) {
         return emailjs.send("service_1wkxg78", "template_rfu3584", {

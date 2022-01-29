@@ -38,7 +38,7 @@ export class association{
   @Column({default:true})
   state: boolean;
 
-  @Column("blob")
+  @Column("mediumblob")
   logo;
 
   @Column({ unique: true, nullable: true })

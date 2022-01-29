@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ContactForm.css";
 import ContactFormDialog from "./ContactFormDialog/ContactFormDialog";
 
+//form display to send message to email to unitid.co members
 function ContactForm() {
     const [displayBasic, setDisplayBasic] = useState(false) ;
     return <div className="contact-form" id="contact">
