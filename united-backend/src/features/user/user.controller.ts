@@ -63,6 +63,7 @@ export class UserController {
 
     @Post('modify/payment')
     async updatePaymentInfo(@Body() body: any) {
+        console.log(body);
         const data = await this.userService.updatePaymentInfo(body.userId, body.payment);
         return {
             statusCode: HttpStatus.OK,
