@@ -15,7 +15,7 @@ import { JwtStrategy } from './jwt.strategy';
     TypeOrmModule.forFeature([users]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '2h' },
+      signOptions: { expiresIn: '10h' },
     }),
     JwtStrategy,
   ]  
