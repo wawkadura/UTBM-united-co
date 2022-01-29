@@ -20,10 +20,10 @@ function User() {
     const [type, setType] = useState("info");
     const [userId, setUserId] = useState(location.state.id);
     const [user, setUser] = useState({
-        firstName: "Chaeyoung",
-        lastName: "Park",
+        firstName: "",
+        lastName: "",
         role: "donor",
-        email: "rosie@blackpink.kr",
+        email: "",
 /*        phone: "+823532450845",
         payment_type: "credit_card",
         bic: "FRFDFG",
@@ -42,7 +42,7 @@ function User() {
             case "favorites": return <UserFavorites userId={userId}/>;
             case "subscriptions": return <UserSubscriptions/>;
             case "invoices": return <UserInvoices/>;
-            case "security": return <UserSecurity user={user} setUser={setUser}/>;
+            case "security": return <UserSecurity user={user} setUser={setUser} userId={userId}/>;
 
             default: return <UserInfo/>;
         }

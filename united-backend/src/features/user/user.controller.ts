@@ -17,7 +17,7 @@ export class UserController {
             };
     }
 
-    @Post('modify')
+    @Post('modify/user')
     async updateUser(@Body() body: any) {
         console.log(body);
         const data = await this.userService.updateUser(body.id, body);
@@ -37,5 +37,38 @@ export class UserController {
             message: 'User fetched successfully',
             data
         };
+    }
+
+    @Get('user=:userId/payment')
+    async getUserPayment(@Param('userId') userId: number) {
+        const data = await this.userService.getUserPayment(userId);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'User payment successfully',
+            data
+        };
+    }
+
+    @Post('modify/password')
+    async updateUserPassword(@Body() body: any) {
+        console.log(body);
+        const data = await this.userService.updateUserPassword(body.userId, body.password);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'User updated successfully.',
+            data
+        };
+
+    }
+
+    @Post('modify/payment')
+    async updatePaymentInfo(@Body() body: any) {
+        const data = await this.userService.updatePaymentInfo(body.userId, body.payment);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'User payment info updated successfully.',
+            data
+        };
+
     }
 }

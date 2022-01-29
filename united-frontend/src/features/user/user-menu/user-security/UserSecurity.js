@@ -4,31 +4,36 @@ import {Card} from "primereact/card";
 import {Divider} from "primereact/divider";
 import {Panel} from "primereact/panel";
 import {Button} from "primereact/button";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
-import {Calendar} from "primereact/calendar";
-import {Dropdown} from "primereact/dropdown";
 import {validate} from "email-validator";
+import {UserService} from "../../UserService";
 
 function UserSecurity({user, setUser}) {
-    const [form, setForm] = useState(user);
+    const userService = new UserService();
+    const [form, setForm] = useState({
+        email: user.email,
+        bic: "ERZERF",
+        iban: "FR04 1210 2102 5695"
+    });
     const [emailValid, setEmailValid] = useState(true);
+    const [paymentInfo, setPaymentInfo] = useState({});
 
+    useEffect(() => {
+        userService.getUserPayment(user.id).then(data => {
+            console.log(data);
+            setPaymentInfo(data);
+        });
+    }, []);
 
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
-    const types = [
-        {label: 'Carte de crédit', value: 'credit_card'},
-        {label: 'Autre', value: 'other'}
-    ];
+
 
     const onClick = (name) => { dialogFuncMap[`${name}`](true); }
     const onHide = (name) => { dialogFuncMap[`${name}`](false); }
 
-    function paymentType(type) {
-        return type === "credit_card" ? "Carte de crédit" : "Autre"
-    }
 
     function cardFooter() {
         return (
@@ -43,16 +48,36 @@ function UserSecurity({user, setUser}) {
         let value  = event.target.value;
 
         if(name === "email") setEmailValid(validate(value));
-        setForm(values => ({...values, [name]: value}));
+        if(name === "password") form.password = value;
+        if(name === "owner") form.owner = value;
+        if(name === "card_number") form.card_number = value;
+        if(name === "expire_date") form.expire_date = value;
+
+        console.log('form');
+        console.log(form);
+
+        setForm(form);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log('form');
-        console.log(form);
+        paymentInfo.owner = form.owner;
+        paymentInfo.card_number = form.card_number;
+        paymentInfo.expire_date = form.expire_date;
 
-        setUser(form);
+        console.log('payment');
+        console.log(paymentInfo);
+
+        userService.modifyPaymentInfo(user.id, paymentInfo).then(() => {
+            userService.getUserPayment(user.id).then(data => {
+                setPaymentInfo(data);
+            })
+        });
+
+        console.log('password');
+        console.log(form.password);
+        userService.modifyUserPassword(user.id, form.password).then((r => console.log(r)));
     }
 
 
@@ -66,15 +91,18 @@ function UserSecurity({user, setUser}) {
 
                 <p><span>Mot de passe : </span> ********</p>
             </Panel>
-            {user.role ? <Panel header="Informations de paiement">
-                <p><span>Type de paiement :  </span> {paymentType(user.payment_type)}</p>
+            <Panel header="Informations de paiement">
+                <p><span>Type de paiement :  </span> Carte de crédit</p>
                 <Divider />
 
-                <p><span>BIC :  </span> {user.bic}</p>
+                <p><span>Propriétaire de la carte :  </span> {paymentInfo.owner}</p>
                 <Divider />
 
-                <p><span>IBAN : </span> {user.iban}</p>
-            </Panel> : null }
+                <p><span>Numéro de carte :  </span> {paymentInfo.card_number}</p>
+                <Divider />
+
+                <p><span>Date d'expiration : </span> {paymentInfo.expire_date}</p>
+            </Panel>
 
             <Dialog header="Sécurité & Paiement" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
                 <Divider/>
@@ -94,9 +122,18 @@ function UserSecurity({user, setUser}) {
                         <div className="p-field p-col-12">
                             <div className="p-field ">
                                 <label htmlFor="icon">Mot de passe</label>
-                                <InputText name="email" type="password" defaultValue="**********" onChange={handleChange}/>
+                                <InputText name="password" type="password" defaultValue="**********" onChange={handleChange}/>
                             </div>
                         </div>
+
+                        <div className="p-field p-col-12">
+                            <div className="p-field ">
+                                <label htmlFor="icon">Propriétaire de la carte</label>
+                                <InputText name="owner" type="text" defaultValue={paymentInfo.owner} onChange={handleChange}/>
+                            </div>
+                        </div>
+
+
 
                         {/*<div className="p-field p-col-12">
                             <div className="p-field ">
@@ -106,17 +143,17 @@ function UserSecurity({user, setUser}) {
                         </div>*/}
 
                         <div className="p-field p-col">
-                            <label htmlFor="firstname1">BIC</label>
+                            <label htmlFor="firstname1">Numéro de carte</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText name="bic" type="text" defaultValue={user.bic} keyfilter="alpha" onChange={handleChange}/>
+                            <InputText name="card_number" type="text" defaultValue={paymentInfo.card_number} keyfilter="alpha" onChange={handleChange}/>
                         </span>
                         </div>
                         <div className="p-field p-col">
-                            <label htmlFor="lastname1">IBAN</label>
+                            <label htmlFor="lastname1">Date d'expiration</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText name="iban" type="text" defaultValue={user.iban} keyfilter="alphanum" onChange={handleChange}/>
+                            <InputText name="expire_date" type="text" defaultValue={paymentInfo.expire_date} keyfilter="alphanum" onChange={handleChange}/>
                         </span>
                         </div>
                     </div>

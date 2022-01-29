@@ -12,12 +12,6 @@ import { validate } from 'email-validator';
 
 import {useState} from "react";
 import {UserService} from "../../UserService";
-import {set} from "react-hook-form";
-import { ProgressSpinner } from 'primereact/progressspinner';
-import { Skeleton } from 'primereact/skeleton';
-import { ProgressBar } from 'primereact/progressbar';
-import { Messages } from 'primereact/messages';
-import { Message } from 'primereact/message';
 
 function UserInfo({user, userId, setUser, stringUtil}) {
     const [form, setForm] = useState({
@@ -63,10 +57,9 @@ function UserInfo({user, userId, setUser, stringUtil}) {
         user.lastName = form.lastname;
         user.email = form.email;
 
-        userService.modifyUser(user).then(data => {
+        userService.modifyUser(user).then(() => {
             userService.getUser(userId).then(data => {
                 setUser(data);
-                setLoading(false);
             });
         });
     }
@@ -76,10 +69,10 @@ function UserInfo({user, userId, setUser, stringUtil}) {
             <Divider/>
 
             <Panel header="Informations basiques">
-                <p className="user-info-row"><span>Prénom : </span>{stringUtil.capitalize(user.firstName)}     </p>
+                <p className="user-info-row"><span>Prénom : </span>{user.firstName !== "" ? stringUtil.capitalize(user.firstName) : "En cours de chargement..."}     </p>
                 <Divider />
 
-                <p><span>Nom de famille : </span>{user.lastName.toUpperCase()}</p>
+                <p><span>Nom de famille : </span>{user.lastName !== "" ? user.lastName.toUpperCase() : "En cours de chargement..."}</p>
 
 {/*                <p><span>Date de naissance : </span>{birthdate(user.birthdate)}</p>
                 <Divider />
@@ -88,7 +81,7 @@ function UserInfo({user, userId, setUser, stringUtil}) {
             </Panel>
 
             <Panel header="Informations de contact">
-                <p><span>Adresse mail :  </span>{user.email}</p>
+                <p><span>Adresse mail :  </span>{user.email !== "" ? user.email : "En cours de chargement..."}</p>
              <Divider />
 {/*
                 <p><span>Numéro de téléphone :  </span> {user.phone}</p>*/}
