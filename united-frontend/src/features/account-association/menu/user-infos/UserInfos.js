@@ -76,7 +76,7 @@ function UserInfos({infos, fetchAll}){
         <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
             <TabPanel  header="Informtions génerale" icon="pi pi-info-circle">
                 <Card footer={cardFooter(infos.value.id)} subTitle="Vous pouvez sur cette page modifier modifier certains praramètres  vous concernant" style={{ height: '100%' }}>
-                    <Panel className="panel-color" header="Renseignemets essentiels">
+                    <Panel className="panelcolor-text" header="Renseignemets essentiels">
                         <p><b>Nom association : </b>{infos.value.name}</p>
                         <Divider />
                         <p><b>Acronyme : </b>{infos.value.acronym}</p>
@@ -87,7 +87,7 @@ function UserInfos({infos, fetchAll}){
                         <Divider />
                         <p><b>description :  </b>{(infos.value.description)}</p>
                     </Panel>
-                    <Panel className="panel-color" header="Informations de bancaire">
+                    <Panel className="panelcolor-text" header="Informations de bancaire">
                         <p><b>IBAN :  </b>{infos.value.iban}</p>
                     </Panel>
 

@@ -120,7 +120,7 @@ function UserServices(){
                     <TabView activeIndex={activeIndex} >
                         <TabPanel header={"Service "+item.title} icon="pi pi-info-circle">
                         <Card footer={cardFooter(item)} style={{ height: '100%' }}>
-                            <Panel className="panel-color">
+                            <Panel className="panelcolor-text">
                                 <p><b>Titre : </b>{item.title}</p>
                                 <Divider />
                                 <p><b>Description : </b>{item.description}</p>

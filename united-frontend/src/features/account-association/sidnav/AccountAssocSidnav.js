@@ -12,12 +12,14 @@ function AccountAssocSidnav({type, setType, infos}) {
     
     useEffect(()=>{
         fetchLogo();
-    },[]);
-
+    },[infos]);
+    
     //convert the binany data to string
     async function fetchLogo(){
-        const base64String = btoa(String.fromCharCode(...new Uint8Array(infos.value.logo.data)));
-        convSet(base64String)
+        if(infos.value){
+            const base64String =  await btoa(String.fromCharCode(...new Uint8Array(infos.value.logo.data)));
+            convSet(base64String)
+        }
     }
     //on change display différent menu
     const onChangeType = (type) => {
