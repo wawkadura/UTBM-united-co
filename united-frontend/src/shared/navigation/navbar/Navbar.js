@@ -8,18 +8,34 @@ import './Navbar.css';
 
 import logo from "../../../images/shared/united_logo.png";
 import {HashLink} from "react-router-hash-link";
+import {UserService} from "../../../features/user/UserService";
+import StringUtil from "../../../utils/StringUtil";
 
 function Navbar() {
     const [auth, setAuth] = useState(sessionStorage.getItem('userId'));
+    const [user, setUser] = useState('Tony LE');
+
     const menu = useRef(null);
+
+    const userService = new UserService();
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(!auth && sessionStorage.getItem('token'))
+        if(!auth && sessionStorage.getItem('token')) {
             setAuth(true);
+        }
     });
 
-    const user = "Tony LE";
+    if(auth) {
+        userService.getUser(auth).then(data => {
+            console.log('navbar');
+            console.log(data);
+            setUser(data !== undefined ? `${StringUtil.capitalize(data.firstName)} ${data.lastName.toUpperCase()}` : '');
+        });
+    }
+
+
+
     const items = [
         { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user", {state: {id: auth}})} },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users', command: () => {

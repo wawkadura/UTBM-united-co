@@ -6,6 +6,15 @@ class StringUtil {
     static checkValue(valueToCheck, value) {
         return valueToCheck !== "" ? value  : "En cours de chargement...";
     }
+
+    static date(date) {
+        return new Intl.DateTimeFormat("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "2-digit"
+        }).format(date);
+    }
+
 }
 
 export default StringUtil;

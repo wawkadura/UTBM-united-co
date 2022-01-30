@@ -23,4 +23,62 @@
   margin-right: 1rem;
 }
 
+.invoice-container .flex {
+  display: flex;
+  justify-content: space-between;
+}
+.invoice-container img {
+  width: 300px;
+}
+.invoice-container address {
+  margin-top: 20px;
+}
+.invoice-container .invoiced_to {
+  text-align: right;
+  margin-bottom: 20px;
+}
+.invoice-container .table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+}
+.invoice-container thead {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.invoice-container tbody tr {
+  border-bottom: solid thin #f8f8fa;
+}
+.invoice-container .table th {
+  height: 35px;
+}
+.invoice-container .table td {
+  padding: 5px;
+  height: 30px;
+  text-align: center;
+}
+.invoice-container .table th:nth-child(1),
+.invoice-container .table td:nth-child(1) {
+  width: 70%;
+}
+.invoice-container .table td.footer-text {
+  background-color: #f8f8fa !important;
+  padding: 4px;
+  text-align: right;
+}
+.invoice-container button {
+  margin-top: 1rem;
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  border: none;
+  background-color: var(--indigo-900);
+  line-height: 16px;
+  color: var(--indigo-50);
+  outline: none;
+  float: right;
+}
+
 /*# sourceMappingURL=UserInvoices.css.map */

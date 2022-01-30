@@ -7,6 +7,7 @@ import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {useEffect, useState} from "react";
 import {UserService} from "../../UserService";
+import StringUtil from "../../../../utils/StringUtil";
 
 const _subscriptions = [
     {id: 1, status: "active", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
@@ -34,19 +35,10 @@ function UserSubscriptions({userId}) {
         const userService = new UserService();
         userService.getSubscriptions(userId).then(data => {
             data.forEach(element => element.status = element.state === 1 ? 'actif' : 'inactif');
-            data.forEach(element => element.date = date(new Date(element.date)));
+            data.forEach(element => element.date = StringUtil.date(new Date(element.date)));
             setSubscriptions(data)
         });
     }, [userId]);
-
-    function date(date) {
-        return new Intl.DateTimeFormat("fr-FR", {
-            year: "numeric",
-            month: "long",
-            day: "2-digit"
-        }).format(date);
-    }
-
 
     function actions(id) {
         return (

@@ -23,11 +23,7 @@ function User() {
         firstName: "",
         lastName: "",
         role: "donor",
-        email: "",
-/*        phone: "+823532450845",
-        payment_type: "credit_card",
-        bic: "FRFDFG",
-        iban: "FR04 1234 4584 4652 845"*/
+        email: ""
     });
 
     useEffect(() => {
@@ -41,7 +37,7 @@ function User() {
             case "info" : return <UserInfo user={user} userId={userId} setUser={setUser} stringUtil={stringUtil}/>;
             case "favorites": return <UserFavorites userId={userId}/>;
             case "subscriptions": return <UserSubscriptions userId={userId}/>;
-            case "invoices": return <UserInvoices userId={userId}/>;
+            case "invoices": return <UserInvoices user={user} userId={userId}/>;
             case "security": return <UserSecurity user={user} setUser={setUser} userId={userId}/>;
 
             default: return <UserInfo/>;
