@@ -1,22 +1,26 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, UseGuards } from "@nestjs/common";
 import { UserService } from './user.service';
 import {TicketDTO} from "../ticket/dto/ticket.dto";
 import {UserDto} from "./dto/userDto";
+import { JwtAuthGuard } from '../sign-in/jwt-auth.guard';
 
 @Controller('users')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
+    @UseGuards(JwtAuthGuard)
     @Get('user=:userId')
     async getUser(@Param('userId') userId: number) {
         const data = await this.userService.getUser(userId);
+        const {password, ...user} = data;
             return {
                 statusCode: HttpStatus.OK,
                 message: 'User fetched successfully',
-                data
+                user
             };
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post('modify/user')
     async updateUser(@Body() body: any) {
         console.log(body);
@@ -29,6 +33,7 @@ export class UserController {
 
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('user=:userId/associations')
     async getFavoriteAssociations(@Param('userId') userId: number) {
         const data = await this.userService.getFavoriteAssociations(userId);
@@ -39,6 +44,7 @@ export class UserController {
         };
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('user=:userId/subscriptions')
     async getSubscriptions(@Param('userId') userId: number) {
         const data = await this.userService.getSubscriptions(userId);
@@ -49,6 +55,7 @@ export class UserController {
         };
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('subscriptions/:id/delete')
     async removeSubscription(@Param('id') id: number) {
         await this.userService.removeSubscription(id);
@@ -58,6 +65,7 @@ export class UserController {
         };
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('user=:userId/invoices')
     async getInvoices(@Param('userId') userId: number) {
         const data = await this.userService.getInvoices(userId);
@@ -68,6 +76,7 @@ export class UserController {
         };
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('user=:userId/payment')
     async getUserPayment(@Param('userId') userId: number) {
         const data = await this.userService.getUserPayment(userId);
@@ -78,6 +87,7 @@ export class UserController {
         };
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post('modify/password')
     async updateUserPassword(@Body() body: any) {
         console.log(body);
@@ -90,6 +100,7 @@ export class UserController {
 
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post('modify/payment')
     async updatePaymentInfo(@Body() body: any) {
         console.log(body);
