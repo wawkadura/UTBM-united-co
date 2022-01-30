@@ -1,15 +1,14 @@
-import { Controller, Body, Post, Param, Get, HttpStatus,Request, Delete, Put } from '@nestjs/common';
+import { Controller, Body, Post, Param, Get, HttpStatus,Request, Delete, Put, UseGuards } from '@nestjs/common';
 import { CreateAssociationDTO, UpdateAssociationDTO, UpdateUserDTO } from './dto/admin.dto';
 import { AdminService } from './admin.service';
 import * as bcrypt from 'bcrypt';
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { invoice } from 'src/entity/invoice.entity';
+import { JwtAuthGuard } from '../sign-in/jwt-auth.guard';
 
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) { }
 
-
+  @UseGuards(JwtAuthGuard)
   @Get('info/:id')
   async getAdminInfo(@Param('id') id: number) {
     const user = await this.adminService.getUserById(id);
@@ -30,7 +29,7 @@ export class AdminController {
     }
 
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get('donors')
   async getDonors(@Request() req) {
     // var token = ExtractJwt.fromAuthHeaderAsBearerToken()
@@ -44,6 +43,7 @@ export class AdminController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('associations')
   async getAssociations() {
     const data = await this.adminService.getAssociations(false);
@@ -55,6 +55,7 @@ export class AdminController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('overview')
   async getAdminOverviewStats() {
     const associations = await this.adminService.getAssociations(false);
@@ -77,6 +78,7 @@ export class AdminController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('statistics')
   async getAdminStats() {
     const associations = await this.adminService.getAssociations(true);
@@ -98,6 +100,7 @@ export class AdminController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('donor/:id')
   async deleteDonor(@Param('id') id: number) {
     const user = await this.adminService.getUserById(id);
@@ -118,7 +121,7 @@ export class AdminController {
     }
   }
 
-
+  @UseGuards(JwtAuthGuard)
   @Delete('association/:id')
   async deleteAssociation(@Param('id') id: number) {
     const association = await this.adminService.getAssociationById(id);
@@ -139,7 +142,7 @@ export class AdminController {
     }
   }
 
-
+  @UseGuards(JwtAuthGuard)
   @Post('association')
   async createAssociation(@Body() data: CreateAssociationDTO) {
     const existingUser = await this.adminService.getUserByEmail(data.email);
@@ -165,6 +168,8 @@ export class AdminController {
     }
 
   }
+
+  @UseGuards(JwtAuthGuard)
   @Put('info')
   async updateAdminInfo(@Body() data: UpdateUserDTO) {
     const user = await this.adminService.getUserById(data.id);
@@ -185,7 +190,8 @@ export class AdminController {
     }
 
   }
-
+  
+  @UseGuards(JwtAuthGuard)
   @Put('association')
   async updateAssociation(@Body() data: UpdateAssociationDTO) {
     const association = await this.adminService.getAssociationById(data.id);

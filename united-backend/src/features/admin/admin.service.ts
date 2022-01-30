@@ -24,9 +24,9 @@ export class AdminService {
     async getDonors(orderBy: boolean) {
         var donors = []
         if (orderBy) {
-            donors = await this.userRespository.find({ where: { role: 'DONOR' }, order: { created_at: "ASC" } });
+            donors = await this.userRespository.find({ select: ["id", "firstName", "lastName", "email", "created_at"], where: { role: 'DONOR' }, order: { created_at: "ASC" } });
         } else {
-            donors = await this.userRespository.find({ where: { role: 'DONOR' } });
+            donors = await this.userRespository.find({  select: ["id", "firstName", "lastName", "email", "created_at"], where: { role: 'DONOR' } });
         }
         return donors
     }
