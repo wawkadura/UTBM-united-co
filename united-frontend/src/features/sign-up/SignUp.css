@@ -1,3 +1,11 @@
+.sign-up {
+  height: auto;
+  width: 100%;
+  font-family: "Nunito", sans-serif;
+}
+
+/*# sourceMappingURL=SignUp.css.map */
+
 .sign-up-form{
   margin-left: 30%;
   margin-right: 30%;
@@ -16,7 +24,7 @@
 }
 .sign-up-form .card .p-field {
   margin-bottom: 1.5rem;
-}
+} 
 
 .p-field-checkbox{
   margin-top: 1%;
@@ -32,4 +40,4 @@
       width: 100%;
       min-width: 0;
   }
-}
+} 

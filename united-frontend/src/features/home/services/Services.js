@@ -1,6 +1,5 @@
 import "./Services.css";
 import 'primeflex/primeflex.css';
-
 import toward from "../../../images/images_vitrine/toward.jpg"
 import statistic from "../../../images/images_vitrine/statistic.jpg"
 import all_assoc from "../../../images/images_vitrine/all_assoc.jpg"

@@ -1,0 +1,56 @@
+@use "../../../../shared/styles/variables" as v;
+
+.user-favorites {
+  height: 100%;
+
+  .p-card {
+    border-radius: 1rem;
+    font-family: "Nunito", sans-serif;
+    background-color: v.$light-indigo;
+    .p-card-content {
+      padding: 0;
+    }
+
+    .user-associations {
+      max-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 10px;
+      row-gap: 10px;
+
+      .p-card {
+        width: 100%;
+      }
+
+      .association-header {
+        padding-top: 1.25rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+
+        display: flex;
+        justify-content: space-between;
+        img {
+          height: 64px;
+          width: 64px;
+        }
+      }
+
+      .p-card {
+        background-color: v.$light-plus-indigo;
+      }
+    }
+  }
+
+  .p-panel {
+    margin-bottom: 1rem;
+  }
+}
+
+.user-info {
+  font-weight: bold;
+  color: v.$dark-indigo;
+}
+
+.dialog p {
+  color: v.$dark-indigo;
+}

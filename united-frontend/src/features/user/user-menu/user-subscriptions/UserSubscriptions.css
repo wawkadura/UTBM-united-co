@@ -1,0 +1,30 @@
+.user-subscriptions {
+  height: 100%;
+}
+.user-subscriptions .p-card {
+  border-radius: 1rem;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-50);
+}
+.user-subscriptions .p-card .p-card-content {
+  padding: 0;
+}
+.user-subscriptions .p-panel {
+  margin-bottom: 1rem;
+}
+.user-subscriptions span {
+  font-weight: bold;
+  color: var(--indigo-900);
+}
+.user-subscriptions .p-datatable {
+  min-height: 100%;
+  max-height: 70vh;
+}
+.user-subscriptions .p-datatable .p-datatable-thead tr th {
+  background-color: var(--indigo-100);
+}
+.user-subscriptions .actions button:first-of-type {
+  margin-right: 1rem;
+}
+
+/*# sourceMappingURL=UserSubscriptions.css.map */

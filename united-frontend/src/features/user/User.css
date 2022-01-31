@@ -1,0 +1,16 @@
+.user {
+  background-color: var(--indigo-50);
+}
+.user .user-container {
+  min-height: 53.381rem;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-100);
+}
+.user p {
+  color: var(--indigo-900);
+}
+
+/*# sourceMappingURL=User.css.map */

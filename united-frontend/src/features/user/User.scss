@@ -1,0 +1,21 @@
+@use "../../shared/styles/variables" as v;
+
+.user {
+  background-color: v.$light-indigo;
+
+  .user-container {
+    min-height: 53.381rem;
+    padding: 1.5rem;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+    font-family: "Nunito", sans-serif;
+    background-color: v.$light-plus-indigo;
+
+  }
+
+  p {
+    color: v.$dark-indigo;
+  }
+}

@@ -1,4 +1,3 @@
-
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { subscription } from './subscription.entity';
 import { users } from './user.entity';

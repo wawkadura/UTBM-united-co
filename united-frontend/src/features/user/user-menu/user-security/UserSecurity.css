@@ -1,0 +1,23 @@
+.user-security {
+  height: 100%;
+}
+.user-security .p-card {
+  border-radius: 1rem;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-50);
+}
+.user-security .p-card .p-card-content {
+  padding: 0;
+}
+.user-security .p-panel {
+  margin-bottom: 1rem;
+}
+.user-security .p-panel .p-panel-header {
+  background-color: var(--indigo-100);
+}
+.user-security span {
+  font-weight: bold;
+  color: var(--indigo-900);
+}
+
+/*# sourceMappingURL=UserSecurity.css.map */
