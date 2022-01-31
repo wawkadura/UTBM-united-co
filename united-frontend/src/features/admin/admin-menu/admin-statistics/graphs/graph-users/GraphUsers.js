@@ -1,7 +1,7 @@
 import "./GraphUsers.css";
 import React from 'react';
 import { Chart } from 'primereact/chart';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Dropdown } from 'primereact/dropdown';
 
 function GraphUsers(users) {
@@ -67,28 +67,21 @@ function GraphUsers(users) {
         setSelectedYear(e.value);
         changeDataYear(e.value)
     }
+    
+    const changeDataYear = useCallback((year) => {
+        setAssociationsStats([])
+        setDonorsStats([])
+        Object.keys(data.associations).map((key) => key === year ? setAssociationsStats(data.associations[key]) : '');
+        Object.keys(data.donors).map((key) => key === year ? setDonorsStats(data.donors[key]) : '');
+    },[data]);
 
     useEffect(() => {
         var keys = Object.keys(data.associations)
         setYears(keys)
         setSelectedYear(keys[0]);
         changeDataYear(keys[0])
-    }, [data]);
+    }, [data, changeDataYear]);
 
-    const changeDataYear = (year) => {
-        setAssociationsStats([])
-        setDonorsStats([])
-        Object.keys(data.associations).map(function (key) {
-            if (key === year) {
-                setAssociationsStats(data.associations[key])
-            }
-        });
-        Object.keys(data.donors).map(function (key) {
-            if (key === year) {
-                setDonorsStats(data.donors[key])
-            }
-        });
-    }
     return (
         <div className="graph-users-card">
             <h5>Statistiques des nouvelles utilisateurs de la platforme au cours de l'année</h5>

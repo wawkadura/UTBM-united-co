@@ -1,7 +1,7 @@
 import "./GraphBugs.css";
 import React from 'react';
 import { Chart } from 'primereact/chart';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Dropdown } from 'primereact/dropdown';
 
 
@@ -15,7 +15,7 @@ function GraphBugs(bugs) {
         labels: labels,
         datasets: [
             {
-                label: 'bugs',
+                label: 'tickets',
                 data: bugsStats,
                 fill: true,
                 borderColor: 'rgba(355,100,81)',
@@ -57,23 +57,22 @@ function GraphBugs(bugs) {
         setSelectedYear(e.value);
         changeDataYear(e.value)
     }
+
+    const changeDataYear = useCallback((year) => {
+        setBugsStats([])
+        Object.keys(data.bugs).map((key) => key === year ? setBugsStats(data.bugs[key]) : '');
+    }, [data]);
+
     useEffect(() => {
         var keys = Object.keys(data.bugs)
         setYears(keys)
         setSelectedYear(keys[0]);
         changeDataYear(keys[0])
-    }, [data]);
-    const changeDataYear = (year) => {
-        setBugsStats([])
-        Object.keys(data.bugs).map(function (key) {
-            if (key === year) {
-                setBugsStats(data.bugs[key])
-            }
-        });
-    }
+    }, [data, changeDataYear]);
+    
     return (
         <div className="graph-bugs-card">
-            <h5>Statistiques des nouveaux bugs signalés par les utilisateurs de la platforme</h5>
+            <h5>Statistiques des nouveaux tickets créé par les utilisateurs de la platforme</h5>
             <br />
             <Dropdown value={selectedYear} options={years} onChange={onYearChange} />
             <Chart type="line" data={lineStylesData} options={basicOptions} />

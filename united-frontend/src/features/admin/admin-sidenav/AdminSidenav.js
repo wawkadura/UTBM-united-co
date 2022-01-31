@@ -1,7 +1,6 @@
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import user_man from "../../../images/shared/user-man.png";
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { Skeleton } from 'primereact/skeleton';
 
 import "./AdminSidenav.css";

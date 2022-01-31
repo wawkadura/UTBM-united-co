@@ -15,7 +15,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { AdminService } from "../../AdminService"
 import { Column } from "primereact/column";
 import { classNames } from 'primereact/utils';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 var associations = [
@@ -57,7 +57,7 @@ function AdminAssociations({Refresh, toast }) {
 
     useEffect(() => {
         adminService.getAssociations().then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
+            if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
             }else {
                 associations = response.data
@@ -85,7 +85,7 @@ function AdminAssociations({Refresh, toast }) {
 
     const accept = () => {
         adminService.deleteAssociation(idToDelete).then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
+            if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
             } else {
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'L\'association a bien été supprimé', life: 3000 });
@@ -118,13 +118,13 @@ function AdminAssociations({Refresh, toast }) {
     }
 
     const updateAssociation = (data) => {
-        if(uploadFile != null) {
+        if(uploadFile !== null) {
             data.logo = uploadFile
         }
         setIsPending(true)
         adminService.updateAssociation(selectedAssociation.id, data).then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
-                if(response.statusCode==400) {
+            if (response.statusCode!==200 && toast.current !== null) {
+                if(response.statusCode===400) {
                     setMailExists(true)
                 }else{
                     toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
@@ -141,8 +141,8 @@ function AdminAssociations({Refresh, toast }) {
 
         setIsPending(true)
         adminService.createAssociation(data).then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
-                if( response.statusCode == 400) {
+            if (response.statusCode!==200 && toast.current !== null) {
+                if( response.statusCode === 400) {
                     setMailExists(true)
                 }else{
                     toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
@@ -437,7 +437,7 @@ function AdminAssociations({Refresh, toast }) {
                 <div className="p-d-flex p-jc-evenly">
                     <div className="p-mr-4">
                         <div className="dataview-modal-subsection">
-                            <div><b>Date de création: </b>{selectedAssociation.created_at}</div>
+                            <div><b>Date de création: </b>{new Date(selectedAssociation.created_at).toLocaleString().split(',')[0]}</div>
                             <Divider />
                             <div><b>Nom: </b>{selectedAssociation.name}</div>
                             <Divider />

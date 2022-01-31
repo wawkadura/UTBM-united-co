@@ -12,6 +12,18 @@ export class AccountAssociationApi{
         const data = await resp.json();
         return data
     }
+    public static async getIdAssociation(id:number){
+        const token = sessionStorage.getItem('token');
+        const resp = await fetch(`http://localhost:4200/account-association/id_association/${id}`,{
+            method : "GET",
+            headers : {
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        const data = await resp.json();
+        return data
+    }
 
     public static async getInfos(id:number){
         const token = sessionStorage.getItem('token');
@@ -141,14 +153,17 @@ export class AccountAssociationApi{
         return data
     }
 
-    public static async deleteService(id:number){
+    public static async deleteService(id:number, value:any){
         const token = sessionStorage.getItem('token');
-        const resp = await fetch(`http://localhost:4200/account-association/${id}`,{
-            method : "DELETE",
+        const resp = await fetch(`http://localhost:4200/account-association/state/${id}`,{
+            method : "PUT",
             headers : {
                 'Content-Type':'application/json',
                 'Authorization': `Bearer ${token}`
             },
+            body: JSON.stringify({
+                state: false
+            })
         })
         const data = await resp.json();
         return data

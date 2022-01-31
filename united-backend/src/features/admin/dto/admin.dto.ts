@@ -31,6 +31,7 @@ export interface UpdateUserDTO{
     firstName: any,
     lastName: any,
     email: any,
+    state: any,
     role: any,
 }
 

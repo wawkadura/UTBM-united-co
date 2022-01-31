@@ -8,7 +8,6 @@ export class AssociationController {
 
     constructor(private readonly service: AssociationService){}
 
-    @UseGuards(JwtAuthGuard)
     @Get('userId=:userId')
     async getAssociations(@Param('userId') userId: number) {
         const data =  await this.service.getAssociations(userId);
@@ -50,7 +49,6 @@ export class AssociationController {
         };
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('/services/:associationId')
     async getServices(@Param('associationId') associationId: number) {
         const data =  await this.service.getServicesByAssociationId(associationId);
@@ -61,7 +59,6 @@ export class AssociationController {
             };
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('/types')
     async getAssociationTypes() {
         const data =  await this.service.getAssociationTypes();
@@ -72,7 +69,6 @@ export class AssociationController {
         };
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('/date-filter-values')
     async getDateFilterMinMaxValues() {
         const data =  await this.service.getDateFilterMinMaxValues();

@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { favorite } from './favorite.entity';
 
 @Entity()
 export class users {
@@ -18,7 +19,10 @@ export class users {
   password;
 
   @Column("varchar", { length: 100 })
-  role;
+  role;   
+
+  @Column({default:true})
+  state: boolean;
 
   @Column("datetime", { nullable: true })
   email_verified_at;
@@ -26,5 +30,3 @@ export class users {
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
   created_at;
 }
-
-
