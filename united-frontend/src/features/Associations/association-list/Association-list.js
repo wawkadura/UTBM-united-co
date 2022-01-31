@@ -236,10 +236,10 @@ const AssociationList = ({ Filters }) => {
                         Contacts
                     </h2>
                     <div className="dataview-modal-subsection">
-                        <div><b>Site web: </b>{modalData.website}</div>
-                        <div><b>E-mail: </b>{modalData.email}</div>
-                        <div><b>Adresse: </b>{modalData.address}</div>
-                        <div><b>Téléphone: </b>{modalData.telephone}</div>
+                        { modalData.website ? <div><b>Site web: </b>{modalData.website}</div> : <></> }
+                        { modalData.email ? <div><b>E-mail: </b>{modalData.email}</div> : <></> }
+                        { modalData.address ? <div><b>Adresse: </b>{modalData.address}</div> : <></> }
+                        { modalData.telephone ? <div><b>Téléphone: </b>{modalData.telephone}</div> : <></> }
                     </div>
                 </div>
 
