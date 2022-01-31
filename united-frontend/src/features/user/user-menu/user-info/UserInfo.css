@@ -40,13 +40,13 @@
   color: var(--indigo-900);
 }
 
-.p-dialog .p-dialog-header {
+.user-info-dialog .p-dialog-header {
   padding-bottom: 0;
 }
-.p-dialog .p-dialog-content {
+.user-info-dialog .p-dialog-content {
   padding-bottom: 1rem;
 }
-.p-dialog .p-field.p-col-12 {
+.user-info-dialog .p-field.p-col-12 {
   margin-bottom: 0;
 }
 

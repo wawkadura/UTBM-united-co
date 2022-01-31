@@ -14,6 +14,7 @@ import { Divider } from 'primereact/divider';
 import { useNavigate } from "react-router-dom";
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Link } from "react-router-dom";
+import image from "../../../images/shared/association.png";
 
 import { AssociationService } from '../AssociationService';
 import './Association-list.css';
@@ -130,7 +131,7 @@ const AssociationList = ({ Filters }) => {
         return (
             <div className="p-col-12">
                 <div className="product-list-item" onClick={() => onItemClick(data)}>
-                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src=image} alt={data.name} />
                     <div className="product-list-detail">
                         <div className="product-name">{data.name}</div>
                         <div className="product-description">{data.description}</div>
@@ -171,7 +172,7 @@ const AssociationList = ({ Filters }) => {
                         </div>
                     </div>
                     <div className="product-grid-item-content">
-                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src=image} alt={data.name} />
                         <div className="product-name">{data.name}</div>
                         <div className="product-description">{data.description}</div>
                         <div className="p-grid">
@@ -223,7 +224,7 @@ const AssociationList = ({ Filters }) => {
     const renderDialog = () => {
         return (
             <div className="dataview-modal-body">
-                <img src={`data:image/png;base64,${modalData.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                <img src={`data:image/png;base64,${modalData.logo}`} onError={(e) => e.target.src=image} alt={data.name} />
 
                 <div className="dataview-modal-items p-col-4">
                     <h2> 

@@ -88,7 +88,7 @@ function UserInfo({user, userId, setUser, stringUtil}) {
             </Panel>
 
 
-            <Dialog header="Informations personnelles" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
+            <Dialog className="user-info-dialog" header="Informations personnelles" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
                 <Divider/>
                 <form onSubmit={handleSubmit}>
                     <div className="p-fluid p-formgrid p-grid">
