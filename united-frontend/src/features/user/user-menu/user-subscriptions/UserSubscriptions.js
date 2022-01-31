@@ -5,7 +5,9 @@ import {Divider} from "primereact/divider";
 import {Button} from "primereact/button";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {UserService} from "../../UserService";
+import StringUtil from "../../../../utils/StringUtil";
 
 const _subscriptions = [
     {id: 1, status: "active", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
@@ -24,8 +26,19 @@ const _subscriptions = [
     {id: 14, status: "active", association: "UTBM", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
 ]
 
-function UserSubscriptions() {
-    const [subscriptions, setSubscriptions] = useState(_subscriptions);
+function UserSubscriptions({userId}) {
+    const userService = new UserService();
+    const [subscriptions, setSubscriptions] = useState([]);
+
+
+    useEffect(() => {
+        const userService = new UserService();
+        userService.getSubscriptions(userId).then(data => {
+            data.forEach(element => element.status = element.state === 1 ? 'actif' : 'inactif');
+            data.forEach(element => element.date = StringUtil.date(new Date(element.date)));
+            setSubscriptions(data)
+        });
+    }, [userId]);
 
     function actions(id) {
         return (
@@ -36,6 +49,7 @@ function UserSubscriptions() {
     }
     
     function removeSubscription(data) {
+        userService.deleteSubscription(data.id).then(r => console.log(r));
         setSubscriptions(subscriptions.filter(subscription => subscription.id !== data.id));
     }
 
@@ -44,13 +58,12 @@ function UserSubscriptions() {
             <Divider/>
 
             <DataTable value={subscriptions} scrollable scrollHeight="41.5rem" size="normal">
+                <Column field="acronym" header="Association" sortable/>
+                <Column field="title" header="Abonnement" sortable/>
+                <Column field="price" header="Prix (euros)" sortable/>
                 <Column field="status" header="Statut" sortable/>
-                <Column field="association" header="Association" sortable/>
-                <Column field="sub_type" header="Abonnement" sortable/>
-                <Column field="price" header="Prix" sortable/>
-                <Column field="payment_type" header="Paiement" sortable/>
-                <Column field="start_date" header="Début" sortable/>
-                <Column field="end_date" header="Fin" sortable/>
+                <Column field="date" header="Date" sortable/>
+                <Column field="duration" header="Durée (mois)" sortable/>
                 <Column header="Actions" body={(data) => actions(data)}/>
             </DataTable>
         </Card>

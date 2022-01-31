@@ -11,6 +11,9 @@ import {InputText} from "primereact/inputtext";
 import {useEffect, useState} from "react";
 import {Panel} from "primereact/panel";
 import {UserService} from "../../UserService";
+import {AssociationService} from "../../../Associations/AssociationService";
+import { ProgressBar } from 'primereact/progressbar';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const _associations = [
     {id: 1, name: "SPA", type: "Protection animale", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do", isFavorite: true},
@@ -22,8 +25,9 @@ const _associations = [
 ]
 
 function UserFavorites({userId}) {
-    const userService = new UserService();
-    const [associations, setAssociations] = useState(_associations);
+    const associationService = new AssociationService();
+
+    const [associations, setAssociations] = useState([]);
 
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
@@ -32,8 +36,12 @@ function UserFavorites({userId}) {
     const onHide = (name) => { dialogFuncMap[`${name}`](false); }
 
     useEffect(() => {
-        userService.getFavoriteAssociations(userId).then(data => console.log(data));
-    });
+        const userService = new UserService();
+        userService.getFavoriteAssociations(userId).then(data => {
+            data.map(element => element.isFavorite = true);
+            setAssociations(data);
+        });
+    }, [userId]);
 
     function header(id, name, isFavorite) {
         return (
@@ -64,6 +72,7 @@ function UserFavorites({userId}) {
     }
 
     function removeAssociation(id) {
+        associationService.setFavorites(userId, id, false).then(r => console.log(r));
         setAssociations(associations.filter(association => association.id !== id));
     }
 
@@ -80,13 +89,13 @@ function UserFavorites({userId}) {
             <Dialog className="dialog" header="Détails de l'association" modal={true} position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
                 <Divider/>
                 <Panel header="Informations">
-                    <p><span className="user-info">Nom </span>: SPA</p>
+                    <p><span className="user-info">Nom : </span> SPA</p>
                     <Divider />
 
-                    <p><span className="user-info">Type </span> : Protection animale</p>
+                    <p><span className="user-info">Type : </span>Protection animale</p>
                     <Divider />
 
-                    <p><span className="user-info">Email </span>: spa@gmail.com</p>
+                    <p><span className="user-info">Email : </span>spa@gmail.com</p>
                     <Divider />
 
                     <p><span className="user-info">Téléphone : </span>+336255454</p>

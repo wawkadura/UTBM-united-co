@@ -33,3 +33,72 @@
     }
   }
 }
+
+.invoice-container {
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  img{
+    width:300px;
+  }
+
+  address{
+    margin-top: 20px;
+  }
+
+  .invoiced_to {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 4px;
+  }
+
+  thead {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  tbody tr{
+    border-bottom: solid thin #f8f8fa;
+  }
+
+  .table th {
+    height: 35px;
+  }
+  .table td {
+    padding: 5px;
+    height: 30px;
+    text-align: center;
+  }
+
+  .table th:nth-child(1),
+  .table td:nth-child(1) {
+    width: 70%;
+  }
+
+  .table td.footer-text {
+    background-color: #f8f8fa !important;
+    padding: 4px;
+    text-align: right;
+  }
+
+  button {
+    margin-top: 1rem;
+    padding: 10px 25px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: "Nunito", sans-serif;
+    border: none;
+    background-color: v.$dark-indigo;
+    line-height: 16px;
+    color: v.$light-indigo;
+    outline: none;
+    float: right;
+  }
+}

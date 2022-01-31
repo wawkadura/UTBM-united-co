@@ -20,22 +20,15 @@ function User() {
     const [type, setType] = useState("info");
     const [userId, setUserId] = useState(location.state.id);
     const [user, setUser] = useState({
-        firstName: "Chaeyoung",
-        lastName: "Park",
+        firstName: "",
+        lastName: "",
         role: "donor",
-        birthdate: new Date("1997-02-11"),
-        genre: "woman",
-        email: "rosie@blackpink.kr",
-        phone: "+823532450845",
-        payment_type: "credit_card",
-        bic: "FRFDFG",
-        iban: "FR04 1234 4584 4652 845"
+        email: ""
     });
 
     useEffect(() => {
         userService.getUser(userId).then(data => {
             setUser(data);
-            console.log(user);
         });
     }, []);
 
@@ -43,9 +36,9 @@ function User() {
         switch (type) {
             case "info" : return <UserInfo user={user} userId={userId} setUser={setUser} stringUtil={stringUtil}/>;
             case "favorites": return <UserFavorites userId={userId}/>;
-            case "subscriptions": return <UserSubscriptions/>;
-            case "invoices": return <UserInvoices/>;
-            case "security": return <UserSecurity user={user} setUser={setUser}/>;
+            case "subscriptions": return <UserSubscriptions userId={userId}/>;
+            case "invoices": return <UserInvoices user={user} userId={userId}/>;
+            case "security": return <UserSecurity user={user} setUser={setUser} userId={userId}/>;
 
             default: return <UserInfo/>;
         }

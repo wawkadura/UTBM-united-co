@@ -11,7 +11,7 @@ function UserSidenav({type, setType, user, stringUtil}) {
         <div className="sidenav-header">
             <img src={user_man} alt="user_logo"/>
             <div>
-                <h3>{`${stringUtil.capitalize(user.firstName)}  ${user.lastName.toUpperCase()}`}</h3>
+                <h3>{user !== undefined ? `${stringUtil.capitalize(user.firstName)}  ${user.lastName.toUpperCase()}` : "En cours de chargement..."}</h3>
                 <p>Donateur</p>
             </div>
         </div>
