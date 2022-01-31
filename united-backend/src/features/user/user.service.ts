@@ -78,7 +78,13 @@ export class UserService {
     }
 
     async updatePaymentInfo(id: number, data: Partial<UserDto>) {
-        await this.paymentRepository.update({ id }, data);
+        const payment = await this.paymentRepository.findOne({ id });
+        if (payment)
+            await this.paymentRepository.update({ id }, data);
+        else {
+            this.paymentRepository.create(data);
+            this.paymentRepository.save(data);
+        }
         return await this.paymentRepository.findOne({ id });
     }
 }

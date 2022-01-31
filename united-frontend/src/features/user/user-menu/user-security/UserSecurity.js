@@ -69,14 +69,19 @@ function UserSecurity({user, setUser}) {
             ...form,
             owner: form.owner,
             card_number: form.card_number,
-            expire_date: form.expire_date
+            expire_date: form.expire_date,
+            password: null
         });
         
-        delete paymentInfo.password;
-        userService.modifyPaymentInfo(user.id, paymentInfo).then(() => {
-            userService.getUserPayment(user.id).then(data => {
-                setPaymentInfo(data);
-            })
+        const body = {
+            owner: form.owner,
+            card_number: form.card_number,
+            expire_date: form.expire_date,
+        }
+        userService.modifyPaymentInfo(user.id, body).then(() => {
+            // userService.getUserPayment(user.id).then(data => {
+            //     setPaymentInfo(data);
+            // })
         });
 
         if(form.password !== undefined && form.password !== "") { userService.modifyUserPassword(user.id, form.password).then((r => console.log(r))); }
