@@ -24,7 +24,7 @@ export class SingInService {
     //check if couple [email, password] exist in db
     async isPassOk(email: string, pass : string){
         const user = await this.isEmailExist(email); 
-        if(user == null ) {
+        if(user == null || user.state === false) {
             return null
         }
         //compare hash in DB and given password

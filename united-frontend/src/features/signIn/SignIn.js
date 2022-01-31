@@ -6,8 +6,11 @@ import { Password } from 'primereact/password';
 import { classNames } from 'primereact/utils';
 import axios from 'axios'
 import "./SignIn.css"
+import { useNavigate } from "react-router-dom";
 
 function SignIn(){
+
+    const navigate = useNavigate();
     // is login error ?
     const [IsLoginError, setIsLoginError] = useState(false);
     // error message of login
@@ -38,6 +41,17 @@ function SignIn(){
                     sessionStorage.setItem('token', response.data.token.access_token)
                     sessionStorage.setItem('userId', response.data.payload.userId)
                     sessionStorage.setItem('role', response.data.payload.role)
+
+                    switch(response.data.payload.role){
+                        case "DONOR": navigate("/user");
+                            break;
+                        case "ADMIN": navigate("/admin");
+                            break;
+                        case "ASSOCIATION": navigate("/accountassociation");
+                            break;
+                        default:
+                            navigate("*");
+                    }
                 }
         // error where post
         }).catch((error)=>{
