@@ -24,6 +24,7 @@ function AccountAssociation() {
     const component = () => {
         switch (type) {
             case "infos" : if(infos) return <UserInfos infos={infos} fetchAll={fetchAll}/>;
+                break;
             case "statistics": return <UserStatistics/>;
             case "services": return <UserServices/>;
             default: if(infos) return <UserInfos infos={infos} fetchAll={fetchAll}/>;

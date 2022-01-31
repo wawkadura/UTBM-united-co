@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import { TieredMenu } from 'primereact/tieredmenu';
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -16,10 +16,8 @@ function Navbar() {
     const navigate = useNavigate();
     const role = sessionStorage.getItem('role')
 
-    useEffect(()=>{
-        if(!auth && sessionStorage.getItem('token'))
-            setAuth(true);
-    });
+    if(!auth && sessionStorage.getItem('token'))
+        setAuth(true);
 
     const user = "Tony LE";
     const items = [

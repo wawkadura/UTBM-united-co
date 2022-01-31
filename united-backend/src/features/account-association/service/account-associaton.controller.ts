@@ -20,6 +20,17 @@ export class AccountAssociatonController {
     };
 
     @UseGuards(JwtAuthGuard)
+    @Get('id_association/:id')
+    async showAssociation(@Param('id') id: number) {
+        const data =  await this.service.GetOne(id);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Services fetched successfully',
+            data
+        };
+    };
+
+    @UseGuards(JwtAuthGuard)
     @Post()
     async createService(@Body() data: serviceDTO) {
         const serviceCreated = await this.service.createService(data);
@@ -41,9 +52,9 @@ export class AccountAssociatonController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Delete(':id')
-    async deleteService(@Param('id') id: number) {
-        await this.service.destroy(id);
+    @Put('state/:id') //put state to false 
+    async deleteService(@Param('id') id: number, @Body() data: Partial<serviceDTO>) {
+        await this.service.destroyUpdateState(id,data);
         return {
             statusCode: HttpStatus.OK,
             message: 'Service suprimé avec succès',
