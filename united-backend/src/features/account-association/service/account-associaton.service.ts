@@ -5,6 +5,7 @@ import { service } from 'src/entity/service.entity';
 import { serviceDTO} from '../dto/association.dto';
 import { association } from 'src/entity/association.entity';
 import { users } from 'src/entity/user.entity';
+import { subscription } from 'src/entity/subscription.entity';
 
 @Injectable()
 export class AccountAssociatonService {
@@ -21,9 +22,18 @@ export class AccountAssociatonService {
         await this.serviceRepository.update({ id }, data);
         return await this.serviceRepository.findOne({ id });
     }
-    //methode to delete a service
+    //methode to delete a service this set state to false 
     async destroyUpdateState(id: number, data:Partial<serviceDTO>) {
         await this.serviceRepository.update({ id },data);
+        
+        await getManager().createQueryBuilder()
+        .update(subscription)
+        .set({state:false})
+        .where("service_id= :id",{
+            id: id
+        })
+        .execute();
+        console.log(id)
         return { deleted: true };
     }
     //methode to get all services
@@ -36,7 +46,7 @@ export class AccountAssociatonService {
         .addSelect("sev.id","id")
         .addSelect("ass.id","association_id")
         .from(service, "sev")
-        .innerJoin(association, "ass", "sev.associationIdId = ass.id")
+        .innerJoin(association, "ass", "sev.association_id = ass.id")
         .where("ass.id = :id", {
             id: id
         })
