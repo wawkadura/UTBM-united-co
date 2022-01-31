@@ -9,7 +9,7 @@ import { confirmPopup } from 'primereact/confirmpopup';
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 import { Column } from "primereact/column";
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AdminService } from "../../AdminService"
 
 
@@ -36,7 +36,7 @@ function AdminDonors({Refresh, toast}) {
 
     useEffect(() => {
         adminService.getDonors().then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
+            if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 10000 });
             } else  {
                 donors = response.data
@@ -59,7 +59,7 @@ function AdminDonors({Refresh, toast}) {
 
     const accept = () => {
         adminService.deleteDonor(idToDelete).then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
+            if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 10000 });
             } else {
                 toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'Le donateur a bien été supprimé', life: 3000 });

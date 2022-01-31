@@ -13,7 +13,7 @@ function Landing() {
                     <HashLink smooth to="/home#services" style={{textDecoration: "none"}}><Button  label="Démarrer" icon="pi pi-arrow-down" iconPos="right" /></HashLink>
                 </div>
                 <div className="imagevitrine">
-                    <img  src={association} alt="landing-image" />
+                    <img src={association} alt="landing" />
                 </div>
         </div>
     </div>

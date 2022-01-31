@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { Toast } from 'primereact/toast';
@@ -10,7 +10,6 @@ import "./AdminCommunications.css"
 import { useForm, Controller } from 'react-hook-form';
 
 function AdminCommunications({toast}) {
-    const [formData, setFormData] = useState({});
     const [isPending, setIsPending] = useState(false);
     const adminService = new AdminService()
     const defaultValues = {

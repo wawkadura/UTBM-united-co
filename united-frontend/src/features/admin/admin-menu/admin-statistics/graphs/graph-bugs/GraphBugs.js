@@ -1,7 +1,7 @@
 import "./GraphBugs.css";
 import React from 'react';
 import { Chart } from 'primereact/chart';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Dropdown } from 'primereact/dropdown';
 
 
@@ -57,20 +57,19 @@ function GraphBugs(bugs) {
         setSelectedYear(e.value);
         changeDataYear(e.value)
     }
+
+    const changeDataYear = useCallback((year) => {
+        setBugsStats([])
+        Object.keys(data.bugs).map((key) => key === year ? setBugsStats(data.bugs[key]) : '');
+    }, [data]);
+
     useEffect(() => {
         var keys = Object.keys(data.bugs)
         setYears(keys)
         setSelectedYear(keys[0]);
         changeDataYear(keys[0])
-    }, [data]);
-    const changeDataYear = (year) => {
-        setBugsStats([])
-        Object.keys(data.bugs).map(function (key) {
-            if (key === year) {
-                setBugsStats(data.bugs[key])
-            }
-        });
-    }
+    }, [data, changeDataYear]);
+    
     return (
         <div className="graph-bugs-card">
             <h5>Statistiques des nouveaux bugs signalés par les utilisateurs de la platforme</h5>

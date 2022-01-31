@@ -30,7 +30,7 @@ function Admin() {
 
     useEffect(() => {
         adminService.getAdminInfo(adminID).then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
+            if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail:  response.statusCode +" : "+ response.message, life: 10000 });
             }else{
                 setData({
@@ -42,7 +42,7 @@ function Admin() {
             }
             setDataPending(false)
         });
-    }, [refresh]);
+    }, [refresh, adminID]);
     const component = () => {
         switch (type) {
             case "overview": return <AdminOverview Refresh={Refresh} dataPending={dataPending} toast={toast} admin={data} />;

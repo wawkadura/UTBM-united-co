@@ -2,7 +2,6 @@ import {Button} from "primereact/button";
 import {Divider} from "primereact/divider";
 import "./AccountAssocSidnav.css";
 
-import us from "../../../images/shared/united_logo.png"
 import { useState } from "react";
 import {useEffect} from 'react';
 
