@@ -18,3 +18,7 @@
 .ticket-response, .ticket-response-answer {
     margin: 30px 0;
 }
+
+.ticket-resolved-button {
+    margin: 10px 0;
+}

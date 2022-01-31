@@ -15,7 +15,7 @@ export class SingInController {
         const user = await this.signInService.isPassOk(data.email, data.password);
         //if user exist
         if (user){
-            const payload:PayloadToken={userId: user.id}
+            const payload:PayloadToken={userId: user.id, role: user.role}
             //generate token
             const token = await this.signInService.Login(payload);
             return {

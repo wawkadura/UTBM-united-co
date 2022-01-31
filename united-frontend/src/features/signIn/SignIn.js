@@ -37,6 +37,7 @@ function SignIn(){
                 else{
                     sessionStorage.setItem('token', response.data.token.access_token)
                     sessionStorage.setItem('userId', response.data.payload.userId)
+                    sessionStorage.setItem('role', response.data.payload.role)
                 }
         // error where post
         }).catch((error)=>{

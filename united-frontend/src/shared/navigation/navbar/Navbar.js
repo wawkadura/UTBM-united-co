@@ -14,6 +14,7 @@ function Navbar() {
     const [auth, setAuth] = useState(sessionStorage.getItem('userId'));
     const menu = useRef(null);
     const navigate = useNavigate();
+    const role = sessionStorage.getItem('role')
 
     useEffect(()=>{
         if(!auth && sessionStorage.getItem('token'))
@@ -47,7 +48,7 @@ function Navbar() {
                     <li><HashLink smooth to="/home#services">Nos services</HashLink></li>
                     <li><Link to="/associations">Associations</Link></li>
                     <li><HashLink smooth to="/home#about">À propos</HashLink></li>
-                    { !auth ?
+                    { !auth || role === 'ADMIN' ?
                         <li><HashLink smooth to="/home#contact">Contact</HashLink></li> :
                         <li><Link to="/ticket">Contact</Link></li>
                     }

@@ -6,6 +6,10 @@ export class TicketService {
         return TicketApi.getTickets(userId);
     }
 
+    getAllTickets() {
+        return TicketApi.getAllTickets();
+    }
+
     addTicket(body) {
         return TicketApi.addTicket(body);
     }

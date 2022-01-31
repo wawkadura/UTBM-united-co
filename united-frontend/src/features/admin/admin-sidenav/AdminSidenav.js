@@ -37,6 +37,9 @@ function AdminSidenav({ dataPending, admin, type, setType }) {
             <Divider />
 
             <Button onClick={() => { onChangeType("communications") }} label="Communications" icon="pi pi-envelope" />
+            <Divider />
+
+            <Button onClick={() => { onChangeType("tickets") }} label="Tickets" icon="pi pi-ticket" />
 
         </div>
     </div>

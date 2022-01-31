@@ -1,8 +1,10 @@
 .tickets {
     height: 100%;
     width: 100%;
-    padding: 3rem 5%;
-  }
-  
+}
+
+.tick-pad {
+  padding: 3rem 5%;
+}
   /*# sourceMappingURL=Tickets.css.map */
   
