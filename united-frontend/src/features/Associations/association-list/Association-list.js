@@ -135,7 +135,7 @@ const AssociationList = ({ Filters }) => {
                         <div className="product-name">{data.name}</div>
                         <div className="product-description">{data.description}</div>
                         <div className="product-date"><i className="pi pi-calendar product-icon"></i><span>{data.created_at}</span></div>
-                        <div className="product-date"><i className="pi pi-building product-icon"></i><span>{data.city}</span></div>
+                        { data.city ? <div className="product-date"><i className="pi pi-building product-icon"></i><span>{data.city}</span></div> : <></> }
                         <i className="pi pi-tag product-icon"></i><span className="product-type">{data.type}</span>
                     </div>
                     <div className="product-list-action">
@@ -176,7 +176,7 @@ const AssociationList = ({ Filters }) => {
                         <div className="product-description">{data.description}</div>
                         <div className="p-grid">
                             <div className="product-date p-col-6"><i className="pi pi-calendar product-icon"></i><span>{data.created_at}</span></div>
-                            <div className="product-date p-col-6"><i className="pi pi-building product-icon"></i><span>{data.city}</span></div>
+                            { data.city ? <div className="product-date p-col-6"><i className="pi pi-building product-icon"></i><span>{data.city}</span></div> : <></> }
                         </div>
                     </div>
                 </div>
