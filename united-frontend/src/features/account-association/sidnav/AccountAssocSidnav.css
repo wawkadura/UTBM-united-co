@@ -1,0 +1,55 @@
+.accountassociation-sidenav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 95%;
+  }
+  .accountassociation-sidenav .sidenav-header {
+    background-color: var(--indigo-50);
+    border-radius: 1rem;
+    display: flex;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+  }
+  .accountassociation-sidenav .sidenav-header img {
+    height: 64px;
+    width: 64px;
+    margin-right: 1rem;
+  }
+  .accountassociation-sidenav .sidenav-header div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .accountassociation-sidenav .sidenav-header div p {
+    font-size: 1rem;
+    color: var(--indigo-400);
+  }
+  .accountassociation-sidenav .sidenav-contents {
+    background-color: var(--indigo-50);
+    height: 100%;
+    padding: 1rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+  }
+  .accountassociation-sidenav .sidenav-contents button {
+    background-color: var(--indigo-50);
+    color: var(--indigo-900);
+    border: none;
+    text-align: start;
+  }
+  .accountassociation-sidenav .sidenav-contents button .p-button-icon {
+    margin-right: 2rem;
+  }
+  .accountassociation-sidenav .sidenav-contents button:hover {
+    background-color: var(--indigo-100);
+    color: var(--indigo-900);
+  }
+  .accountassociation-sidenav .sidenav-contents .p-divider {
+    border-color: var(--indigo-900);
+  }
+  
+  /*# sourceMappingURL=adminSidenav.css.map */

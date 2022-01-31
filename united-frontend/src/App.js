@@ -6,6 +6,7 @@ import 'primeflex/primeflex.css';
 import Navbar from "./shared/navigation/navbar/Navbar";
 import Footer from "./shared/navigation/footer/Footer";
 import Home from "./features/home/Home";
+import AccountAssociation from "./features/account-association/AccountAssociation";
 import Subscription from "./features/subscription/Subscription"
 import SignUp from "./features/sign-up/SignUp";
 import Associations from './features/Associations/Associations';
@@ -16,7 +17,6 @@ import Faq from './features/faq/Faq';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NotFound from "./shared/not-found/NotFound";
-
 import './App.css';
 
 function App() {
@@ -35,6 +35,7 @@ function App() {
                         <Route exact path="/home/signIn/forgotPass" element={<ForgotPass/>}/>
                         <Route exact path="/ticket" element={<Ticket/>}/>
                         <Route exact path="/associations" element={<Associations />} />
+                        <Route path="/accountassociation" element={<AccountAssociation/>}/>
                         <Route exact path="/FAQ" element={<Faq />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

@@ -5,7 +5,7 @@ export class association{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("varchar", { length: 20 })
+  @Column("varchar", { length: 50 })
   name;
 
   @Column("varchar", { length: 10, nullable: true })
@@ -37,6 +37,9 @@ export class association{
 
   @Column({default:true})
   state: boolean;
+
+  @Column("mediumblob")
+  logo;
 
   @Column({ unique: true, nullable: true })
   user_id: number;

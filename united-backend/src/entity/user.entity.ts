@@ -11,7 +11,7 @@ export class users{
   @Column("varchar", { length: 20 })
   lastName;
 
-  @Column("varchar", { length: 320 })
+  @Column("varchar", { length: 320 ,nullable:false, unique:true})
   email;
 
   @Column("varchar", { length: 100 })

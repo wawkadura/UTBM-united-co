@@ -1,11 +1,12 @@
-import { Controller, Body, Post,HttpStatus ,Get} from '@nestjs/common';
+import { Controller, Body, Post,HttpStatus ,Get, UseGuards} from '@nestjs/common';
+import { JwtAuthGuard } from '../sign-in/jwt-auth.guard';
 import { NewslettersDTO } from './dto/Newsletters.dto';
 import { NewslettersService } from './newsletters.service';
 
 @Controller('newsletters') //route name 
 export class NewslettersController {
     constructor(private readonly newslettersService: NewslettersService){}
-
+    @UseGuards(JwtAuthGuard)
     @Post()
     async createUsers(@Body() data: NewslettersDTO) {
       const em =  await this.newslettersService.read(data.email); // check if the email value don't exit

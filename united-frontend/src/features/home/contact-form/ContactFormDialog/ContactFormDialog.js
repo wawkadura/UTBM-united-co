@@ -7,10 +7,11 @@ import {InputText} from "primereact/inputtext";
 import {InputTextarea} from "primereact/inputtextarea";
 import { useForm } from "react-hook-form";
 import { Toast } from 'primereact/toast';
+import { ContactSentEmailApi } from '../api/sendEmail';
 
 function ContactFormDialog({displayBasic, setDisplayBasic,headerDialog}) {
   
-  const {handleSubmit, register, formState: { errors } } = useForm();
+  const {handleSubmit, reset,register, formState: { errors } } = useForm();
   //error message display when a text field require spécifcation
   const ErrorMessage = ({message})=>(<h5 className='errors-text-color'>{message}</h5>) 
   //close the dialog
@@ -22,12 +23,15 @@ function ContactFormDialog({displayBasic, setDisplayBasic,headerDialog}) {
   const showSuccess = () => {
     toast.current.show({severity:'success', summary: 'Message envoyé', detail:'Votre message à été envoyé avec succès', life: 3000});
   }
-  //action made when the form is submited 
-  const onSubmit = (data) => {
-    console.log({data});
+  //action made when the form is submited ( i send a email using emailjs api)
+  const onSubmit = async(data) => {
     if (data) {
-      onHide();
-      showSuccess();
+      const send=await ContactSentEmailApi.sendEmail(data)
+      if (send){
+        onHide();
+        showSuccess();
+        reset()
+      }
     }
   }
   const closeIcon = (
@@ -48,11 +52,11 @@ function ContactFormDialog({displayBasic, setDisplayBasic,headerDialog}) {
         <div className="p-fluid p-formgrid p-grid ">
             <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="firstname">Prenom</label>
-                <InputText id="firstname" type="text" />
+                <InputText id="firstname" type="text" {...register("firstname",{required:false})}/>
             </div>
             <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="lastname">Nom</label>
-                <InputText id="lastname" type="text" />
+                <InputText id="lastname" type="text" {...register("lastname",{required:false})}/>
             </div>
             <div className="p-field p-col-12">
                 <label htmlFor="Email">Adresse mail</label>
@@ -61,7 +65,7 @@ function ContactFormDialog({displayBasic, setDisplayBasic,headerDialog}) {
             </div>
             <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="subject">Sujet</label>
-                <InputText id="subject" type="text" />
+                <InputText id="subject" type="text" {...register("subject",{required:false})}/>
             </div>
             <div className="p-field p-col-12">
                 <label htmlFor="message">Votre message</label>
