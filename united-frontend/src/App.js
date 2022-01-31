@@ -34,7 +34,7 @@ function App() {
                         <Route exact path="/sub" element={<Subscription/>}/>
                         <Route exact path="/home/signIn" element={<SignIn/>}/>
                         <Route exact path="/home/signIn/forgotPass" element={<ForgotPass/>}/>
-                        <Route exact path="/ticket" element={<Ticket/>}/>
+                        <Route exact path="/ticket" element={<Ticket adminView={false}/>}/>
                         <Route exact path="/associations" element={<Associations />} />
                         <Route path="/accountassociation" element={<AccountAssociation/>}/>
                         <Route exact path="/FAQ" element={<Faq />} />

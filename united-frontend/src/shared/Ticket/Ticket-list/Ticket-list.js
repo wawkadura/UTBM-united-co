@@ -7,7 +7,7 @@ import TicketForm from "../ticket-form/Ticket-form";
 import './Ticket-list.css';
 import { Dropdown } from 'primereact/dropdown';
 
-const TicketList = ({setActiveTicket}) => {
+const TicketList = ({setActiveTicket, adminView}) => {
     const [tickets, setTickets] = useState(null);
     const [filteredTickets, setFilteredTickets] = useState(null);
 
@@ -21,13 +21,11 @@ const TicketList = ({setActiveTicket}) => {
     ];
     const ticketService = new TicketService();
     const userId = sessionStorage.getItem('userId');
-    const role = sessionStorage.getItem('role');
     
 
     useEffect(() => {
         // if role is admin, fetch all tickets
-        const query = role !== 'ADMIN' ? ticketService.getAllTickets() : ticketService.getTickets(userId);
-        
+        const query = adminView ? ticketService.getAllTickets() : ticketService.getTickets(userId);
         query.then(data => {
             setTickets(data); 
         });
@@ -61,7 +59,7 @@ const TicketList = ({setActiveTicket}) => {
                         placeholder="Statut du ticket"
                         onChange={(e) => setTicketState(e.value)}/>
                 </div>
-                { role === 'ADMIN' ? <></> : <TicketForm tickets={tickets} setTickets={setTickets}/> }
+                { adminView ? <></> : <TicketForm tickets={tickets} setTickets={setTickets}/> }
             </div>
         )
     }

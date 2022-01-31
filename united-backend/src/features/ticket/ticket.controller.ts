@@ -20,9 +20,20 @@ export class TicketController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get(':userId')
+    @Get('/userId=:userId')
     async getTickets(@Param('userId') userId: number) {
       const data =  await this.TicketService.getTickets(userId);
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'Tickets fetched successfully',
+        data
+      };
+    }
+    
+    @UseGuards(JwtAuthGuard)
+    @Get()
+    async getAllTickets() {
+      const data =  await this.TicketService.getAllTickets();
       return {
         statusCode: HttpStatus.OK,
         message: 'Tickets fetched successfully',

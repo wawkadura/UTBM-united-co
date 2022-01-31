@@ -42,8 +42,7 @@ const TicketInfo = ({activeTicket, setActiveTicket}) => {
 
     const formatName = (response) => capitalize(response.firstName) + ' ' + capitalize(response.lastName);
 
-    const header = (response) => <div className="p-grid"> {    console.log(response)
-    }
+    const header = (response) => <div className="p-grid">
         <span className="p-col-8"><b>{response.firstName && formatName(response)}</b></span>
         <div className="p-col-4" style={{textAlign:'right'}}>{ formatDate(response.created_at) }</div>
     </div>
@@ -62,8 +61,8 @@ const TicketInfo = ({activeTicket, setActiveTicket}) => {
             toast.current.show({severity: 'success', detail: 'Votre commentaire a été ajouté'});
             getResponses();
             setMessage('');
+            setActiveTicket({...activeTicket, ...(resolvedButton && { resolved_date: true })});
             setresolvedButton(false);
-            setActiveTicket({...activeTicket, resolved_date: true});
         });
     };
 

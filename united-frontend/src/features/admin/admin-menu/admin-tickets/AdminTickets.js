@@ -10,7 +10,7 @@ function AdminTickets({toast}) {
         <div className='communcations-contener'>
             <Toast ref={toast} />
             <Card>            
-                <Ticket/>
+                <Ticket adminView={true}/>
             </Card>
 
         </div>
