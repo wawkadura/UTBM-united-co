@@ -43,13 +43,16 @@ export class UserService {
           .select('sub.id, asso.acronym, ser.title, sub.price, sub.state, ser.price, sub.date')
           .innerJoin(service, 'ser', 'sub.service_id = ser.id ')
           .innerJoin(association, 'asso', 'ser.association_id = asso.id')
-          .where("sub.user_id = :id", { id: userId});
+          .where("sub.user_id = :id and sub.state = 1", { id: userId});
         return await query.getRawMany();
     }
 
     async removeSubscription(id: number) {
-        await this.subscriptionRepository.delete({ id });
-        return { deleted: true };
+        const subscription = await this.subscriptionRepository.findOne({where: {id: id}});
+        subscription.state = false;
+
+        await this.subscriptionRepository.update({ id }, subscription);
+        return await this.subscriptionRepository.findOne({ id });
     }
 
     async getInvoices(userId: number) {
