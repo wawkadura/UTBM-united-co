@@ -31,7 +31,7 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
                 </p>
             </div>
             {subInfo.type === "sub"? //if it's a sub (price determinate)
-                <div className="p-d-flex p-flex-column p-ai-center">
+                <div className="sub-info p-d-flex p-flex-column p-ai-center">
                     <p className="p-d-flex perso-color-gray p-jc-center p-ai-center" style={{height: 2+'rem', width: 25+'%'}}>
                         Montant mensuel : {subInfo.price}€
                     </p>
@@ -57,7 +57,7 @@ function SubInfo({setActiveIndex, subInfo, setSubInfo}){
             
             : //else, it's a donation (feel free to the amount)
             
-                <div className="p-d-flex p-flex-column p-ai-center">
+                <div className="sub-info p-d-flex p-flex-column p-ai-center">
                     <p className="p-d-flex perso-color-black-blue text-white border-round p-ai-center p-mt-3 p-pl-3" style={{width: 58.3333+'%', height: 2+'rem'}}>
                         Donation libre
                     </p>
