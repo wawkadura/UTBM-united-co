@@ -1,0 +1,14 @@
+.personal-info p{
+    font-size: large;
+    color: white;
+    border-radius: var(--border-radius);
+}
+
+.perso-color-gray{
+    background-color:#a0a0a6;
+}
+
+.perso-color-blue{
+    background-color: #282960;
+    border-color: #282960;
+}

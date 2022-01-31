@@ -1,0 +1,11 @@
+.admin {
+    background-color: hsl(240, 25%, 75%);
+  }
+  .admin .admin-container {
+    min-height: 53.381rem;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    font-family: "Nunito", sans-serif;
+    background-color:hsl(240, 29%, 42%);
+  }

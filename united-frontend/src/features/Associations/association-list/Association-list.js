@@ -11,6 +11,7 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Divider } from 'primereact/divider';
+import { useNavigate } from "react-router-dom";
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Link } from "react-router-dom";
 
@@ -18,6 +19,8 @@ import { AssociationService } from '../AssociationService';
 import './Association-list.css';
 
 const AssociationList = ({ Filters }) => {
+    const navigate = useNavigate();
+
     const { 
         typeFilter: {type, setType}, 
         favorites: {onlyFavorites, setOnlyFavorites}, 
@@ -76,14 +79,24 @@ const AssociationList = ({ Filters }) => {
 
     const getAssociations = () => {
         setIsLoading(true);
-        associationService.getAssociations(userId).then(data => {
-            data = data.map((association) => { 
-                return { ...association, created_at: getYearFromString(association.created_at)}
-            });
+        associationService.getAssociations(userId).then(async data => {
+            data = await Promise.all(data.map( async (association) => { 
+                return { 
+                    ...association, 
+                    logo: await fetchLogo(association.logo),
+                    created_at: getYearFromString(association.created_at)
+                }
+            }));
             setData(data); 
             setFilteredData(data);
             setIsLoading(false);
         });
+    }
+
+     //convert the binany data to string
+    async function fetchLogo(logo){
+        if(logo)
+           return await btoa(String.fromCharCode(...new Uint8Array(logo.data)));
     }
 
     // Set association favorites
@@ -113,7 +126,7 @@ const AssociationList = ({ Filters }) => {
         return (
             <div className="p-col-12">
                 <div className="product-list-item" onClick={() => onItemClick(data)}>
-                    <img src={`images/product/${data.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
                     <div className="product-list-detail">
                         <div className="product-name">{data.name}</div>
                         <div className="product-description">{data.description}</div>
@@ -154,7 +167,7 @@ const AssociationList = ({ Filters }) => {
                         </div>
                     </div>
                     <div className="product-grid-item-content">
-                    <img src={`images/product/${data.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
                         <div className="product-name">{data.name}</div>
                         <div className="product-description">{data.description}</div>
                         <div className="p-grid">
@@ -194,11 +207,19 @@ const AssociationList = ({ Filters }) => {
         );
     }
 
+    function handleClick(subPrice, serviceId, subType){
+        sessionStorage.setItem('subPrice', subPrice);
+        sessionStorage.setItem('serviceId', serviceId);
+        sessionStorage.setItem('subType', subType);
+        
+        navigate('/sub');
+    }
+
     // Association details
     const renderDialog = () => {
         return (
             <div className="dataview-modal-body">
-                <img src={`images/product/${data.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                <img src={`data:image/png;base64,${modalData.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
 
                 <div className="dataview-modal-items p-col-4">
                     <h2> 
@@ -241,7 +262,7 @@ const AssociationList = ({ Filters }) => {
                                         <div>{service.description}</div>
                                         <div className="dataview-modal-button">
                                             { userId ? 
-                                                <Button label="Souscrire" />
+                                                <Button label="Souscrire" onClick={() => (handleClick(service.price, service.id, "sub"))}/>
                                                 :<Link style={{textDecoration:'none'}} to="/home/signIn"><Button label="Se connecter"/></Link>
                                             }
                                         </div>
@@ -257,7 +278,7 @@ const AssociationList = ({ Filters }) => {
                             <div>Destinés à ceux qui veulent choisir leur implication. <br></br><br></br> Vous bénéficierez des avantages correspondants à chaque palier</div>
                             <div className="dataview-modal-button">
                                 { userId ? 
-                                    <Button label="Souscrire" />
+                                    <Button label="Souscrire" onClick={() => (handleClick(0, modalData.id, "don"))}/>
                                     :<Link style={{textDecoration:'none'}} to="/home/signIn"><Button label="Se connecter"/></Link>
                                 }
                             </div>

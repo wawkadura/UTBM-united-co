@@ -21,7 +21,7 @@ export class service{
   @Column("datetime", { nullable: true, default: () => "CURRENT_TIMESTAMP" })
   created_at;
 
-  @ManyToOne(() => association, association => association.id)
+  @ManyToOne(() => association, association => association.id,{onDelete: 'CASCADE' })
   association_id:number;
 
 }

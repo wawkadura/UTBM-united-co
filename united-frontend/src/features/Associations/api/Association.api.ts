@@ -3,10 +3,12 @@ export class AssociationApi {
     
     public static async getAssociations(userId: number) {
         try {
+            const token = sessionStorage.getItem('token');
             const resp = await fetch(`http://localhost:4200/association/userId=${userId}`,{
             method : "GET",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
         })
         return await resp.json().then(d => d.data);
@@ -18,10 +20,12 @@ export class AssociationApi {
 
     public static async getTypes() {
         try {
+            const token = sessionStorage.getItem('token');
             const resp = await fetch("http://localhost:4200/association/types",{
             method : "GET",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
         })
         // formatting for dropdown
@@ -38,10 +42,12 @@ export class AssociationApi {
 
     public static async getDateFilterMinMaxValues() {
         try {
+            const token = sessionStorage.getItem('token');
             const resp = await fetch("http://localhost:4200/association/date-filter-values", {
             method : "GET",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
         })
         return await resp.json().then(d => d.data);
@@ -52,10 +58,12 @@ export class AssociationApi {
 
     public static async getServicesById(associationId: number) {
         try { 
-                const resp = await fetch(`http://localhost:4200/association/services/${associationId}`,{
+            const token = sessionStorage.getItem('token');
+            const resp = await fetch(`http://localhost:4200/association/services/${associationId}`,{
                 method : "GET",
                 headers : {
-                    'Content-Type':'application/json'
+                    'Content-Type':'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
             })
             return await resp.json().then(d => d.data);
@@ -70,10 +78,12 @@ export class AssociationApi {
     }
 
     public static async setFavorites(user_id: number, association_id: number, isFavorite: boolean) {
-        return await fetch("http://localhost:4200/association/favorite",{
+        const token = sessionStorage.getItem('token');
+        const rep = await fetch("http://localhost:4200/association/favorite",{
             method : "POST",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ 
                 user_id: user_id,
@@ -81,6 +91,7 @@ export class AssociationApi {
                 isFavorite: isFavorite 
             })
         })
+        return rep;
     }
     
 }
@@ -88,10 +99,12 @@ export class AssociationApi {
 export class AccountAssociationApi{
 
     public static async createService(value:any){
+        const token = sessionStorage.getItem('token');
         const resp= await fetch("http://localhost:4200/account-association",{
             method : "POST",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 title: value.title,
@@ -105,10 +118,12 @@ export class AccountAssociationApi{
     }
 
     public static async updateService(id:number,value:any){
+        const token = sessionStorage.getItem('token');
         const resp = await fetch(`http://localhost:4200/account-association/${id}`,{
             method : "PUT",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 title: value.title,
@@ -121,10 +136,12 @@ export class AccountAssociationApi{
     }
 
     public static async deleteService(id:number){
+        const token = sessionStorage.getItem('token');
         const resp = await fetch(`http://localhost:4200/account-association/${id}`,{
             method : "DELETE",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
         })
         const data = await resp.json();

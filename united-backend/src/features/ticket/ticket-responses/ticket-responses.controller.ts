@@ -1,4 +1,5 @@
-import { Controller, Body, Post,HttpStatus ,Get, Param} from '@nestjs/common';
+import { Controller, Body, Post,HttpStatus ,Get, Param, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/features/sign-in/jwt-auth.guard';
 import { TicketResponsesDTO } from '../dto/ticket-responses.dto';
 import { TicketResponsesService } from './ticket-responses.service';
 
@@ -6,6 +7,7 @@ import { TicketResponsesService } from './ticket-responses.service';
 export class TicketResponsesController {
     constructor(private readonly TicketResponsesService: TicketResponsesService){}
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async addTicketResponse(@Body() body: TicketResponsesDTO) {
       const data = await this.TicketResponsesService.addTicketResponse(body); 
@@ -17,6 +19,7 @@ export class TicketResponsesController {
       
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':ticketId')
     async getTicketResponses(@Param('ticketId') ticketId: number) {
       const data =  await this.TicketResponsesService.getTicketResponses(ticketId);
