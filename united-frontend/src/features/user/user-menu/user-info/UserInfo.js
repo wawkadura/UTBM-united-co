@@ -20,7 +20,13 @@ function UserInfo({user, userId, setUser, stringUtil}) {
         lastname: user.lastName,
         email: user.email
     });
+
     const [emailValid, setEmailValid] = useState(true);
+    const [firstnameValid, setFirstnameValid] = useState(true);
+    const [lastnameValid, setLastnameValid] = useState(true);
+
+
+
     const [loading, setLoading] = useState(false);
     const userService = new UserService();
 
@@ -43,20 +49,29 @@ function UserInfo({user, userId, setUser, stringUtil}) {
         let value  = event.target.value;
 
         if(name === "email") setEmailValid(validate(value));
-        if(name === "firstname") form.firstname = value;
-        if(name === "lastname") form.lastname = value;
-        if(name === "email") form.email = value;
+        if(name === "firstname") {
+            setFirstnameValid(value !== "");
+            form.firstname = value;
+        }
+        if(name === "lastname") {
+            setLastnameValid(value !== "");
+            form.lastname = value;
+        }
+        if(name === "email") {
+            form.email = value;
+        }
 
-        setForm(form);
+        console.log('form');
+        console.log(form);
     }
 
     const handleSubmit = (event) => {
         setLoading(true);
         event.preventDefault();
 
-        user.firstName = form.firstname;
-        user.lastName = form.lastname;
-        user.email = form.email;
+        user.firstName = form.firstname !== "" ? form.firstname : user.firstName;
+        user.lastName = form.lastname !== "" ? form.lastname : user.lastName;
+        user.email = form.email !== "" ? form.email : user.email;
 
         userService.modifyUser(user).then(() => {
             userService.getUser(userId).then(data => {
@@ -88,7 +103,7 @@ function UserInfo({user, userId, setUser, stringUtil}) {
             </Panel>
 
 
-            <Dialog header="Informations personnelles" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
+            <Dialog className="user-info-dialog" header="Informations personnelles" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
                 <Divider/>
                 <form onSubmit={handleSubmit}>
                     <div className="p-fluid p-formgrid p-grid">
@@ -96,15 +111,17 @@ function UserInfo({user, userId, setUser, stringUtil}) {
                             <label htmlFor="firstname1">Prénom</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText name="firstname" type="text" defaultValue={user.firstName} keyfilter="alpha" onChange={handleChange}/>
+                            <InputText className={!firstnameValid ? "p-invalid block": ""} name="firstname" type="text" defaultValue={user.firstName} keyfilter="alpha" onChange={handleChange}/>
                         </span>
+                            {!firstnameValid ? <small  id="username2-help" className="p-error block">Le prénom doit être renseigné.</small> : null}
                         </div>
                         <div className="p-field p-col">
                             <label htmlFor="lastname1">Nom de famille</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-user" />
-                            <InputText name="lastname" type="text" defaultValue={user.lastName} keyfilter="alpha"  onChange={handleChange}/>
+                            <InputText  className={!lastnameValid ? "p-invalid block": ""} name="lastname" type="text" defaultValue={user.lastName} keyfilter="alpha"  onChange={handleChange}/>
                         </span>
+                            {!lastnameValid ? <small  id="username2-help" className="p-error block">Le nom de famille doit être renseigné.</small> : null}
                         </div>
 
                         <div className="p-field p-col-12">
@@ -119,7 +136,7 @@ function UserInfo({user, userId, setUser, stringUtil}) {
                         </div>
                     </div>
                     <div className="form-actions">
-                        <Button type="submit" label="Sauvegarder" icon="pi pi-save" onClick={() => { onHide('displayBasic')}}/>
+                        <Button type="submit" label="Sauvegarder" icon="pi pi-save" onClick={() => { onHide('displayBasic')}} disabled={!firstnameValid || !lastnameValid || !emailValid}/>
                     </div>
                 </form>
             </Dialog>
@@ -128,67 +145,3 @@ function UserInfo({user, userId, setUser, stringUtil}) {
 }
 
 export default UserInfo
-
-
-/*
-<Dialog header="Informations personnelles" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
-<Divider/>
-<form onSubmit={handleSubmit}>
-    <div className="p-fluid p-formgrid p-grid">
-    <div className="p-field p-col">
-    <label htmlFor="firstname1">Prénom</label>
-<span className="p-input-icon-left">
-                            <i className="pi pi-user" />
-                            <InputText name="firstname" type="text" defaultValue={user.firstname} onChange={handleChange}/>
-                        </span>
-</div>
-<div className="p-field p-col">
-    <label htmlFor="lastname1">Nom de famille</label>
-    <span className="p-input-icon-left">
-                            <i className="pi pi-user" />
-                            <InputText name="lastname" type="text" defaultValue={user.lastname}  onChange={handleChange}/>
-                        </span>
-</div>
-
-<div className="p-field p-col-12">
-    <div className="p-field ">
-        <label htmlFor="icon">Date de naissance</label>
-        <Calendar name="birthdate" showIcon value={user.birthdate} dateFormat="dd/mm/yy" onChange={handleChange}/>
-    </div>
-    <div className="p-field p-col">
-        <label htmlFor="firstname1">Adresse email</label>
-        <span className="p-input-icon-left">
-                            <i className="pi pi-user" />
-                            <InputText name="email" type="text" defaultValue={user.email} onChange={handleChange}/>
-                        </span>
-    </div>
-</div>
-
-<div className="p-field p-col-12">
-    <div className="p-field ">
-        <label htmlFor="icon">Genre</label>
-        <Dropdown name="genre" defaultValue={user.genre} value={form.genre} options={genres} placeholder="Sélectionner un genre" onChange={handleChange}/>
-    </div>
-</div>
-
-<div className="p-field p-col">
-    <label htmlFor="firstname1">Adresse email</label>
-    <span className="p-input-icon-left">
-                            <i className="pi pi-user" />
-                            <InputText name="email" type="text" defaultValue={user.email} onChange={handleChange}/>
-                        </span>
-</div>
-<div className="p-field p-col">
-    <label htmlFor="lastname1">Numéro de téléphone</label>
-    <span className="p-input-icon-left">
-                            <i className="pi pi-user" />
-                            <InputText name="phone" type="text" defaultValue={user.phone} onChange={handleChange}/>
-                        </span>
-</div>
-</div>
-<div className="form-actions">
-    <Button type="submit" label="Sauvegarder" icon="pi pi-save" onClick={() => { onHide('displayBasic')}}/>
-</div>
-</form>
-</Dialog>
-*/

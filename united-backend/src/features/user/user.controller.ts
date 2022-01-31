@@ -12,11 +12,11 @@ export class UserController {
     @Get('user=:userId')
     async getUser(@Param('userId') userId: number) {
         const data = await this.userService.getUser(userId);
-        const {password, ...user} = data;
+        delete data.password;
             return {
                 statusCode: HttpStatus.OK,
                 message: 'User fetched successfully',
-                user
+                data
             };
     }
 

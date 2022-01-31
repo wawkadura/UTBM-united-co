@@ -1,5 +1,3 @@
-import user from "../User";
-
 export class UserApi {
 
     public static async getUser(userId: number) {
@@ -81,14 +79,15 @@ export class UserApi {
     }
 
     public static async deleteSubscription(id: number){
+        const token = sessionStorage.getItem('token');
         const resp = await fetch(`http://localhost:4200/users/subscriptions/${id}/delete`,{
             method : "DELETE",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
             },
         })
-        const data = await resp.json();
-        return data
+        return await resp.json()
     }
 
     public static async getInvoices(userId: number) {

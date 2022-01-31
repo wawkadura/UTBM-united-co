@@ -14,11 +14,10 @@ import {UserService} from "./UserService";
 import stringUtil from "../../utils/StringUtil";
 
 function User() {
-    const location = useLocation();
     const userService = new UserService();
 
     const [type, setType] = useState("info");
-    const [userId, setUserId] = useState(location.state.id);
+    const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -30,7 +29,7 @@ function User() {
         userService.getUser(userId).then(data => {
             setUser(data);
         });
-    }, []);
+    }, [userId, userService]);
 
     const component = () => {
         switch (type) {
