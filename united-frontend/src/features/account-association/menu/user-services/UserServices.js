@@ -40,8 +40,6 @@ function UserServices(){
     async function fetchAll(){
         //sessionStorage.getItem('userId'); correspond to user id connected
         const resp = await AccountAssociationApi.getServices(sessionStorage.getItem('userId'));
-        console.log(idAssociation)
-        console.log(resp)
         setServices(resp)
     };
 
