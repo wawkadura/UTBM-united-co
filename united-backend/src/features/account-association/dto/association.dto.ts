@@ -22,5 +22,6 @@ export interface InfosDTO{
     telephone:any;
     iban: any;
     created_at:any;
+    logo:any;
 }
 
