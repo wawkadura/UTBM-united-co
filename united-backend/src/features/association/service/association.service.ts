@@ -46,7 +46,8 @@ export class AssociationService {
             .select('distinct serv.*')
             .innerJoin(service, 'serv', 'serv.association_id = asso.id')
             .where("serv.association_id = :id", { id: associationId })
-            .andWhere('serv.state = true');
+            .andWhere('serv.state = true')
+            .orderBy('price');
         return await query.getRawMany();
     }
     

@@ -1,3 +1,7 @@
 .summary-info p{
     color: white;
 }
+
+.print-info{
+    border-radius: var(--border-radius);
+}

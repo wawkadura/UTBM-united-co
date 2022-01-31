@@ -36,13 +36,28 @@ function Subscription(){
                 .catch((error)=>console.log(error));
     }, []);
     
-    //TODO : get to initialise
-    const user =
+    const [user, setUser] = useState(
     {
-        firstname : "Matthis",
-        name : "PINON",
-        email : "matthis.pinon@utbm.fr"
-    };
+        firstname :"",
+        name : "",
+        email : ""
+    });
+
+    useEffect(()=>{
+        const userId = sessionStorage.getItem("userId");
+        axios.get(`http://localhost:4200/users/user=${userId}`)
+        .then(
+            resp=>{
+                console.log(resp)
+                setUser({
+                    firstname: resp.data.data.firstName,
+                    name: resp.data.data.lastName,
+                    email: resp.data.data.email
+                }) 
+            }
+        )
+        .catch(err=>console.log(err))
+    }, [])
     
     const savedSubInfo = sessionStorage.getItem('subInfo');
     const [subInfo, setSubInfo] = useState( savedSubInfo ? JSON.parse(savedSubInfo) : {
