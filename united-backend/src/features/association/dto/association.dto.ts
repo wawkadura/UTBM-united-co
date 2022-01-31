@@ -12,6 +12,7 @@ export interface associationDTO{
     state: boolean,
     created_at: any,
     users_id: number,
-    iban: any
+    iban: any,
+    logo: any
 }
 
