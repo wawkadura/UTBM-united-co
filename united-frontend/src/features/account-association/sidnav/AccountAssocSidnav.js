@@ -16,8 +16,13 @@ function AccountAssocSidnav({type, setType, infos}) {
     //convert the binany data to string
     async function fetchLogo(){
         if(infos.value){
-            const base64String =  await btoa(String.fromCharCode(...new Uint8Array(infos.value.logo.data)));
-            convSet(base64String)
+            if(infos.value.logo){
+            const B64string = await btoa(String.fromCharCode(...new Uint8Array(infos.value.logo.data)));
+            convSet(B64string)
+            }
+        }
+        else{
+            convSet("")
         }
     }
     //on change display différent menu
