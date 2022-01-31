@@ -21,7 +21,7 @@ function UserServices(){
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
     const [displayBasic2, setDisplayBasic2] = useState(false);
-    var idAssociation = ''
+    const [idAssociation,  setidAssociation]= useState();
     const dialogFuncMap2 = {'displayBasic2': setDisplayBasic2};
     const [id, setId]= useState();
     const toast = useRef(null);
@@ -42,11 +42,11 @@ function UserServices(){
         const resp = await AccountAssociationApi.getServices(sessionStorage.getItem('userId'));
         setServices(resp)
     };
-
+    //methode to get the id association unsing user_connected
     async function fetchAssociation() {
-        const resp =await AccountAssociationApi.getInfos(userId)
+        const resp =await AccountAssociationApi.getIdAssociation(userId)
         if(resp != null) {
-            idAssociation = resp.value.id
+            setidAssociation(resp.data[0].id) 
         }
     }
     
@@ -101,7 +101,7 @@ function UserServices(){
     //delete a service
     const deleteService = async(data) => { 
         if(data){
-            const resp = await AccountAssociationApi.deleteService(data.id); //sent data to the api in oder to delete service
+            const resp = await AccountAssociationApi.deleteService(data.id,data); //sent data to the api in oder to delete service
             if (resp){
                 fetchAll();
                 showToast(resp);
