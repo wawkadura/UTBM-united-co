@@ -18,6 +18,9 @@ export class payment{
   @ManyToOne(() => users, users => users.id)
   user_id: number; 
 
+  @Column({default:true})
+  state: boolean;
+
   @Column("datetime", { default: () => "CURRENT_TIMESTAMP" })
   created_at;
 }
