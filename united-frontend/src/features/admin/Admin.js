@@ -15,18 +15,20 @@ function Admin() {
     const [refresh, setR] = useState(true)
     const [dataPending, setDataPending] = useState(true);
     const [type, setType] = useState("overview");
+    const toast = useRef(null);
+    const adminService = new AdminService()
     const [data, setData] = useState({
         id: adminID,
         email: "walid.kadura@united.co",
         firstName: "El Walid",
         lastName: "Kadura"
     })
-    const adminService = new AdminService()
+
+    // function that refresh the Admin component
     function Refresh() {
         setR(true)
         setR(false)
     }
-    const toast = useRef(null);
 
     useEffect(() => {
         adminService.getAdminInfo(adminID).then((response) => {
@@ -43,6 +45,8 @@ function Admin() {
             setDataPending(false)
         });
     }, [refresh, adminID]);
+
+    // switch that displays the seleted tab
     const component = () => {
         switch (type) {
             case "overview": return <AdminOverview Refresh={Refresh} dataPending={dataPending} toast={toast} admin={data} />;
@@ -51,14 +55,13 @@ function Admin() {
             case "statistics": return <AdminStatistics toast={toast} />;
             case "communications": return <AdminCommunications toast={toast} />;
             case "tickets": return <AdminTickets toast={toast} />;
-
             default: return <AdminOverview />;
         }
     }
+
     return <div className="admin">
         <div className="admin-container">
             <Toast ref={toast} />
-
             <div className="admin-sidenav">
                 <AdminSidenav dataPending={dataPending} admin={data} type={type} setType={setType} />
             </div>

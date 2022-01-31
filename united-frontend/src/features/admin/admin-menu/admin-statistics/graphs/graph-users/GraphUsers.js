@@ -1,5 +1,4 @@
 import "./GraphUsers.css";
-import React from 'react';
 import { Chart } from 'primereact/chart';
 import { useState, useEffect, useCallback } from "react";
 import { Dropdown } from 'primereact/dropdown';
@@ -12,6 +11,7 @@ function GraphUsers(users) {
     const [donorsStats, setDonorsStats] = useState([])
     const [years, setYears] = useState([])
 
+    // graphes configurations
     const lineStylesData = {
         labels: labels,
         datasets: [
@@ -33,6 +33,7 @@ function GraphUsers(users) {
         ]
     };
 
+    // graphes configurations
     let basicOptions = {
         maintainAspectRatio: false,
         aspectRatio: .6,
@@ -63,11 +64,13 @@ function GraphUsers(users) {
         }
     };
 
+    // set the selected year value 
     const onYearChange = (e) => {
         setSelectedYear(e.value);
         changeDataYear(e.value)
     }
     
+    // set the data according to the selected year
     const changeDataYear = useCallback((year) => {
         setAssociationsStats([])
         setDonorsStats([])

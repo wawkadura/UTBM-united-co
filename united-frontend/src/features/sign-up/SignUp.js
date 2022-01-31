@@ -1,3 +1,4 @@
+import './SignUp.css';
 import React, { useState, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
@@ -10,14 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { Toast } from 'primereact/toast';
 import { classNames } from 'primereact/utils';
 import { SignUpService } from './SignUpService';
-import './SignUp.css';
 
 function SignUp() {
-    const [showMessage, setShowMessage] = useState(false);
-    const [isPending, setIsPending] = useState(false)
-    const [formData, setFormData] = useState({});
-    const [mailExists, setMailExists] = useState(false);
-
     const defaultValues = {
         firstName: '',
         lastName: '',
@@ -25,10 +20,30 @@ function SignUp() {
         password: '',
         confirmPassword: '',
     }
-    const signUpService = new SignUpService()
     const { control, watch, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
+    const [showMessage, setShowMessage] = useState(false);
+    const [isPending, setIsPending] = useState(false)
+    const [formData, setFormData] = useState({});
+    const [mailExists, setMailExists] = useState(false);
+    const signUpService = new SignUpService()
     const navigate = useNavigate();
     const toast = useRef(null);
+    const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => goToConnexion()} /></div>;
+    const passwordHeader = <h6>Saisir un mot de passe</h6>;
+    const passwordFooter = (
+        <React.Fragment>
+            <Divider />
+            <p className="p-mt-2">Suggestions</p>
+            <ul className="p-pl-2 p-ml-2 p-mt-0" style={{ lineHeight: '1.5' }}>
+                <li>Au moins une lettre minuscule</li>
+                <li>Au moins une lettre majuscule</li>
+                <li>Au moins un numéro</li>
+                <li>Minimum 8 catactéres</li>
+            </ul>
+        </React.Fragment>
+    );
+
+    // send the create donor request with the given data
     const onSubmit = (data) => {
         setIsPending(true)
         setFormData(data);
@@ -47,38 +62,25 @@ function SignUp() {
         })
     };
 
+    // reset the "already exist email" error
     const resetMailExistance = () => {
         setMailExists(false)
     }
 
+    // get the form error message
     const getFormErrorMessage = (name) => {
         return errors[name] && <small className="p-error">{errors[name].message}</small>
     };
 
+    // redirect the new donor to the sign in page 
     const goToConnexion = () => {
         setShowMessage(false)
-        navigate("/home/signIn") // TODO: change with sign-in path
+        navigate("/home/signIn")
     }
-
-    const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => goToConnexion()} /></div>;
-    const passwordHeader = <h6>Saisir un mot de passe</h6>;
-    const passwordFooter = (
-        <React.Fragment>
-            <Divider />
-            <p className="p-mt-2">Suggestions</p>
-            <ul className="p-pl-2 p-ml-2 p-mt-0" style={{ lineHeight: '1.5' }}>
-                <li>Au moins une lettre minuscule</li>
-                <li>Au moins une lettre majuscule</li>
-                <li>Au moins un numéro</li>
-                <li>Minimum 8 catactéres</li>
-            </ul>
-        </React.Fragment>
-    );
 
     return (
         <div className="sign-up-form">
             <Toast ref={toast} />
-
             <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '3rem', color: 'var(--green-500)' }}></i>
@@ -88,7 +90,6 @@ function SignUp() {
                     </p>
                 </div>
             </Dialog>
-
             <div className="p-d-flex p-jc-center">
                 <div className="card">
                     <h4 className="p-text-center">Inscription</h4>
@@ -153,7 +154,6 @@ function SignUp() {
                         {!isPending && <Button type="submit" label="Valider" className="p-mt-2" />}
                         {isPending && <Button type="submit" disabled label="Validation..." className="p-mt-2" />}
                         {mailExists && <small className="p-error">l'adresse email renseignée est déjà utilisé</small>}
-
                     </form>
                 </div>
             </div>

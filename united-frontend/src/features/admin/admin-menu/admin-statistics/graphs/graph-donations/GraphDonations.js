@@ -1,5 +1,4 @@
 import "./GraphDonations.css";
-import React from 'react';
 import { Chart } from 'primereact/chart';
 import { useState, useEffect, useCallback } from "react";
 import { Dropdown } from 'primereact/dropdown';
@@ -10,6 +9,8 @@ function GraphDonations(donations) {
     const [donationsStats, setDonationsStats] = useState([])
     const [selectedYear, setSelectedYear] = useState();
     const [years, setYears] = useState([])
+
+    // graphes configurations
     const lineStylesData = {
         labels: labels,
         datasets: [
@@ -23,6 +24,8 @@ function GraphDonations(donations) {
             }
         ]
     };
+
+    // graphes configurations
     let basicOptions = {
         maintainAspectRatio: false,
         aspectRatio: .6,
@@ -53,11 +56,14 @@ function GraphDonations(donations) {
             }
         }
     };
+    
+    // set the selected year value 
     const onYearChange = (e) => {
         setSelectedYear(e.value);
         changeDataYear(e.value)
     }
-    
+
+    // set the data according to the selected year
     const changeDataYear = useCallback((year) => {
         setDonationsStats([])
         Object.keys(data.donations).map((key) => key === year ? setDonationsStats(data.donations[key]) : '');

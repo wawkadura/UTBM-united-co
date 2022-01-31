@@ -1,5 +1,4 @@
 import "./AdminStatistics.css";
-import React from 'react';
 import { Card } from "primereact/card";
 import { TabView, TabPanel } from 'primereact/tabview';
 import GraphUsers from "./graphs/graph-users/GraphUsers";
@@ -18,16 +17,15 @@ function AdminStatistics() {
         associations: {},
         donors: {},
     });
-    
     const [dataBugs, setDataBugs] = useState({
         bugs: {},
     });
-
     const [dataDonations, setDataDonations] = useState({
         donations: {},
     });
 
     useEffect(() => {
+        // get all the statistics
         adminService.getAdminStats().then((response) => {
             if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });

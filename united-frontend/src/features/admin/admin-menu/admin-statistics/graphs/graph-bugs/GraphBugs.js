@@ -1,5 +1,4 @@
 import "./GraphBugs.css";
-import React from 'react';
 import { Chart } from 'primereact/chart';
 import { useState, useEffect, useCallback } from "react";
 import { Dropdown } from 'primereact/dropdown';
@@ -11,6 +10,8 @@ function GraphBugs(bugs) {
     const [bugsStats, setBugsStats] = useState([])
     const [selectedYear, setSelectedYear] = useState();
     const [years, setYears] = useState([])
+
+    // graphes configurations
     const lineStylesData = {
         labels: labels,
         datasets: [
@@ -24,6 +25,8 @@ function GraphBugs(bugs) {
             }
         ]
     };
+
+    // graphes configurations
     let basicOptions = {
         maintainAspectRatio: false,
         aspectRatio: .6,
@@ -53,11 +56,14 @@ function GraphBugs(bugs) {
             }
         }
     };
+
+    // set the selected year value 
     const onYearChange = (e) => {
         setSelectedYear(e.value);
         changeDataYear(e.value)
     }
 
+    // set the data according to the selected year
     const changeDataYear = useCallback((year) => {
         setBugsStats([])
         Object.keys(data.bugs).map((key) => key === year ? setBugsStats(data.bugs[key]) : '');

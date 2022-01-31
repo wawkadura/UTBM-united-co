@@ -1,5 +1,4 @@
 import "./AdminOverview.css";
-import React from 'react';
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Panel } from "primereact/panel";
@@ -13,22 +12,19 @@ import { AdminService } from "../../AdminService";
 import { useState, useEffect } from "react";
 import { ProgressSpinner } from 'primereact/progressspinner';
 
-
-
 function AdminOverview({ Refresh, dataPending, toast, admin }) {
     const { control, formState: { errors }, handleSubmit, reset } = useForm({});
     const [displayDialog, setDisplayDialog] = useState(false);
     const [mailExists, setMailExists] = useState(false);
     const [isPending, setIsPending] = useState(false);
     const [isPendingStats, setIsPendingStats] = useState(true);
-    const [formData, setFormData] = useState({});
-    const adminService = new AdminService()
-    const adminData = admin
     const [stats, setStats] = useState({
         nbDonations: 43795,
         nbDonors: 2736,
         nbAssociations: 35,
     })
+    const adminService = new AdminService()
+    const adminData = admin
 
     useEffect(() => {
         adminService.getAdminOverviewStats().then((response) => {
@@ -41,12 +37,13 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
         });
     }, [toast]);
 
+    // display the admin update info dialo
     const onClick = () => {
         setDisplayDialog(true)
     }
 
+    // send the update admin info request 
     const save = (data) => {
-        setFormData(data);
         setIsPending(true)
         adminService.updateAdminInfo(adminData.id, data).then((response) => {
             if (response.statusCode !== 200 && toast.current !== null) {
@@ -63,6 +60,7 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
         });
     }
 
+    // reset every form and dialog
     const onHide = () => {
         reset()
         setMailExists(false)
@@ -70,6 +68,7 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
         Refresh()
     }
 
+    // add the footer for the dialog
     function dialogFooter() {
         return (
             <div style={{ textAlign: 'center' }}>
@@ -82,6 +81,7 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
         );
     }
 
+    // add the footer for the card
     function cardFooter() {
         return (
             <div className="actions">
@@ -90,17 +90,15 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
         );
     }
 
+    // get the form error message 
     const getFormErrorMessage = (name) => {
         return errors[name] && <small className="p-error">{errors[name].message}</small>
     };
 
     return <div className="admin-contents">
-
         <Card title="Informations générales" style={{ height: '100%' }}>
             <Toast ref={toast} />
-
             <Divider />
-
             <Panel header="Informations personnelles">
                 {dataPending ? <div className="p-d-flex p-jc-evenly"><ProgressSpinner /></div> :
                     <div >
@@ -113,15 +111,12 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
                         <p className='info'><span>Email : </span>{adminData.email}</p>
                     </div>
                 }
-
             </Panel>
             {cardFooter()}
             <br />
             <Panel header="Statistiques générales">
-
                 <div className="p-d-flex p-jc-evenly">
                     {isPendingStats ? <ProgressSpinner /> :
-
                         <div className="p-mr-4">
                             <Card className="stats-overview-nb" title="Totale de dons">
                                 <p>{stats.nbDonations}€</p>
@@ -144,10 +139,8 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
                             </Card>
                         </div>
                     }
-
                 </div>
             </Panel>
-
             <Dialog header="Informations personnelles" position="center" draggable={false} visible={displayDialog} style={{ width: '30vw' }} onHide={() => onHide()}>
                 <Divider />
                 <form onSubmit={handleSubmit(save)} className="p-fluid">
@@ -187,7 +180,6 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
                     {dialogFooter()}
                     <br />
                     {mailExists && <small className="p-error">l'adresse email renseignée est déjà utilisé</small>}
-
                 </form>
             </Dialog>
         </Card>

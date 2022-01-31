@@ -1,5 +1,4 @@
 import "./AdminDonors.css";
-
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
@@ -7,12 +6,9 @@ import { DataTable } from "primereact/datatable";
 import { Toast } from 'primereact/toast';
 import { confirmPopup } from 'primereact/confirmpopup';
 import { ProgressSpinner } from 'primereact/progressspinner';
-
 import { Column } from "primereact/column";
 import React, { useState, useEffect } from 'react';
 import { AdminService } from "../../AdminService"
-
-
 
 var donors = [
     { id: "1", firstName: "El Walid", lastName: "KADURA", email: "walid.kadura@yahoo.com" },
@@ -30,9 +26,9 @@ var donors = [
 ]
 
 function AdminDonors({Refresh, toast}) {
-    var idToDelete = ''
     const adminService = new AdminService();
     const [isLoading, setIsLoading] = useState(true)
+    var idToDelete = ''
 
     useEffect(() => {
         adminService.getDonors().then((response) => {
@@ -45,6 +41,7 @@ function AdminDonors({Refresh, toast}) {
         });
     });
 
+    // display the confirmation pop up for the delete donor
     const confirm = (event, id) => {
         idToDelete = id
         confirmPopup({
@@ -57,6 +54,7 @@ function AdminDonors({Refresh, toast}) {
         });
     };
 
+    // send the donor delete request
     const accept = () => {
         adminService.deleteDonor(idToDelete).then((response) => {
             if (response.statusCode!==200 && toast.current !== null) {
@@ -69,6 +67,7 @@ function AdminDonors({Refresh, toast}) {
         idToDelete = ''
     };
 
+    // add the action buttons for the list 
     function actions(data) {
         return (
             <div className="actions">
@@ -79,7 +78,6 @@ function AdminDonors({Refresh, toast}) {
 
     return <div className="admin-donors">
         <Toast ref={toast} />
-
         <Card title="Gestion des donateurs" subTitle="Vous pouvez retrouvez sur cette page l'ensemble des donateurs de la platforme" style={{ height: '100%' }}>
             <Divider />
             {isLoading ?

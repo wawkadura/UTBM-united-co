@@ -30,16 +30,6 @@ var associations = [
     { id: "9", name: "Société protectrice des animaux", acronym: "SPA", email: "dons@spa.com", website: "www.spa.com", phone: "0612345678", type: "animaux" },
     { id: "10", name: "Société protectrice des animaux", acronym: "SPA", email: "dons@spa.com", website: "www.spa.com", phone: "0612345678", type: "animaux" },
 ]
-function getBase64(file, cb) {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        cb(reader.result)
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
-}
 
 function AdminAssociations({Refresh, toast }) {
     const { control, watch, formState: { errors }, handleSubmit, reset } = useForm({});
@@ -52,8 +42,8 @@ function AdminAssociations({Refresh, toast }) {
     const [updateDisplay, setUpdateDisplay] = useState(false);
     const [selectedAssociation, setSelectedAssociation] = useState(null);
     const [detailsDisplay, setDetailsDisplay] = useState(false);
-    var idToDelete = ''
     const adminService = new AdminService();
+    var idToDelete = ''
 
     useEffect(() => {
         adminService.getAssociations().then((response) => {
@@ -66,6 +56,7 @@ function AdminAssociations({Refresh, toast }) {
         });
     });
 
+    // display the confirmation pop up to delete an association
     const confirm = (event, id) => {
         idToDelete = id
         confirmPopup({
@@ -78,27 +69,18 @@ function AdminAssociations({Refresh, toast }) {
         });
     };
 
+    // display the update association dialog 
     const update = (data) => {
         setSelectedAssociation(data)
         setUpdateDisplay(true)
     }
 
-    const accept = () => {
-        adminService.deleteAssociation(idToDelete).then((response) => {
-            if (response.statusCode!==200 && toast.current !== null) {
-                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
-            } else {
-                toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'L\'association a bien été supprimé', life: 3000 });
-            }
-            Refresh()
-        });
-        idToDelete = ''
-    };
-
+    // display the add association dialog when the add button is clicked
     const onClick = () => {
         setAddDisplay(true)
     }
 
+    // reset all the differents forms and dialogs
     const onHide = () => {
         setAddDisplay(false)
         setDetailsDisplay(false)
@@ -112,11 +94,26 @@ function AdminAssociations({Refresh, toast }) {
         Refresh()
     }
 
+    // lunch the association details dialog when a association is selected
     function onChange(value) {
         setSelectedAssociation(value)
         setDetailsDisplay(true)
     }
 
+    // send the delete association request 
+    const accept = () => {
+        adminService.deleteAssociation(idToDelete).then((response) => {
+            if (response.statusCode!==200 && toast.current !== null) {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
+            } else {
+                toast.current.show({ severity: 'success', summary: 'Confirmation', detail: 'L\'association a bien été supprimé', life: 3000 });
+            }
+            Refresh()
+        });
+        idToDelete = ''
+    };
+
+    // send the update association request 
     const updateAssociation = (data) => {
         if(uploadFile !== null) {
             data.logo = uploadFile
@@ -137,8 +134,8 @@ function AdminAssociations({Refresh, toast }) {
         });
     }
 
+    // send the create association request 
     const createAssociation = (data) => {
-
         setIsPending(true)
         adminService.createAssociation(data).then((response) => {
             if (response.statusCode!==200 && toast.current !== null) {
@@ -155,14 +152,17 @@ function AdminAssociations({Refresh, toast }) {
         });
     }
 
+    // get the form error message for the add association form 
     const getFormErrorMessage = (name) => {
         return errors[name] && <small className="p-error">{errors[name].message}</small>
     };
 
+    // get the form error message for the update form 
     const getFormErrorMessage1 = (name) => {
         return errors1[name] && <small className="p-error">{errors1[name].message}</small>
     };
 
+    // add the footer for the add association dialog
     function dialogFooter() {
         return (
             <div style={{ textAlign: 'center' }}>
@@ -175,6 +175,7 @@ function AdminAssociations({Refresh, toast }) {
         );
     }
 
+    // add the footer for the update dialog
     function updateFooter() {
         return (
             <div style={{ textAlign: 'center' }}>
@@ -187,6 +188,7 @@ function AdminAssociations({Refresh, toast }) {
         );
     }
 
+    // add the add association button
     function addButton() {
         return (
             <div style={{ textAlign: 'right' }} className="add-association">
@@ -195,6 +197,7 @@ function AdminAssociations({Refresh, toast }) {
         );
     }
 
+    // add the actions buttons : update and delete 
     function actions(data) {
         return (
             <div className="actions">
@@ -204,6 +207,31 @@ function AdminAssociations({Refresh, toast }) {
         )
     }
 
+    // set the selected image from the upload
+    const uploadHandler = (f) => {
+        if(f.files.length > 0) {
+            getBase64(f.files[0], setUploadFile)
+        }
+    };
+
+    // remove the selected image from upload
+    const clearUpload= (event) => {
+        event.options.clear()
+        setUploadFile(null)
+    }
+
+    function getBase64(file, cb) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            cb(reader.result)
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    // Display the dialog to create a new association
     function AddAssociationDialog() {
         return <Dialog header="Ajout d'une association" position="center" draggable={false} visible={addDisplay} style={{ width: '40vw' }} onHide={() => onHide()}>
             <Divider />
@@ -291,36 +319,15 @@ function AdminAssociations({Refresh, toast }) {
                             )} />
                         </span>
                     </div>
-                    {/* <div className="p-field p-col-12">
-                        <label htmlFor="description">Logo</label>
-                        <span className="p-input-icon-left">
-                            <Controller name="logo" control={control} render={({ field, fieldState }) => (
-                                <FileUpload name={field.name} mode="basic" url="./upload" maxFileSize={10000000} className={classNames({ 'p-invalid': fieldState.invalid })}  ></FileUpload>
-                            )} />
-
-                        </span>
-                    </div> */}
-
                 </div>
                 <br />
                 {dialogFooter()}
             </form>
             {mailExists && <small className="p-error">l'adresse email renseignée est déjà utilisé</small>}
-
         </Dialog>
     }
 
-    const uploadHandler = (f) => {
-        if(f.files.length > 0) {
-            getBase64(f.files[0], setUploadFile)
-        }
-    };
-
-    const clearUpload= (event) => {
-        event.options.clear()
-        setUploadFile(null)
-    }
-
+    // Display the dialog to update the selected association
     function UpdateAssociationDialog() {
         return <Dialog header="Modifications des Informations" position="center" draggable={false} visible={updateDisplay} style={{ width: '50vw' }} onHide={() => onHide()}>
             <Divider />
@@ -417,22 +424,19 @@ function AdminAssociations({Refresh, toast }) {
                             )} />
                         </span>
                     </div>
-
-
                 </div>
                 <br />
                 {updateFooter()}
             </form>
             {mailExists && <small className="p-error">l'adresse email renseignée est déjà utilisé</small>}
-
         </Dialog>
     }
 
+    // Display the dialog that contains the details of the selected association
     function AssociationDetails() {
         return (
             <Dialog header="Détails" position="center" draggable={false} visible={detailsDisplay} style={{ width: '40vw' }} onHide={() => onHide()}>
                 <Divider />
-
                 <br />
                 <div className="p-d-flex p-jc-evenly">
                     <div className="p-mr-4">
@@ -446,7 +450,6 @@ function AdminAssociations({Refresh, toast }) {
                             <div><b>Site web: </b>{selectedAssociation.website}</div>
                             <Divider />
                             <div style={{ width: '10vw' }}><b>Description: </b>{selectedAssociation.description}</div>
-
                             <br />
                         </div>
                     </div>
@@ -465,10 +468,7 @@ function AdminAssociations({Refresh, toast }) {
                 </div>
             </Dialog>
         )
-
     }
-
-
 
     return <div className="admin-associations">
         <Toast ref={toast} />
