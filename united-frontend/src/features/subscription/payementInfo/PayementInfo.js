@@ -150,7 +150,7 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
                             {getFormErrorMessage('cardNumber')}
                         </span>
                         {/* owner */}
-                        <span className="p-float-label p-col-3">
+                        <span className="payement-info-span p-float-label p-col-3">
                             <Controller name="owner" control={control} rules={{ required: 'Le titulaire de la carte est requis' }} render={({ field, fieldState }) => (
                                 <InputText id={field.name} {...field} className={classNames({ 'p-invalid': fieldState.invalid })} />
                             )} />

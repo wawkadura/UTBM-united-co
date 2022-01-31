@@ -28,8 +28,6 @@ function Navbar() {
 
     if(auth) {
         userService.getUser(auth).then(data => {
-            console.log('navbar');
-            console.log(data);
             setUser(data !== undefined ? `${StringUtil.capitalize(data.firstName)} ${data.lastName.toUpperCase()}` : '');
         });
     }
