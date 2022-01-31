@@ -51,7 +51,7 @@ function Summary ({setActiveIndex, user, selectedPayement, subInfo}){
     }
 
     return(
-        <div>
+        <div className="summary-info">
             <h1 className="p-d-flex p-jc-center p-mx-auto p-mt-4">Résumé</h1>
             <Card title="Informations personnelles" className="p-d-flex p-flex-column p-jc-center p-ai-center p-my-3" style={{'margin-left': 9+'rem', 'margin-right': 9+'rem'}}>
                 <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-mx-auto p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
