@@ -35,8 +35,8 @@ export class AccountAssociatonService {
         .addSelect("sev.id","id")
         .addSelect("ass.id","association_id")
         .from(service, "sev")
-        .innerJoin(association, "ass", "sev.associationIdId = ass.user_id")
-        .where("ass.user_id = :id", {
+        .innerJoin(association, "ass", "sev.associationIdId = ass.id")
+        .where("ass.id = :id", {
             id: id
         })
         //exécute de serie
