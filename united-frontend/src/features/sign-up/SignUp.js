@@ -34,8 +34,8 @@ function SignUp() {
         setFormData(data);
         signUpService.CreateDonor(data).then((response) => {
             setIsPending(false)
-            if (response.statusCode != 200) {
-                if (response.statusCode == 400) {
+            if (response.statusCode !== 200) {
+                if (response.statusCode === 400) {
                     setMailExists(true)
                 }else {
                     toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + ": " + response.message, life: 3000 });

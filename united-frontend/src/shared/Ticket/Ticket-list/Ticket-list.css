@@ -34,3 +34,7 @@
     overflow: hidden;
     white-space: nowrap;
 }
+
+.ticket-dropdown-filter {
+    padding: 0;
+}

@@ -16,14 +16,15 @@ export class TicketService {
         return ticket;
     }
 
-    // get all tickets
+    // get user tickets
     async getTickets(userId: number) {
         return await this.ticketRepository.find({ user_id: userId });
     }
 
-    // get a ticket
-    async getTicketById(id: number) {
-        return await this.ticketRepository.findOne({ where: { id: id } });
+    // get all tickets
+    async getAllTickets() {
+        return await this.ticketRepository.createQueryBuilder('tick')
+        .select('*').orderBy('created_at','DESC').getRawMany();
     }
-
+    
 }

@@ -29,7 +29,7 @@ function AdminStatistics() {
 
     useEffect(() => {
         adminService.getAdminStats().then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
+            if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode +" : "+ response.message, life: 3000 });
             }else{
                 setDataUsers({

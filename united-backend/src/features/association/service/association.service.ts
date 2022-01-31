@@ -14,6 +14,7 @@ export class AssociationService {
     async getAssociations(userId) {
         const query = await this.associationRepository.createQueryBuilder('asso')
             .select('distinct asso.*')
+            .where('asso.state = true')
         if (userId && userId !== 'null')
             query.addSelect('fav.id as favorite')
                 .leftJoin(favorite, 'fav', `asso.id = fav.association_id and fav.user_id = ${userId}`)
@@ -44,7 +45,8 @@ export class AssociationService {
         const query = this.associationRepository.createQueryBuilder('asso')
             .select('distinct serv.*')
             .innerJoin(service, 'serv', 'serv.association_id = asso.id')
-            .where("serv.association_id = :id", { id: associationId });
+            .where("serv.association_id = :id", { id: associationId })
+            .andWhere('serv.state = true');
         return await query.getRawMany();
     }
     
@@ -52,6 +54,7 @@ export class AssociationService {
     async getAssociationTypes() {
         const query = this.associationRepository.createQueryBuilder('asso')
             .select('distinct asso.type')
+            .where('asso.state = true')
         return await query.getRawMany();
     }
 
@@ -60,6 +63,7 @@ export class AssociationService {
         const query = this.associationRepository.createQueryBuilder('asso')
             .select("MIN(DATE_FORMAT(asso.created_at,'%Y'))", "min")
             .addSelect("MAX(DATE_FORMAT(asso.created_at,'%Y'))", "max")
+            .where('asso.state = true')
         return await query.getRawOne();
     }
 }

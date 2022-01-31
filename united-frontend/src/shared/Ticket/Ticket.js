@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import TicketList from "./Ticket-list/Ticket-list";
 import TicketInfo from "./Ticket-info/Ticket-info";
 
-function Ticket() {
+function Ticket({ adminView }) {
 
     const [activeTicket, setActiveTicket] = useState(null);
-    return <div className="tickets">
-        <h2 className="AssoTitle">Mes tickets</h2>
+    return <div className={`tickets ${ adminView === true ? "" : "tick-pad" }`}>
+        <h2 id="AssoTitle">Mes tickets</h2>
         { activeTicket ?    <TicketInfo activeTicket={activeTicket} setActiveTicket={setActiveTicket}/> : 
-                            <TicketList setActiveTicket={setActiveTicket}/> }
+                            <TicketList adminView={adminView} setActiveTicket={setActiveTicket}/> }
     </div>
 }
 

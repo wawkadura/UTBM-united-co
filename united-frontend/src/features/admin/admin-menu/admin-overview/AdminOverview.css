@@ -40,16 +40,6 @@
   color: var(--indigo-900);
 }
 
-.p-dialog .p-dialog-header {
-  padding-bottom: 0;
-}
-.p-dialog .p-dialog-content {
-  padding-bottom: 1rem;
-}
-.p-dialog .p-field.p-col-12 {
-  margin-bottom: 0;
-}
-
 .stats-overview-nb p {
   font-size: 3em;
   color: var(--indigo-500);

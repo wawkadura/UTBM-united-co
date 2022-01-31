@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import { TieredMenu } from 'primereact/tieredmenu';
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -14,11 +14,10 @@ function Navbar() {
     const [auth, setAuth] = useState(sessionStorage.getItem('userId'));
     const menu = useRef(null);
     const navigate = useNavigate();
+    const role = sessionStorage.getItem('role')
 
-    useEffect(()=>{
-        if(!auth && sessionStorage.getItem('token'))
-            setAuth(true);
-    });
+    if(!auth && sessionStorage.getItem('token'))
+        setAuth(true);
 
     const user = "Tony LE";
     const items = [
@@ -47,7 +46,7 @@ function Navbar() {
                     <li><HashLink smooth to="/home#services">Nos services</HashLink></li>
                     <li><Link to="/associations">Associations</Link></li>
                     <li><HashLink smooth to="/home#about">À propos</HashLink></li>
-                    { !auth ?
+                    { !auth || role === 'ADMIN' ?
                         <li><HashLink smooth to="/home#contact">Contact</HashLink></li> :
                         <li><Link to="/ticket">Contact</Link></li>
                     }

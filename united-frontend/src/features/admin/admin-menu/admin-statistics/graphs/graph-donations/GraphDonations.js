@@ -1,7 +1,7 @@
 import "./GraphDonations.css";
 import React from 'react';
 import { Chart } from 'primereact/chart';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Dropdown } from 'primereact/dropdown';
 
 function GraphDonations(donations) {
@@ -57,20 +57,18 @@ function GraphDonations(donations) {
         setSelectedYear(e.value);
         changeDataYear(e.value)
     }
+    
+    const changeDataYear = useCallback((year) => {
+        setDonationsStats([])
+        Object.keys(data.donations).map((key) => key === year ? setDonationsStats(data.donations[key]) : '');
+    },[data]);
+
     useEffect(() => {
         var keys = Object.keys(data.donations)
         setYears(keys)
         setSelectedYear(keys[0]);
         changeDataYear(keys[0])
-    }, []);
-    const changeDataYear = (year) => {
-        setDonationsStats([])
-        Object.keys(data.donations).map(function (key) {
-            if (key === year) {
-                setDonationsStats(data.donations[key])
-            }
-        });
-    }
+    }, [changeDataYear, data]);
     return (
         <div className="graph-donations-card">
             <h5>Statistiques des dons générés grace à la platforme au cours de l'année</h5>

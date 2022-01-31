@@ -4,7 +4,7 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import '../../../index.css';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
@@ -47,8 +47,7 @@ const AssociationList = ({ Filters }) => {
        getAssociations();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // update filtered data on filter change
-    useEffect(() => {
+    const applyFilters = useCallback(() => {
         if (resetFilters){
             setResetFilters(false);
             setFilters("");
@@ -57,6 +56,11 @@ const AssociationList = ({ Filters }) => {
             setSearchcity("");
             setDateRange([1900,2022]);
         }
+    }, [setResetFilters, setFilters, setOnlyFavorites, setType, setSearchcity, setDateRange, resetFilters]);
+
+    // update filtered data on filter change
+    useEffect(() => {
+        applyFilters();
         
         let filterData = data;
         if (filters)
@@ -75,7 +79,7 @@ const AssociationList = ({ Filters }) => {
             filterData = filterData.filter((row) => row.created_at >= dateRange[0] && row.created_at <= dateRange[1] )
 
         setFilteredData(filterData);
-    }, [ onlyFavorites, setOnlyFavorites, type, setType, searchcity, setSearchcity, dateRange, setDateRange, resetFilters, setResetFilters, data, filters ]);
+    }, [ applyFilters, onlyFavorites, type, searchcity, dateRange, resetFilters, data, filters ]);
 
     const getAssociations = () => {
         setIsLoading(true);
@@ -236,10 +240,10 @@ const AssociationList = ({ Filters }) => {
                         Contacts
                     </h2>
                     <div className="dataview-modal-subsection">
-                        <div><b>Site web: </b>{modalData.website}</div>
-                        <div><b>E-mail: </b>{modalData.email}</div>
-                        <div><b>Adresse: </b>{modalData.address}</div>
-                        <div><b>Téléphone: </b>{modalData.telephone}</div>
+                        { modalData.website ? <div><b>Site web: </b>{modalData.website}</div> : <></> }
+                        { modalData.email ? <div><b>E-mail: </b>{modalData.email}</div> : <></> }
+                        { modalData.address ? <div><b>Adresse: </b>{modalData.address}</div> : <></> }
+                        { modalData.telephone ? <div><b>Téléphone: </b>{modalData.telephone}</div> : <></> }
                     </div>
                 </div>
 

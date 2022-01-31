@@ -1,0 +1,14 @@
+.ticket-button{
+    border: 0;
+    font-family: "Nunito", sans-serif;
+    background-color: var(--indigo-100);
+    color: var(--indigo-900);
+}
+
+#AssoTitle {
+    text-align: left;
+}
+
+.ticket-original-comment{
+    background-color: rgb(230, 230, 230);
+}

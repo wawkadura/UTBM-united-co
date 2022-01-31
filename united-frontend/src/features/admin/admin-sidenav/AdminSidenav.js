@@ -1,7 +1,6 @@
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import user_man from "../../../images/shared/user-man.png";
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { Skeleton } from 'primereact/skeleton';
 
 import "./AdminSidenav.css";
@@ -37,6 +36,9 @@ function AdminSidenav({ dataPending, admin, type, setType }) {
             <Divider />
 
             <Button onClick={() => { onChangeType("communications") }} label="Communications" icon="pi pi-envelope" />
+            <Divider />
+
+            <Button onClick={() => { onChangeType("tickets") }} label="Tickets" icon="pi pi-ticket" />
 
         </div>
     </div>

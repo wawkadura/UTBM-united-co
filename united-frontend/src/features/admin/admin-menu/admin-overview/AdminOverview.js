@@ -32,14 +32,14 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
 
     useEffect(() => {
         adminService.getAdminOverviewStats().then((response) => {
-            if (response.statusCode != 200 && toast.current != null) {
+            if (response.statusCode !== 200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + " : " + response.message, life: 3000 });
             } else {
                 setStats(response.data)
             }
             setIsPendingStats(false)
         });
-    }, []);
+    }, [toast]);
 
     const onClick = () => {
         setDisplayDialog(true)
@@ -49,8 +49,8 @@ function AdminOverview({ Refresh, dataPending, toast, admin }) {
         setFormData(data);
         setIsPending(true)
         adminService.updateAdminInfo(adminData.id, data).then((response) => {
-            if (response.statusCode != 200 && toast.current != null) {
-                if (response.statusCode == 400) {
+            if (response.statusCode !== 200 && toast.current !== null) {
+                if (response.statusCode === 400) {
                     setMailExists(true)
                 } else {
                     toast.current.show({ severity: 'error', summary: 'Erreur', detail: response.statusCode + " : " + response.message, life: 3000 });

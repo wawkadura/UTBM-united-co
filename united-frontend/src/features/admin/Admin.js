@@ -5,6 +5,7 @@ import AdminDonors from "./admin-menu/admin-donors/AdminDonors";
 import AdminAssociations from "./admin-menu/admin-associations/AdminAssociations";
 import AdminStatistics from "./admin-menu/admin-statistics/AdminStatistics";
 import AdminCommunications from "./admin-menu/admin-communications/AdminCommunications";
+import AdminTickets from "./admin-menu/admin-tickets/AdminTickets";
 import { AdminService } from "./AdminService";
 import { Toast } from 'primereact/toast';
 import { useState, useRef, useEffect } from "react";
@@ -29,7 +30,7 @@ function Admin() {
 
     useEffect(() => {
         adminService.getAdminInfo(adminID).then((response) => {
-            if (response.statusCode!=200 && toast.current != null) {
+            if (response.statusCode!==200 && toast.current !== null) {
                 toast.current.show({ severity: 'error', summary: 'Erreur', detail:  response.statusCode +" : "+ response.message, life: 10000 });
             }else{
                 setData({
@@ -41,7 +42,7 @@ function Admin() {
             }
             setDataPending(false)
         });
-    }, [refresh]);
+    }, [refresh, adminID]);
     const component = () => {
         switch (type) {
             case "overview": return <AdminOverview Refresh={Refresh} dataPending={dataPending} toast={toast} admin={data} />;
@@ -49,6 +50,7 @@ function Admin() {
             case "associations": return <AdminAssociations Refresh={Refresh}  toast={toast} />;
             case "statistics": return <AdminStatistics toast={toast} />;
             case "communications": return <AdminCommunications toast={toast} />;
+            case "tickets": return <AdminTickets toast={toast} />;
 
             default: return <AdminOverview />;
         }
