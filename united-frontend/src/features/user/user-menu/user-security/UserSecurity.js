@@ -7,7 +7,6 @@ import {Button} from "primereact/button";
 import {useEffect, useState} from "react";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
-import {validate} from "email-validator";
 import {UserService} from "../../UserService";
 import StringUtil from "../../../../utils/StringUtil";
 
@@ -54,27 +53,25 @@ function UserSecurity({user, setUser}) {
         const name = event.target.name;
         let value  = event.target.value;
 
-        if(name === "password") form.password = value;
-        if(name === "owner") form.owner = value;
-        if(name === "card_number") form.card_number = value;
-        if(name === "expire_date") form.expire_date = value;
-
-        console.log('form');
-        console.log(form);
-
-        setForm(form);
+        setForm({
+            ...form,
+            ...(name === "password" && { password: value }),
+            ...(name === "owner" && { owner: value }),
+            ...(name === "card_number" && { card_number: value }),
+            ...(name === "expire_date" && { expire_date: value }),
+        });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        paymentInfo.owner = form.owner;
-        paymentInfo.card_number = form.card_number;
-        paymentInfo.expire_date = form.expire_date;
-
-        console.log('payment');
-        console.log(paymentInfo);
-
+        setPaymentInfo({
+            ...form,
+            owner: form.owner,
+            card_number: form.card_number,
+            expire_date: form.expire_date
+        });
+        
         delete paymentInfo.password;
         userService.modifyPaymentInfo(user.id, paymentInfo).then(() => {
             userService.getUserPayment(user.id).then(data => {
@@ -82,8 +79,6 @@ function UserSecurity({user, setUser}) {
             })
         });
 
-        console.log('password');
-        console.log(form.password);
         if(form.password !== undefined && form.password !== "") { userService.modifyUserPassword(user.id, form.password).then((r => console.log(r))); }
     }
 
@@ -99,13 +94,13 @@ function UserSecurity({user, setUser}) {
                 <p><span>Type de paiement :  </span> Carte de crédit</p>
                 <Divider />
 
-                <p><span>Propriétaire de la carte :  </span> {StringUtil.checkValue(paymentInfo.owner, paymentInfo.owner)}</p>
+                <p><span>Propriétaire de la carte :  </span> {paymentInfo ? StringUtil.checkValue(paymentInfo.owner, paymentInfo.owner) : ''}</p>
                 <Divider />
 
-                <p><span>Numéro de carte :  </span> {StringUtil.checkValue(paymentInfo.card_number, paymentInfo.card_number)}</p>
+                <p><span>Numéro de carte :  </span> {paymentInfo ? StringUtil.checkValue(paymentInfo.card_number, paymentInfo.card_number) : ''}</p>
                 <Divider />
 
-                <p><span>Date d'expiration : </span> {StringUtil.checkValue(paymentInfo.expire_date, paymentInfo.expire_date)}</p>
+                <p><span>Date d'expiration : </span> {paymentInfo ? StringUtil.checkValue(paymentInfo.expire_date, paymentInfo.expire_date) : ''}</p>
             </Panel>
 
             <Dialog header="Sécurité & Paiement" position="center" draggable={false} visible={displayBasic} style={{ width: '40vw' }} onHide={() => onHide('displayBasic')}>
@@ -122,7 +117,7 @@ function UserSecurity({user, setUser}) {
                         <div className="p-field p-col-12">
                             <div className="p-field ">
                                 <label htmlFor="icon">Propriétaire de la carte</label>
-                                <InputText name="owner" type="text" defaultValue={paymentInfo.owner} onChange={handleChange}/>
+                                <InputText name="owner" type="text" defaultValue={paymentInfo ? paymentInfo.owner : ''} onChange={handleChange}/>
                             </div>
                         </div>
 
@@ -139,14 +134,14 @@ function UserSecurity({user, setUser}) {
                             <label htmlFor="firstname1">Numéro de carte</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-credit-card" />
-                            <InputText name="card_number" type="text" defaultValue={paymentInfo.card_number} onChange={handleChange}/>
+                            <InputText name="card_number" type="text" defaultValue={paymentInfo ? paymentInfo.card_number : ''} onChange={handleChange}/>
                         </span>
                         </div>
                         <div className="p-field p-col">
                             <label htmlFor="lastname1">Date d'expiration</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-calendar" />
-                            <InputText name="expire_date" type="text" defaultValue={paymentInfo.expire_date} onChange={handleChange}/>
+                            <InputText name="expire_date" type="text" defaultValue={paymentInfo ? paymentInfo.expire_date : ''} onChange={handleChange}/>
                         </span>
                         </div>
                     </div>
