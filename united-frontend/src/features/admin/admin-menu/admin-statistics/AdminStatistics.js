@@ -59,7 +59,7 @@ function AdminStatistics() {
                         <TabPanel header="Utilisateurs" leftIcon="pi pi-user">
                             <GraphUsers data={dataUsers} />
                         </TabPanel>
-                        <TabPanel header="Bugs" leftIcon="pi pi-server">
+                        <TabPanel header="Tickets" leftIcon="pi pi-server">
                             <GraphBugs data={dataBugs} />
                         </TabPanel>
                     </TabView>

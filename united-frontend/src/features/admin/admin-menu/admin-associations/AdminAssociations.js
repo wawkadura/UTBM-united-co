@@ -437,7 +437,7 @@ function AdminAssociations({Refresh, toast }) {
                 <div className="p-d-flex p-jc-evenly">
                     <div className="p-mr-4">
                         <div className="dataview-modal-subsection">
-                            <div><b>Date de création: </b>{selectedAssociation.created_at}</div>
+                            <div><b>Date de création: </b>{new Date(selectedAssociation.created_at).toLocaleString().split(',')[0]}</div>
                             <Divider />
                             <div><b>Nom: </b>{selectedAssociation.name}</div>
                             <Divider />

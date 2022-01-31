@@ -15,7 +15,7 @@ function GraphBugs(bugs) {
         labels: labels,
         datasets: [
             {
-                label: 'bugs',
+                label: 'tickets',
                 data: bugsStats,
                 fill: true,
                 borderColor: 'rgba(355,100,81)',
@@ -72,7 +72,7 @@ function GraphBugs(bugs) {
     
     return (
         <div className="graph-bugs-card">
-            <h5>Statistiques des nouveaux bugs signalés par les utilisateurs de la platforme</h5>
+            <h5>Statistiques des nouveaux tickets créé par les utilisateurs de la platforme</h5>
             <br />
             <Dropdown value={selectedYear} options={years} onChange={onYearChange} />
             <Chart type="line" data={lineStylesData} options={basicOptions} />
