@@ -79,14 +79,24 @@ const AssociationList = ({ Filters }) => {
 
     const getAssociations = () => {
         setIsLoading(true);
-        associationService.getAssociations(userId).then(data => {
-            data = data.map((association) => { 
-                return { ...association, created_at: getYearFromString(association.created_at)}
-            });
+        associationService.getAssociations(userId).then(async data => {
+            data = await Promise.all(data.map( async (association) => { 
+                return { 
+                    ...association, 
+                    logo: await fetchLogo(association.logo),
+                    created_at: getYearFromString(association.created_at)
+                }
+            }));
             setData(data); 
             setFilteredData(data);
             setIsLoading(false);
         });
+    }
+
+     //convert the binany data to string
+    async function fetchLogo(logo){
+        if(logo)
+           return await btoa(String.fromCharCode(...new Uint8Array(logo.data)));
     }
 
     // Set association favorites
@@ -116,7 +126,7 @@ const AssociationList = ({ Filters }) => {
         return (
             <div className="p-col-12">
                 <div className="product-list-item" onClick={() => onItemClick(data)}>
-                    <img src={`images/product/${data.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
                     <div className="product-list-detail">
                         <div className="product-name">{data.name}</div>
                         <div className="product-description">{data.description}</div>
@@ -157,7 +167,7 @@ const AssociationList = ({ Filters }) => {
                         </div>
                     </div>
                     <div className="product-grid-item-content">
-                    <img src={`images/product/${data.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                    <img src={`data:image/png;base64,${data.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
                         <div className="product-name">{data.name}</div>
                         <div className="product-description">{data.description}</div>
                         <div className="p-grid">
@@ -209,7 +219,7 @@ const AssociationList = ({ Filters }) => {
     const renderDialog = () => {
         return (
             <div className="dataview-modal-body">
-                <img src={`images/product/${data.image}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
+                <img src={`data:image/png;base64,${modalData.logo}`} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={data.name} />
 
                 <div className="dataview-modal-items p-col-4">
                     <h2> 
