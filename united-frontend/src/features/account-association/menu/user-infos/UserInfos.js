@@ -126,7 +126,7 @@ function UserInfos({infos, fetchAll}){
            
             <TabPanel header="Informations de contact"> 
             <Card footer={cardFooter(infos.value.id)} subTitle="Vous pouvez sur cette page modifier certains praramètres vous concernant" style={{ height: '100%' }}>
-                    <Panel className="panel-color" header="Informations basiques">
+                    <Panel className="panelcolor-text" header="Informations basiques">
                         <p><b>Email : </b>{infos.value.email}</p>
                         <Divider />
                         <p><b>Télephone: </b>{infos.value.telephone}</p>
