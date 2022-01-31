@@ -13,7 +13,7 @@ import SignUp from "./features/sign-up/SignUp";
 import Associations from './features/Associations/Associations';
 import SignIn from './features/signIn/SignIn';
 import ForgotPass from './features/signIn/ForgotPass';
-import Ticket from './features/Ticket/Ticket';
+import Ticket from './shared/Ticket/Ticket';
 import Faq from './features/faq/Faq';
 
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";

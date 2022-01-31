@@ -68,7 +68,7 @@ const TicketForm = ({tickets, setTickets}) => {
 
     return <div className="ticket-form">
         <Toast ref={toast}/>
-        <Button label="Créer un ticket" icon="pi pi-external-link" onClick={() => setDisplayModal(true)} />
+        <Button label="Créer un ticket" className="ticket-button" icon="pi pi-external-link" onClick={() => setDisplayModal(true)} />
              
         <Dialog header="Créer un ticket" visible={displayModal} onHide={() => setDisplayModal(false)} breakpoints={{'960px': '75vw'}} style={{width: '80vw'}}>
             <div className="p-inputgroup ticket-form-group">

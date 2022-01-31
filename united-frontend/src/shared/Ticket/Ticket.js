@@ -6,8 +6,10 @@ import TicketInfo from "./Ticket-info/Ticket-info";
 function Ticket() {
 
     const [activeTicket, setActiveTicket] = useState(null);
-    return <div className="tickets">
-        <h2 className="AssoTitle">Mes tickets</h2>
+    const role = sessionStorage.getItem('role');
+
+    return <div className={`tickets ${ role === 'ADMIN' ? "" : "tick-pad" }`}>
+        <h2 id="AssoTitle">Mes tickets</h2>
         { activeTicket ?    <TicketInfo activeTicket={activeTicket} setActiveTicket={setActiveTicket}/> : 
                             <TicketList setActiveTicket={setActiveTicket}/> }
     </div>
