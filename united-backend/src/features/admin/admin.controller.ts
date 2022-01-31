@@ -31,10 +31,10 @@ export class AdminController {
   }
   @UseGuards(JwtAuthGuard)
   @Get('donors')
-  async getDonors(@Request() req) {
+  async getDonors() {
     // var token = ExtractJwt.fromAuthHeaderAsBearerToken()
     // console.log(token(req))
-    const data = await this.adminService.getDonors(false);
+    const data = await this.adminService.getDonors(false, true);
 
     return {
       statusCode: HttpStatus.OK,
@@ -46,7 +46,7 @@ export class AdminController {
   @UseGuards(JwtAuthGuard)
   @Get('associations')
   async getAssociations() {
-    const data = await this.adminService.getAssociations(false);
+    const data = await this.adminService.getAssociations(false, true);
 
     return {
       statusCode: HttpStatus.OK,
@@ -58,8 +58,8 @@ export class AdminController {
   @UseGuards(JwtAuthGuard)
   @Get('overview')
   async getAdminOverviewStats() {
-    const associations = await this.adminService.getAssociations(false);
-    const donors = await this.adminService.getDonors(false);
+    const associations = await this.adminService.getAssociations(false, true);
+    const donors = await this.adminService.getDonors(false, true);
     const invoices = await this.adminService.getInvoicesWithPrice();
     var totalPrices = 0
     invoices.forEach(invoice => {
@@ -81,8 +81,8 @@ export class AdminController {
   @UseGuards(JwtAuthGuard)
   @Get('statistics')
   async getAdminStats() {
-    const associations = await this.adminService.getAssociations(true);
-    const donors = await this.adminService.getDonors(true);
+    const associations = await this.adminService.getAssociations(true, true);
+    const donors = await this.adminService.getDonors(true, true);
     const tickets = await this.adminService.getTicketsOrderByDate();
     const invoices = await this.adminService.getInvoicesWithPrice();
 
@@ -105,6 +105,7 @@ export class AdminController {
   async deleteDonor(@Param('id') id: number) {
     const user = await this.adminService.getUserById(id);
     if (user != null) {
+      user.state = false
       const data = await this.adminService.deleteDonor(id);
 
       return {
@@ -126,7 +127,8 @@ export class AdminController {
   async deleteAssociation(@Param('id') id: number) {
     const association = await this.adminService.getAssociationById(id);
     if (association != null) {
-      const data = await this.adminService.deleteAssociation(id);
+      var servicesId =  await this.adminService.getAssociationServicesIds(id);
+      const data = await this.adminService.deleteAssociation(id, association.user_id, servicesId);
 
       return {
         statusCode: HttpStatus.OK,
