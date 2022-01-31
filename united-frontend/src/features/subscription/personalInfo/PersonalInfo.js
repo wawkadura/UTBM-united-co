@@ -13,7 +13,7 @@ function PersonalInfo({setActiveIndex, user}){
                     Si certaines de ces informations sont fausses, merci de les modifier
                 </p>
             </div>
-            <div className="p-d-flex p-flex-column p-ai-center">
+            <div className="personal-info p-d-flex p-flex-column p-ai-center">
                 <p className="p-d-flex perso-color-gray p-ai-center p-pl-3 p-my-2" style={{width: 41.6667+'%', height: 2+'rem'}}>
                     Nom : {user.name}
                 </p>

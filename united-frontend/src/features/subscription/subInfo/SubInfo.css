@@ -1,4 +1,4 @@
-p{
+.sub-info p{
     font-size: large;
     color: white;
     border-radius: var(--border-radius);
