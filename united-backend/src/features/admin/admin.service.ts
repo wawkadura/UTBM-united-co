@@ -63,8 +63,12 @@ export class AdminService {
 
     async saveAssociation(association: association, user: users) {
         const t = await getConnection().transaction(async transactionalEntityManager => {
-            await transactionalEntityManager.save(user);
-            await transactionalEntityManager.save(association);
+            var resp = await transactionalEntityManager.save(user);
+            if (resp != null) {
+                association.user_id = resp.id
+                await transactionalEntityManager.save(association);
+
+            }
         });
 
         return t

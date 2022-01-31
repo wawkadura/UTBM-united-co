@@ -21,9 +21,11 @@ function UserServices(){
     const [displayBasic, setDisplayBasic] = useState(false);
     const dialogFuncMap = {'displayBasic': setDisplayBasic};
     const [displayBasic2, setDisplayBasic2] = useState(false);
+    var idAssociation = ''
     const dialogFuncMap2 = {'displayBasic2': setDisplayBasic2};
     const [id, setId]= useState();
     const toast = useRef(null);
+    const userId = sessionStorage.getItem("userId")
 
      //Message showed when the form is fill correctly and posted
     const showToast = (resp) => {
@@ -31,14 +33,24 @@ function UserServices(){
         else if(resp.statusCode===500 || resp.statusCode===404) toast.current.show({severity:'error', summary: 'Service', detail:"Contacter le support", life: 3000});
     }
     useEffect(()=>{
+        fetchAssociation()
         fetchAll();
     },[]);
     //this methode get all services regading an association 
     async function fetchAll(){
         //sessionStorage.getItem('userId'); correspond to user id connected
         const resp = await AccountAssociationApi.getServices(sessionStorage.getItem('userId'));
+        console.log(idAssociation)
+        console.log(resp)
         setServices(resp)
     };
+
+    async function fetchAssociation() {
+        const resp =await AccountAssociationApi.getInfos(userId)
+        if(resp != null) {
+            idAssociation = resp.value.id
+        }
+    }
     
     const onClick = (name, data) => { 
         dialogFuncMap[`${name}`](true); 
@@ -79,9 +91,8 @@ function UserServices(){
      
     //create new service 
     const AddService = async(data) => {
-        const association_id=services.services[0].association_id
-        if(data&&association_id){
-            const resp = await AccountAssociationApi.createService(data,association_id); //sent data to the api in oder to populate database
+        if(data&&idAssociation){
+            const resp = await AccountAssociationApi.createService(data,idAssociation); //sent data to the api in oder to populate database
             if (resp){
                 fetchAll();
                 showToast(resp);
