@@ -4,7 +4,6 @@ import { TicketService } from '../TicketService';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Editor } from 'primereact/editor';
-import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
 import { Checkbox } from 'primereact/checkbox';
 
@@ -12,9 +11,7 @@ const TicketInfo = ({activeTicket, setActiveTicket}) => {
     const [ticketResponses, setTicketsResponses] = useState(null);
     const [message, setMessage] = useState('');
     const [resolvedButton, setresolvedButton] = useState(false);
-    const [fileUpload, setFileUpload] = useState(null);
     const toast = useRef(null);
-    const fileUploadRef = useRef(null);
     
     const ticketService = new TicketService();
     const userId = sessionStorage.getItem('userId');
@@ -66,24 +63,6 @@ const TicketInfo = ({activeTicket, setActiveTicket}) => {
         });
     };
 
-    const onUpload = (e) => {
-        // e.files.forEach(file => {
-        // });
-        setFileUpload(e.files[0].objectURL.substring(5))
-    }
-
-    const headerTemplate = (options) => {
-        const { className, chooseButton } = options;
-
-        return (
-            <div className={className}>
-                {chooseButton}
-            </div>
-        );
-    }
-
-    const chooseOptions = {className: 'p-button-rounded p-button-outlined', label:'Importer une image'};
-
     return (
         <div>
             <Toast ref={toast}/>
@@ -119,10 +98,6 @@ const TicketInfo = ({activeTicket, setActiveTicket}) => {
                         onTextChange={(e) => setMessage(e.htmlValue)} 
                         autoResize
                     />
-                    <div className="card">
-                        <FileUpload value={fileUpload} ref={fileUploadRef} name="demo[]" url="https://primefaces.org/primereact/showcase/upload.php" onSelect={onUpload} multiple accept="image/*" maxFileSize={1000000}
-                            headerTemplate={headerTemplate} chooseOptions={chooseOptions} emptyTemplate={<p className="p-m-0">Glissez et déposez vos fichiers ici.</p>} />
-                    </div>
                 </div>
 
                 <div className="ticket-resolved-button">

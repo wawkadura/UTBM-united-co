@@ -29,6 +29,7 @@ export class TicketResponsesService {
         .select('tick.*, user.firstName, user.lastName')
         .innerJoin(users, 'user', 'user.id = tick.user_id')
         .where(`tick.ticket_id = ${ticketId}`)
+        .orderBy('tick.created_at','ASC')
         .getRawMany();
     }
 }

@@ -10,6 +10,7 @@ import { Dropdown } from 'primereact/dropdown';
 const TicketList = ({setActiveTicket, adminView}) => {
     const [tickets, setTickets] = useState(null);
     const [filteredTickets, setFilteredTickets] = useState(null);
+    console.log(adminView,"rer");
 
     const [ticketState, setTicketState] = useState(null);
 
@@ -22,7 +23,6 @@ const TicketList = ({setActiveTicket, adminView}) => {
     const ticketService = new TicketService();
     const userId = sessionStorage.getItem('userId');
     
-
     useEffect(() => {
         // if role is admin, fetch all tickets
         const query = adminView ? ticketService.getAllTickets() : ticketService.getTickets(userId);
