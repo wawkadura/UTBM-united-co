@@ -9,6 +9,7 @@ import { AssociationDTO, UpdateAssociationDTO, UpdateUserDTO, UserDTO } from './
 import { invoice } from 'src/entity/invoice.entity';
 import { subscription } from 'src/entity/subscription.entity';
 import { service } from 'src/entity/service.entity';
+import { payment } from 'src/entity/payment.entity';
 
 @Injectable()
 export class AdminService {
@@ -63,6 +64,7 @@ export class AdminService {
         const t = await getConnection().transaction(async transactionalEntityManager => {
             await transactionalEntityManager.update(users, { id: id }, {state: false});
             await transactionalEntityManager.update(subscription, { user_id: id }, {state: false});
+            await transactionalEntityManager.update(payment, { user_id: id }, {state: false});
         });
 
         return t

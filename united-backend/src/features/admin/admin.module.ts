@@ -7,10 +7,11 @@ import { association } from 'src/entity/association.entity';
 import { ticket } from 'src/entity/ticket.entity';
 import { invoice } from 'src/entity/invoice.entity';
 import { service } from 'src/entity/service.entity';
+import { payment } from 'src/entity/payment.entity';
 
 @Module({
   controllers: [AdminController],
   providers: [AdminService],
-  imports: [TypeOrmModule.forFeature([users, association, ticket, invoice, service])]  
+  imports: [TypeOrmModule.forFeature([users, association, ticket, invoice, service, payment])]  
 })
 export class AdminModule {}
