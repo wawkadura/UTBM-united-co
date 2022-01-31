@@ -1,0 +1,17 @@
+@use "../../shared/styles/variables" as v;
+
+.admin {
+  background-color: cornflowerblue;
+
+  .admin-container {
+    min-height: 53.381rem;
+    padding: 1.5rem;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+    font-family: "Nunito", sans-serif;
+    background-color: cornflowerblue;
+
+  }
+}

@@ -1,0 +1,36 @@
+@use "../../../../shared/styles/variables" as v;
+
+.admin-associations {
+  height: 100%;
+
+  .p-card {
+    border-radius: 1rem;
+    font-family: "Nunito", sans-serif;
+    background-color: v.$light-indigo;
+    .p-card-content {
+      padding: 0;
+    }
+  }
+
+  .p-panel {
+    margin-bottom: 1rem;
+  }
+
+  span {
+    font-weight: bold;
+    color: v.$dark-indigo;
+  }
+  .p-datatable {
+    min-height: 100%;
+    max-height: 70vh;
+    .p-datatable-thead tr th {
+      background-color: v.$light-plus-indigo;
+    }
+  }
+
+  .actions {
+    button:first-of-type {
+      margin-right: 1rem;
+    }
+  }
+}

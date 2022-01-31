@@ -1,0 +1,68 @@
+@use "../../../../shared/styles/variables" as v;
+
+.admin-contents {
+  height: 100%;
+
+  .p-card {
+    border-radius: 1rem;
+    font-family: "Nunito", sans-serif;
+    background-color: v.$light-indigo;
+    .p-card-content {
+      padding: 0;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      button {
+        border: 0;
+        font-family: "Nunito", sans-serif;
+        background-color: v.$light-plus-indigo;
+        color: v.$dark-indigo;
+      }
+
+      button:hover {
+        background-color: var(--indigo-500);
+        span {
+          color: v.$light-indigo;
+        }
+      }
+
+      button:last-of-type {
+        margin-left: 1rem;
+      }
+    }
+
+  }
+
+  .p-panel {
+    margin-bottom: 1rem;
+
+    .p-panel-header {
+      background-color: v.$light-plus-indigo;
+    }
+  }
+
+  span {
+    font-weight: bold;
+    color: v.$dark-indigo;
+  }
+}
+
+.p-dialog  {
+  .p-dialog-header {
+    padding-bottom: 0;
+  }
+  .p-dialog-content {
+    padding-bottom: 1rem;
+  }
+
+  .p-field.p-col-12 {
+    margin-bottom: 0;
+  }
+
+}
+
+

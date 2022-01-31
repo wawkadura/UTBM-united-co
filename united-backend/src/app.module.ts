@@ -13,6 +13,8 @@ import { TicketModule } from './features/ticket/ticket.module';
 import { AssociationModule } from './features/association/service/association.module';
 import { SignUpModule } from './features/sign-up/sign-up.module';
 import { SubscriptionModule } from './features/subscription/subscription.module';
+import { AdminModule } from './features/admin/admin.module';
+
 
 @Module({
   imports: [
@@ -27,7 +29,8 @@ import { SubscriptionModule } from './features/subscription/subscription.module'
     TicketModule,
     SignUpModule,
     PayementModule,
-    SubscriptionModule
+    SubscriptionModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],
