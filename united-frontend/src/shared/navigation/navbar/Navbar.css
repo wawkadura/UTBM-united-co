@@ -1,5 +1,5 @@
 header {
-  height: 10vh;
+  height: 10%;
   background-color: var(--indigo-900);
   color: var(--indigo-50);
   display: flex;
@@ -37,4 +37,12 @@ div.p-tieredmenu.p-component.p-tieredmenu-overlay.p-connected-overlay-enter-done
   width: 14rem;
 }
 
+@media screen and (max-width: 600px) {
+  .header .buttons button{
+    width: 80px;
+    height: 20px;
+    font-size: 10px;
+    text-align: left;
+  }
+}
 /*# sourceMappingURL=Navbar.css.map */

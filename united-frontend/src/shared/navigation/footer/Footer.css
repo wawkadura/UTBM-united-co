@@ -36,12 +36,16 @@
   margin-left: 0;
   margin-top: 0.5rem;
 }
-.footer footer .right ul li {
+.footer footer .right ul li{
   list-style: none;
+ 
 }
 .footer footer .right ul li button {
   background-color: var(--indigo-900);
   color: var(--indigo-50);
 }
-
+.footer-link{
+  text-decoration: none;
+  color:white;
+}
 /*# sourceMappingURL=Footer.css.map */
