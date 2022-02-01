@@ -22,7 +22,7 @@ export class UserService {
                 @InjectRepository(invoice) private invoiceRepository: Repository<invoice>) {}
 
     async getUser(userId) {
-        return this.userRepository.findOne({ id: userId });
+        return await this.userRepository.findOne({ id: userId });
     }
 
     async updateUser(id: number, data: Partial<UserDto>) {
