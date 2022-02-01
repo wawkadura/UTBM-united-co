@@ -45,27 +45,14 @@ function UserSubscriptions({userId}) {
         });
     }, [userId]);
 
-    function actions(data) {
+    function actions(id) {
         return (
             <div className="actions">
-                <Button icon="pi pi-times" className="p-button-rounded p-button-text" onClick={(event) => confirm(event, data)}/>
+                <Button icon="pi pi-times" className="p-button-rounded p-button-text" onClick={() => removeSubscription(id)}/>
             </div>
         )
     }
 
-    const confirm = (event, data) => {
-        console.log(data, "rosé");
-        setSubId(data.id);
-        confirmPopup({
-            target: event.currentTarget,
-            message: 'Etes-vous sûr de supprimer cet abonnement ?',
-            icon: 'pi pi-exclamation-triangle',
-            accept
-        });
-    };
-
-    const accept = () => removeSubscription(subId);
-    
     function removeSubscription(data) {
         console.log(data,"eazjipeazpioej")
         userService.deleteSubscription(data.id).then(r => console.log(r));
