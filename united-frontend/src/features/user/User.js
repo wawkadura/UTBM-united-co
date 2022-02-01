@@ -30,7 +30,7 @@ function User() {
         userService.getUser(userId).then(data => {
             setUser(data);
         });
-    }, []);
+    }, []); 
 
     const component = () => {
         switch (type) {

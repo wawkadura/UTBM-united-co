@@ -9,6 +9,7 @@ import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {UserService} from "../../UserService";
 import StringUtil from "../../../../utils/StringUtil";
+import { InputMask } from 'primereact/inputmask';
 
 function UserSecurity({user, setUser}) {
     const userService = new UserService();
@@ -60,6 +61,9 @@ function UserSecurity({user, setUser}) {
             ...(name === "card_number" && { card_number: value }),
             ...(name === "expire_date" && { expire_date: value }),
         });
+
+        console.log('form');
+        console.log(form);
     }
 
     const handleSubmit = (event) => {
@@ -74,10 +78,16 @@ function UserSecurity({user, setUser}) {
         });
         
         const body = {
+            user_id: user.id,
             owner: form.owner,
             card_number: form.card_number,
             expire_date: form.expire_date,
         }
+
+
+        console.log('body');
+        console.log(body);
+
         userService.modifyPaymentInfo(user.id, body).then(() => {
             // userService.getUserPayment(user.id).then(data => {
             //     setPaymentInfo(data);
@@ -139,14 +149,14 @@ function UserSecurity({user, setUser}) {
                             <label htmlFor="firstname1">Numéro de carte</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-credit-card" />
-                            <InputText name="card_number" type="text" defaultValue={paymentInfo ? paymentInfo.card_number : ''} onChange={handleChange}/>
+                            <InputText name="card_number" type="text" defaultValue={paymentInfo ? paymentInfo.card_number : ''} onChange={handleChange} keyfilter="num"/>
                         </span>
                         </div>
                         <div className="p-field p-col">
                             <label htmlFor="lastname1">Date d'expiration</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-calendar" />
-                            <InputText name="expire_date" type="text" defaultValue={paymentInfo ? paymentInfo.expire_date : ''} onChange={handleChange}/>
+                            <InputText name="expire_date"type="text" defaultValue={paymentInfo ? paymentInfo.expire_date : ''} onChange={handleChange}/>
                         </span>
                         </div>
                     </div>
