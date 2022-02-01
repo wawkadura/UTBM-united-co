@@ -16,7 +16,7 @@ import StringUtil from "../../../utils/StringUtil";
 function Navbar() {
     const userService = new UserService();
     const [auth, setAuth] = useState(sessionStorage.getItem('userId'));
-    const [user, setUser] = useState("Rosé")
+    const [user, setUser] = useState("Rosé");
     const menu = useRef(null);
 
     const navigate = useNavigate();
@@ -26,12 +26,12 @@ function Navbar() {
 
     if(auth) {
         userService.getUser(sessionStorage.getItem('userId')).then(data => {
-            setUser(data !== undefined ? `${StringUtil.capitalize(data.firstName)} ${data.lastName.toUpperCase()}` : '');
+            setUser(data !== undefined ? role === "DONOR" ? `${StringUtil.capitalize(data.firstName)} ${data.lastName.toUpperCase()}` : data.email : '');
         });
     }
 
     const items = [
-        { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate("/user")} },
+        { label:'Mon profil', icon:'pi pi-user-edit', command: () => { navigate(role === "DONOR" ? "/user" : role === "ADMIN" ? "/admin" : "/accountassociation")} },
         { label: 'Changer d\'utilisateur', icon: 'pi pi-users', command: () => {
                 setAuth(false);
                 sessionStorage.clear();
