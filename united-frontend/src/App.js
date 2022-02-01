@@ -21,6 +21,7 @@ import Faq from './features/faq/Faq';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NotFound from "./shared/not-found/NotFound";
 import './App.css';
+import Service from './features/service/service';
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
                         <Route exact path="/associations" element={<Associations />} />
                         <Route path="/accountassociation" element={<AccountAssociation/>}/>
                         <Route exact path="/FAQ" element={<Faq />} />
+                        <Route exact path="/service" element={<Service />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

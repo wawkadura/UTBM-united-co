@@ -26,10 +26,11 @@ function User() {
     });
 
     useEffect(() => {
+        console.log("test");
         userService.getUser(userId).then(data => {
             setUser(data);
         });
-    }, [userId, userService]);
+    }, []);
 
     const component = () => {
         switch (type) {

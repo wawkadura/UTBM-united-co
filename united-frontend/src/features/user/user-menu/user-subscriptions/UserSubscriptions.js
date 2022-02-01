@@ -8,6 +8,7 @@ import {Column} from "primereact/column";
 import {useEffect, useState} from "react";
 import {UserService} from "../../UserService";
 import StringUtil from "../../../../utils/StringUtil";
+import { useNavigate } from "react-router-dom";
 
 const _subscriptions = [
     {id: 1, status: "active", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
@@ -29,7 +30,9 @@ const _subscriptions = [
 function UserSubscriptions({userId}) {
     const userService = new UserService();
     const [subscriptions, setSubscriptions] = useState([]);
+    const navigate = useNavigate();
 
+    const [selectedService, setSelectedService] = useState();
 
     useEffect(() => {
         const userService = new UserService();
@@ -53,11 +56,21 @@ function UserSubscriptions({userId}) {
         setSubscriptions(subscriptions.filter(subscription => subscription.id !== data.id));
     }
 
+    function goService(data){
+        sessionStorage.removeItem("servicePageId");
+        sessionStorage.removeItem("assoPageId");
+
+        sessionStorage.setItem("assoPageId", data.acronym);
+        sessionStorage.setItem("servicePageId", data.title);
+
+        navigate("/service")
+    }
+
     return <div className="user-subscriptions">
         <Card title="Vos abonnements" subTitle="Vous pouvez retrouvez sur cette page l'ensemble de vos abonnements" style={{ height: '100%' }}>
             <Divider/>
 
-            <DataTable value={subscriptions} scrollable scrollHeight="41.5rem" size="normal">
+            <DataTable value={subscriptions} scrollable scrollHeight="41.5rem" size="normal" selectionMode="single" onSelectionChange={e=>goService(e.value)}>
                 <Column field="acronym" header="Association" sortable/>
                 <Column field="title" header="Abonnement" sortable/>
                 <Column field="price" header="Prix (euros)" sortable/>
