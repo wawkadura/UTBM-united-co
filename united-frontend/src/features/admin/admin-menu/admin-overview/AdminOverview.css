@@ -40,40 +40,14 @@
   color: var(--indigo-900);
 }
 
-.stats-overview-nb p {
-  font-size: 3em;
-  color: var(--indigo-500);
-  font-weight: bold;
-
+.p-dialog .p-dialog-header {
+  padding-bottom: 0;
 }
-.stats-overview-nb{
-  text-align:center
+.p-dialog .p-dialog-content {
+  padding-bottom: 1rem;
 }
-
-.stats-overview {
-  width: 100%;
-  position: center;
+.p-dialog .p-field.p-col-12 {
+  margin-bottom: 0;
 }
 
-@keyframes ui-progress-spinner-color {
-  100%,
-  0% {
-      stroke: #d62d20;
-  }
-  40% {
-      stroke: #0057e7;
-  }
-  66% {
-      stroke: #008744;
-  }
-  80%,
-  90% {
-      stroke: #ffa700;
-  }
-}
-
-  /*# sourceMappingURL=adminInfo.css.map */
-  
-.info {
-  color: black;
-}
+/*# sourceMappingURL=AdminOverview.css.map */

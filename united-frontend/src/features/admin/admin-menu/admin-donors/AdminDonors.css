@@ -1,37 +1,30 @@
 .admin-donors {
-    height: 100%;
-  }
-  .admin-donors .p-card {
-    border-radius: 1rem;
-    font-family: "Nunito", sans-serif;
-    background-color: var(--indigo-50);
-  }
-  .admin-donors .p-card .p-card-content {
-    padding: 0;
-  }
-  .admin-donors .p-panel {
-    margin-bottom: 1rem;
-  }
-  .admin-donors span {
-    font-weight: bold;
-    color: var(--indigo-900);
-  }
-  .admin-donors .p-datatable {
-    min-height: 100%;
-    max-height: 70vh;
-  }
-  .admin-donors .p-datatable .p-datatable-thead tr th {
-    background-color: var(--indigo-100);
-  }
-  .admin-donors .actions button:first-of-type {
-    margin-right: 1rem;
-  }
+  height: 100%;
+}
+.admin-donors .p-card {
+  border-radius: 1rem;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--indigo-50);
+}
+.admin-donors .p-card .p-card-content {
+  padding: 0;
+}
+.admin-donors .p-panel {
+  margin-bottom: 1rem;
+}
+.admin-donors span {
+  font-weight: bold;
+  color: var(--indigo-900);
+}
+.admin-donors .p-datatable {
+  min-height: 100%;
+  max-height: 70vh;
+}
+.admin-donors .p-datatable .p-datatable-thead tr th {
+  background-color: var(--indigo-100);
+}
+.admin-donors .actions button:first-of-type {
+  margin-right: 1rem;
+}
 
-  .spinner {
-    text-align:center;
-    margin-top: 10%;
-    width: 100%;
-  }
-  
-  /*# sourceMappingURL=donorsubscriptions.css.map */
-  
+/*# sourceMappingURL=AdminDonors.css.map */

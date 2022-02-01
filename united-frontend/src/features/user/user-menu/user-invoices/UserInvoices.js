@@ -112,7 +112,7 @@ function UserInvoices({user, userId}) {
             data.forEach(element => element.date = StringUtil.date(new Date(element.date)));
             setInvoices(data)
         });
-    });
+    }, []);
 
     function actions(data) {
         return (

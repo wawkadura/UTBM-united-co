@@ -1,6 +1,5 @@
 .admin-associations {
   height: 100%;
-
 }
 .admin-associations .p-card {
   border-radius: 1rem;
@@ -19,37 +18,13 @@
 }
 .admin-associations .p-datatable {
   min-height: 100%;
-  max-height: 70vh;  
+  max-height: 70vh;
 }
 .admin-associations .p-datatable .p-datatable-thead tr th {
   background-color: var(--indigo-100);
 }
-
-/*# sourceMappingURL=associations.css.map */
-@keyframes ui-progress-spinner-color {
-  100%,
-  0% {
-      stroke: var(--indigo-100);
-  }
-  40% {
-      stroke: var(--indigo-300);
-  }
-  66% {
-      stroke: var(--indigo-500);
-  }
-  80%,
-  90% {
-      stroke: var(--indigo-700);
-  }
+.admin-associations .actions button:first-of-type {
+  margin-right: 1rem;
 }
 
-.spinner {
-  text-align:center;
-  margin-top: 10%;
-  width: 100%;
-}
-
-.add-association Button {
-  border-color: var(--indigo-100);
-  background-color: var(--indigo-100);
-}
+/*# sourceMappingURL=AdminAssociations.css.map */

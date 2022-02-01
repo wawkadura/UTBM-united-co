@@ -40,7 +40,7 @@ export class UserService {
 
     async getSubscriptions(userId: number) {
         const query = this.subscriptionRepository.createQueryBuilder('sub')
-          .select('sub.id, asso.acronym, ser.title, sub.price, sub.state, ser.price, sub.date')
+          .select('sub.id, asso.acronym, ser.title, sub.price, sub.state, ser.price, sub.date, sub.endDate')
           .innerJoin(service, 'ser', 'sub.service_id = ser.id ')
           .innerJoin(association, 'asso', 'ser.association_id = asso.id')
           .where("sub.user_id = :id and sub.state = 1", { id: userId});
@@ -57,7 +57,7 @@ export class UserService {
 
     async getInvoices(userId: number) {
         const query = this.invoiceRepository.createQueryBuilder('inv')
-          .select('inv.name, asso.acronym, ser.title, sub.price, sub.date')
+          .select('inv.name, asso.acronym, asso.address, asso.city, asso.telephone, asso.email, asso.website, ser.title, sub.price, sub.date')
           .innerJoin(subscription, 'sub', 'inv.subscription_id = sub.id')
           .innerJoin(service, 'ser', 'sub.service_id = ser.id')
           .innerJoin(association, 'asso', 'ser.association_id = asso.id')
@@ -78,9 +78,10 @@ export class UserService {
     }
 
     async updatePaymentInfo(id: number, data: Partial<UserDto>) {
-        const payment = await this.paymentRepository.findOne({ id });
+        const payment = await this.paymentRepository.findOne({ user_id:id });
+        console.log("ups",payment, id)
         if (payment)
-            await this.paymentRepository.update({ id }, data);
+            await this.paymentRepository.update({ id:payment.id }, data);
         else {
             this.paymentRepository.create(data);
             this.paymentRepository.save(data);
