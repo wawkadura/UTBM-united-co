@@ -10,6 +10,9 @@ import {InputText} from "primereact/inputtext";
 import {UserService} from "../../UserService";
 import StringUtil from "../../../../utils/StringUtil";
 import { InputMask } from 'primereact/inputmask';
+import { Calendar } from 'primereact/calendar';
+
+import Moment from 'moment';
 
 function UserSecurity({user, setUser}) {
     const userService = new UserService();
@@ -59,7 +62,7 @@ function UserSecurity({user, setUser}) {
             ...(name === "password" && { password: value }),
             ...(name === "owner" && { owner: value }),
             ...(name === "card_number" && { card_number: value }),
-            ...(name === "expire_date" && { expire_date: value }),
+            ...(name === "expire_date" && { expire_date: Moment(value).format('yyyy-MM-DD') }),
         });
 
         console.log('form');
@@ -81,18 +84,14 @@ function UserSecurity({user, setUser}) {
             user_id: user.id,
             owner: form.owner,
             card_number: form.card_number,
-            expire_date: form.expire_date,
+            expire_date: form.expire_date
         }
 
 
         console.log('body');
         console.log(body);
 
-        userService.modifyPaymentInfo(user.id, body).then(() => {
-            // userService.getUserPayment(user.id).then(data => {
-            //     setPaymentInfo(data);
-            // })
-        });
+        userService.modifyPaymentInfo(user.id, body);
 
         if(form.password !== undefined && form.password !== "") { userService.modifyUserPassword(user.id, form.password).then((r => console.log(r))); }
     }
@@ -156,7 +155,9 @@ function UserSecurity({user, setUser}) {
                             <label htmlFor="lastname1">Date d'expiration</label>
                             <span className="p-input-icon-left">
                             <i className="pi pi-calendar" />
-                            <InputText name="expire_date"type="text" defaultValue={paymentInfo ? paymentInfo.expire_date : ''} onChange={handleChange}/>
+
+                            <Calendar name="expire_date" defaultValue={paymentInfo ? paymentInfo.expire_date:''} onChange={handleChange} showIcon view="month" dateFormat="mm/yy" yearNavigator yearRange="2022:2100" mask="99/9999"/>
+
                         </span>
                         </div>
                     </div>

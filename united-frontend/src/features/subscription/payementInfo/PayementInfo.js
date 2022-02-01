@@ -45,7 +45,7 @@ function PayementInfo({ setActiveIndex, typesPayement, setTypesPayement, selecte
         await axios.post('http://localhost:4200/payement', {
             card_number: data.cardNumber.replace(/ /g, ""),
             owner: data.owner,
-            expire_date: Moment(data.expirationDate).add(1, "days"),
+            expire_date: Moment(data.expirationDate).add(1, "days").format('yyyy-MM-DD'),
             user_id: sessionStorage.getItem('userId')
         }).then(
             response=>{

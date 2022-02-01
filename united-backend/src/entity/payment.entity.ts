@@ -12,7 +12,7 @@ export class payment{
   @Column({ type: 'bigint' })
   card_number: number;
 
-  @Column("varchar", { length: 5})
+  @Column("varchar", { length: 10 })
   expire_date;
 
   @ManyToOne(() => users, users => users.id)
