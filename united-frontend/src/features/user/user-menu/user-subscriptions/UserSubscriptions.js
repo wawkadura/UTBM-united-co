@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import {UserService} from "../../UserService";
 import StringUtil from "../../../../utils/StringUtil";
 import { useNavigate } from "react-router-dom";
+import { confirmPopup } from 'primereact/confirmpopup';
 
 const _subscriptions = [
     {id: 1, status: "active", association: "SPA", sub_type: "Premium", price: "20e", payment_type: "Carte de crédit", start_date: "01/02/2012", end_date: "01/02/2012"},
@@ -31,7 +32,7 @@ function UserSubscriptions({userId}) {
     const userService = new UserService();
     const [subscriptions, setSubscriptions] = useState([]);
     const navigate = useNavigate();
-
+    const [ subId, setSubId ] = useState(null);
     const [selectedService, setSelectedService] = useState();
 
     useEffect(() => {
@@ -44,15 +45,29 @@ function UserSubscriptions({userId}) {
         });
     }, [userId]);
 
-    function actions(id) {
+    function actions(data) {
         return (
             <div className="actions">
-                <Button icon="pi pi-times" className="p-button-rounded p-button-text" onClick={() => removeSubscription(id)}/>
+                <Button icon="pi pi-times" className="p-button-rounded p-button-text" onClick={(event) => confirm(event, data)}/>
             </div>
         )
     }
+
+    const confirm = (event, data) => {
+        console.log(data, "rosé");
+        setSubId(data.id);
+        confirmPopup({
+            target: event.currentTarget,
+            message: 'Etes-vous sûr de supprimer cet abonnement ?',
+            icon: 'pi pi-exclamation-triangle',
+            accept
+        });
+    };
+
+    const accept = () => removeSubscription(subId);
     
     function removeSubscription(data) {
+        console.log(data,"eazjipeazpioej")
         userService.deleteSubscription(data.id).then(r => console.log(r));
         setSubscriptions(subscriptions.filter(subscription => subscription.id !== data.id));
     }
