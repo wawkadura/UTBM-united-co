@@ -26,7 +26,6 @@ function User() {
     });
 
     useEffect(() => {
-        console.log("test");
         userService.getUser(userId).then(data => {
             setUser(data);
         });
