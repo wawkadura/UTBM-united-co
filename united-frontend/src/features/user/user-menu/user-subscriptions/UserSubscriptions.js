@@ -36,6 +36,7 @@ function UserSubscriptions({userId}) {
         userService.getSubscriptions(userId).then(data => {
             data.forEach(element => element.status = element.state === 1 ? 'actif' : 'inactif');
             data.forEach(element => element.date = StringUtil.date(new Date(element.date)));
+            data.forEach(element => element.endDate = StringUtil.date(new Date(element.endDate)));
             setSubscriptions(data)
         });
     }, [userId]);
@@ -63,7 +64,7 @@ function UserSubscriptions({userId}) {
                 <Column field="price" header="Prix (euros)" sortable/>
                 <Column field="status" header="Statut" sortable/>
                 <Column field="date" header="Date" sortable/>
-                <Column field="duration" header="Durée (mois)" sortable/>
+                <Column field="endDate" header="Date de fin" sortable/>
                 <Column header="Actions" body={(data) => actions(data)}/>
             </DataTable>
         </Card>

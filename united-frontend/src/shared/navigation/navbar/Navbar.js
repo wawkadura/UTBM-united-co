@@ -25,7 +25,7 @@ function Navbar() {
         setAuth(true);
 
     if(auth) {
-        userService.getUser(auth).then(data => {
+        userService.getUser(sessionStorage.getItem('userId')).then(data => {
             setUser(data !== undefined ? `${StringUtil.capitalize(data.firstName)} ${data.lastName.toUpperCase()}` : '');
         });
     }
