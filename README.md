@@ -1,5 +1,8 @@
 # United&period;co
 
+![united_logo](https://user-images.githubusercontent.com/47081320/191679262-e1c4cd2a-c49e-4cc3-97a7-7f158da9a5fd.png)
+
+
 United&period;co est une **application web** permettant de mettre en relation des **donateurs** et des **associations** grâce aux différentes fonctionnalités présentes sur le site. 
 
 - Dons 
